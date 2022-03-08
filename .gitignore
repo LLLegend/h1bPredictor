@@ -1,3 +1,18 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
+#Ipython Notebook
+.ipynb
+.ipynb_checkpoints
+
+#DS_Store
 .DS_Store
-project/flaskProject/__pycache__/app.cpython-38.pyc
+
+# Vagrant
+.vagrant/
+
+# IntelliJ/PyCharm
+.idea/
+*.iml
