@@ -15,15 +15,33 @@ class Trends(restful.Resource):
     def get(self):
         # put application's code here
         return {
-            "2017": df_shape_17[0],
-            "2018": df_shape_18[0],
-            "2019": df_shape_19[0],
-            "2020": df_shape_20_Q1[0] + df_shape_20_Q2[0] + df_shape_20_Q3[0] + df_shape_20_Q4[0],
-            "2021": df_shape_21_Q1[0] + df_shape_21_Q2[0] + df_shape_21_Q3[0] + df_shape_21_Q4[0],
+            # "2017": df_shape_17[0],
+            # "2018": df_shape_18[0],
+            # "2019": df_shape_19[0],
+            # "2020": df_shape_20_Q1[0] + df_shape_20_Q2[0] + df_shape_20_Q3[0] + df_shape_20_Q4[0],
+            # "2021": df_shape_21_Q1[0] + df_shape_21_Q2[0] + df_shape_21_Q3[0] + df_shape_21_Q4[0],
         }
-
 api.add_resource(Trends, "/trends")
 
+#all possible job titles
+class JobTitles(restful.Resource):
+    def get(self):
+        return job_titles
+api.add_resource(JobTitles, "/job_titles")
+
+#return the CertifiedRateByState when user searching by job title
+class JobCertifiedRateByState(restful.Resource):
+    def get(self, job_title):
+        # format
+        return {
+            "state1":{
+                "test": job_title
+            },
+            "state2":{
+                "test2": job_title
+            }
+        }
+api.add_resource(JobCertifiedRateByState, "/job_certified_rate_by_state/<string:job_title>")
 
 attr_list = {\
     "CASE_NUMBER": None,
@@ -60,17 +78,19 @@ attr_list = {\
 }
 
 
-df_shape_17 = reader.read_raw_data("dataset/H-1B_Disclosure_Data_FY17.csv", attr_list = attr_list, write_csv = True)
-df_shape_18 = reader.read_raw_data("dataset/H-1B_Disclosure_Data_FY2018_EOY.csv", attr_list = attr_list, write_csv = False)
-df_shape_19 = reader.read_raw_data("dataset/H-1B_Disclosure_Data_FY2019.csv", attr_list = attr_list, write_csv = True)
-df_shape_20_Q1 = reader.read_raw_data("dataset/LCA_Disclosure_Data_FY2020_Q1.csv", attr_list = attr_list, write_csv = False)
-df_shape_20_Q2 = reader.read_raw_data("dataset/LCA_Disclosure_Data_FY2020_Q2.csv", attr_list = attr_list, write_csv = False)
-df_shape_20_Q3 = reader.read_raw_data("dataset/LCA_Disclosure_Data_FY2020_Q3.csv", attr_list = attr_list, write_csv = False)
-df_shape_20_Q4 = reader.read_raw_data("dataset/LCA_Disclosure_Data_FY2020_Q4.csv", attr_list = attr_list, write_csv = False)
-df_shape_21_Q1 = reader.read_raw_data("dataset/LCA_Disclosure_Data_FY2021_Q1.csv", attr_list = attr_list, write_csv = False)
-df_shape_21_Q2 = reader.read_raw_data("dataset/LCA_Disclosure_Data_FY2021_Q2.csv", attr_list = attr_list, write_csv = False)
-df_shape_21_Q3 = reader.read_raw_data("dataset/LCA_Disclosure_Data_FY2021_Q3.csv", attr_list = attr_list, write_csv = False)
-df_shape_21_Q4 = reader.read_raw_data("dataset/LCA_Disclosure_Data_FY2021_Q4.csv", attr_list = attr_list, write_csv = False)
+# df_shape_17 = reader.read_raw_data("dataset/H-1B_Disclosure_Data_FY17.csv", attr_list = attr_list, write_csv = True)
+# df_shape_18 = reader.read_raw_data("dataset/H-1B_Disclosure_Data_FY2018_EOY.csv", attr_list = attr_list, write_csv = False)
+# df_shape_19 = reader.read_raw_data("dataset/H-1B_Disclosure_Data_FY2019.csv", attr_list = attr_list, write_csv = True)
+# df_shape_20_Q1 = reader.read_raw_data("dataset/LCA_Disclosure_Data_FY2020_Q1.csv", attr_list = attr_list, write_csv = False)
+# df_shape_20_Q2 = reader.read_raw_data("dataset/LCA_Disclosure_Data_FY2020_Q2.csv", attr_list = attr_list, write_csv = False)
+# df_shape_20_Q3 = reader.read_raw_data("dataset/LCA_Disclosure_Data_FY2020_Q3.csv", attr_list = attr_list, write_csv = False)
+# df_shape_20_Q4 = reader.read_raw_data("dataset/LCA_Disclosure_Data_FY2020_Q4.csv", attr_list = attr_list, write_csv = False)
+# df_shape_21_Q1 = reader.read_raw_data("dataset/LCA_Disclosure_Data_FY2021_Q1.csv", attr_list = attr_list, write_csv = False)
+# df_shape_21_Q2 = reader.read_raw_data("dataset/LCA_Disclosure_Data_FY2021_Q2.csv", attr_list = attr_list, write_csv = False)
+# df_shape_21_Q3 = reader.read_raw_data("dataset/LCA_Disclosure_Data_FY2021_Q3.csv", attr_list = attr_list, write_csv = False)
+# df_shape_21_Q4 = reader.read_raw_data("dataset/LCA_Disclosure_Data_FY2021_Q4.csv", attr_list = attr_list, write_csv = False)
+#possible social job titles/names
+job_titles = []
 
 if __name__ == '__main__':
     app.run(debug=True)
