@@ -4,6 +4,12 @@ import data_reader as util
 
 app = Flask(__name__)
 api = restful.Api(app)
+@app.route("/download/<filepath>", methods=['GET'])
+def download_file(filepath):
+    # 此处的filepath是文件的路径，但是文件必须存储在static文件夹下， 比如images\test.jpg
+    return app.send_static_file(filepath)
+
+
 attr_list = {\
         "CASE_NUMBER": None,
         "CASE_STATUS": None,
@@ -11,10 +17,22 @@ attr_list = {\
         "FULL_TIME_POSITION": None,
         "WORKSITE_STATE": None
     }
-df_reader = util.H1bDataReader("../../data/h1b_data_2019.csv", attr_list = attr_list)
-df_reader.state_preprocess()
-case_status = df_reader.attr_operator("CASE_STATUS")
-worksite_state = df_reader.attr_operator("WORKSITE_STATE")
+df_reader_2017 = util.H1bDataReader("../../data/h1b_data_2017.csv", attr_list = attr_list)
+df_reader_2018 = util.H1bDataReader("../../data/h1b_data_2018.csv", attr_list = attr_list)
+df_reader_2019 = util.H1bDataReader("../../data/h1b_data_2019.csv", attr_list = attr_list)
+df_reader_2020 = util.H1bDataReader("../../data/h1b_data_2020.csv", attr_list = attr_list)
+df_reader_2021 = util.H1bDataReader("../../data/h1b_data_2021.csv", attr_list = attr_list)
+df_reader_2017.state_preprocess()
+df_reader_2018.state_preprocess()
+df_reader_2019.state_preprocess()
+df_reader_2020.state_preprocess()
+df_reader_2021.state_preprocess()
+case_status_17 = df_reader_2017.attr_operator("CASE_STATUS")
+case_status_18 = df_reader_2018.attr_operator("CASE_STATUS")
+case_status_19 = df_reader_2019.attr_operator("CASE_STATUS")
+case_status_20 = df_reader_2020.attr_operator("CASE_STATUS")
+case_status_21 = df_reader_2021.attr_operator("CASE_STATUS")
+worksite_state = df_reader_2017.attr_operator("WORKSITE_STATE")
 
 class HelloWorld(restful.Resource):
     def get(self):
@@ -58,7 +76,7 @@ api.add_resource(JobCertifiedRateByState, "/job_certified_rate_by_state/<string:
 class CASE_STATUS(restful.Resource):
     def get(self):
         # format
-        return case_status
+        return [case_status_17, case_status_18, case_status_19, case_status_20, case_status_21]
 api.add_resource(CASE_STATUS, "/case_status")
 
 #return the case status
@@ -67,6 +85,13 @@ class WORKSITE_STATE(restful.Resource):
         # format
         return worksite_state
 api.add_resource(WORKSITE_STATE, "/worksite_state")
+
+#return the case status
+class USTopo(restful.Resource):
+    def get(self):
+        # format
+        return [case_status_17, case_status_18, case_status_19, case_status_20, case_status_21]
+api.add_resource(USTopo, "/us_topo")
 # attr_list = {\
 #     "CASE_NUMBER": None,
 #     "CASE_STATUS": None,

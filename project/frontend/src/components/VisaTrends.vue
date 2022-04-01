@@ -11,13 +11,12 @@ export default {
   name: "VisaTrends",
   data(){
     return{
-
       trendData: {},
     }
   },
   created() {
     console.log("created")
-    this.getVehicleAvailable();
+    this.getTrendsAvailable();
   },
   mounted() {
     console.log("Mounted!");
@@ -138,7 +137,7 @@ export default {
 
   },
   methods: {
-    getVehicleAvailable() {
+    getTrendsAvailable() {
       this.fetchData({
         method: "get",
         url: "/api/trends",
