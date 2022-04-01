@@ -4,17 +4,17 @@ import pandas as pd
 class H1bDataReader:
 
     df = None
-
+    input_file = None
     def __init__(self, input_file, attr_list = {}):
         self.df = pd.read_csv(input_file, low_memory = False)
-
+        self.input_file = input_file
         self.df = self.df.filter(attr_list.keys())
         for attr in attr_list.items():
             if attr[1] is not None:
                 self.df = self.df[self.df[attr[0]] == attr[1]]
 
     def write_to_csv(self):
-        self.df.to_csv(input_file + "_new.csv", index = False)
+        self.df.to_csv(self.input_file + "_new.csv", index = False)
 
     def attr_operator(self, attr, oper = "SUM"):
         unique_attrs = self.df[attr].unique()
