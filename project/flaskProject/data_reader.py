@@ -1,32 +1,53 @@
 import csv
 import pandas as pd
 
+class H1bDateReader:
 
-def read_raw_data(input_file, attr_list = {}, write_csv = False):
+    df = None
 
-    df = pd.read_csv(input_file, low_memory = False)
-    print(df.shape)
-    df = df[df["VISA_CLASS"] == "H-1B"]
-    df = df.filter(attr_list.keys())
+    def __init__(self, input_file, attr_list = {}):
+        self.df = pd.read_csv(input_file, low_memory = False)
 
-    for attr in attr_list.items():
-        if attr[1] is not None:
-            df = df[df[attr[0]] == attr[1]]
+        self.df = self.df.filter(attr_list.keys())
+        for attr in attr_list.items():
+            if attr[1] is not None:
+                self.df = self.df[self.df[attr[0]] == attr[1]]
 
-    print(df.shape)
+    def write_to_csv(self):
+        self.df.to_csv(input_file + "_new.csv", index = False)
 
-    if write_csv:
-        df.to_csv(input_file + "_new2.csv", index = False)
+    def attr_operator(self, attr, oper = "SUM"):
+        unique_attrs = self.df[attr].unique()
+        # print(unique_attrs)
 
-    return df.shape
+        if oper == "SUM":
+            rtn = self.df[attr].reset_index(drop=True).value_counts().to_dict()
+            print(rtn)
+            return rtn
 
+    def state_preprocess(self):
+        state_list = []
+        with open("../../data/state_abbr.csv", newline='', encoding='utf-8-sig') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                state_list.append((row["State"], row["Code"]))
+
+
+        for state in state_list:
+            self.df["WORKSITE_STATE"].replace(state[1], state[0], inplace = True)
+
+        self.df['WORKSITE_STATE'] = self.df['WORKSITE_STATE'].str.title()
 
 if __name__ == "__main__":
     attr_list = {\
         "CASE_NUMBER": None,
         "CASE_STATUS": None,
-        "JOB_TITLE": None,
-        "SOC_TITLE": None,
+        "SOC_NAME": None,
         "FULL_TIME_POSITION": None,
+        "WORKSITE_STATE": None
     }
-    read_raw_data("dataset/H-1B_Disclosure_Data_FY2019.csv", attr_list = attr_list, write_csv = True)
+    df_reader = H1bDateReader("../../data/h1b_data_2019.csv", attr_list = attr_list)
+    df_reader.state_preprocess()
+    df_reader.attr_operator("CASE_STATUS")
+    df_reader.attr_operator("WORKSITE_STATE")
+

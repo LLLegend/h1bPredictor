@@ -6,7 +6,7 @@ def read_raw_data(input_file, attr_list = {}, write_csv = False):
 
     df = pd.read_csv(input_file, low_memory = False)
     print(df.shape)
-    df = df[df["VISA_CLASS"] != "H-1B"]
+    df = df[df["VISA_CLASS"] == "H-1B"]
     df = df.filter(attr_list.keys())
 
     for attr in attr_list.items():
