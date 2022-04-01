@@ -1,7 +1,7 @@
 import csv
 import pandas as pd
 
-class H1bDateReader:
+class H1bDataReader:
 
     df = None
 
@@ -46,7 +46,7 @@ if __name__ == "__main__":
         "FULL_TIME_POSITION": None,
         "WORKSITE_STATE": None
     }
-    df_reader = H1bDateReader("../../data/h1b_data_2019.csv", attr_list = attr_list)
+    df_reader = H1bDataReader("../../data/h1b_data_2019.csv", attr_list = attr_list)
     df_reader.state_preprocess()
     df_reader.attr_operator("CASE_STATUS")
     df_reader.attr_operator("WORKSITE_STATE")
