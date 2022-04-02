@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.1.18)  2 APR 2022 20:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2022.1.18)  2 APR 2022 20:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -838,12 +838,8 @@ LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 195.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 7.0pt on input line 219.
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 266.
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 266.
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
-(Font)              scaled to size 7.0pt on input line 266.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 6.0pt on input line 266.
  [2.2pdfTeX warning (ext4): destination with the same identifier (name{cite.}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
@@ -919,18 +915,18 @@ Package rerunfilecheck Info: File `"progress report".out' has not changed.
 (rerunfilecheck)             Checksum: CF8C45302FCCE1360E3120F67B6FB5D6;1018.
  ) 
 Here is how much of TeX's memory you used:
- 19385 strings out of 478994
- 298183 string characters out of 5858184
- 692043 words of memory out of 5000000
- 36052 multiletter control sequences out of 15000+600000
- 532614 words of font info for 247 fonts, out of 8000000 for 9000
+ 19366 strings out of 478994
+ 297714 string characters out of 5858184
+ 690976 words of memory out of 5000000
+ 36048 multiletter control sequences out of 15000+600000
+ 521595 words of font info for 238 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 96i,11n,131p,888b,610s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 96i,11n,131p,888b,568s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertine/LinBiolinumT.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertine/LinBiolinumTB.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertine/LinLibertineT.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertine/LinLibertineTB.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertine/LinLibertineTI.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
-Output written on "/Users/bzh/dev/datadreamteam/docs/progress report.pdf" (3 pages, 373858 bytes).
+Output written on "/Users/bzh/dev/datadreamteam/docs/progress report.pdf" (3 pages, 368034 bytes).
 PDF statistics:
  97 PDF objects out of 1000 (max. 8388607)
  75 compressed objects within 1 object stream
  14 named destinations out of 1000 (max. 500000)
- 63569 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 57425 words of extra memory for PDF output out of 61914 (max. 10000000)
 
