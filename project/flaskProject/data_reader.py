@@ -13,8 +13,8 @@ class H1bDataReader:
             if attr[1] is not None:
                 self.df = self.df[self.df[attr[0]] == attr[1]]
 
-    def write_to_csv(self):
-        self.df.to_csv(input_file + "_new.csv", index = False)
+    def write_to_csv(self, path):
+        self.df.to_csv(path, index = False)
 
     def attr_operator(self, attr, oper = "SUM"):
         unique_attrs = self.df[attr].unique()
