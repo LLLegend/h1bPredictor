@@ -15,6 +15,8 @@
     <h3>Explore</h3>
     <ul>
       <li><router-link to="/trends">Trends</router-link></li>
+      <li><router-link to="/case_status">Case Status</router-link></li>
+      <li><router-link to="/worksite_state">Worksite by State</router-link></li>
       <li><router-link to="/test">Companies</router-link></li>
       <li><router-link to="/test">Job Titles</router-link></li>
       <li><router-link to="/test">Cities</router-link></li>

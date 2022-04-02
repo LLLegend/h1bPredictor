@@ -4,10 +4,10 @@ import pandas as pd
 class H1bDataReader:
 
     df = None
-
+    input_file = None
     def __init__(self, input_file, attr_list = {}):
         self.df = pd.read_csv(input_file, low_memory = False)
-
+        self.input_file = input_file
         self.df = self.df.filter(attr_list.keys())
         for attr in attr_list.items():
             if attr[1] is not None:

@@ -1,9 +1,38 @@
 from flask import Flask
 import flask_restful as restful
-import data_reader as reader
+import data_reader as util
 
 app = Flask(__name__)
 api = restful.Api(app)
+@app.route("/download/<filepath>", methods=['GET'])
+def download_file(filepath):
+    # 此处的filepath是文件的路径，但是文件必须存储在static文件夹下， 比如images\test.jpg
+    return app.send_static_file(filepath)
+
+
+attr_list = {\
+        "CASE_NUMBER": None,
+        "CASE_STATUS": None,
+        "SOC_NAME": None,
+        "FULL_TIME_POSITION": None,
+        "WORKSITE_STATE": None
+    }
+df_reader_2017 = util.H1bDataReader("../../data/h1b_data_2017.csv", attr_list = attr_list)
+df_reader_2018 = util.H1bDataReader("../../data/h1b_data_2018.csv", attr_list = attr_list)
+df_reader_2019 = util.H1bDataReader("../../data/h1b_data_2019.csv", attr_list = attr_list)
+df_reader_2020 = util.H1bDataReader("../../data/h1b_data_2020.csv", attr_list = attr_list)
+df_reader_2021 = util.H1bDataReader("../../data/h1b_data_2021.csv", attr_list = attr_list)
+df_reader_2017.state_preprocess()
+df_reader_2018.state_preprocess()
+df_reader_2019.state_preprocess()
+df_reader_2020.state_preprocess()
+df_reader_2021.state_preprocess()
+case_status_17 = df_reader_2017.attr_operator("CASE_STATUS")
+case_status_18 = df_reader_2018.attr_operator("CASE_STATUS")
+case_status_19 = df_reader_2019.attr_operator("CASE_STATUS")
+case_status_20 = df_reader_2020.attr_operator("CASE_STATUS")
+case_status_21 = df_reader_2021.attr_operator("CASE_STATUS")
+worksite_state = df_reader_2017.attr_operator("WORKSITE_STATE")
 
 class HelloWorld(restful.Resource):
     def get(self):
@@ -43,39 +72,59 @@ class JobCertifiedRateByState(restful.Resource):
         }
 api.add_resource(JobCertifiedRateByState, "/job_certified_rate_by_state/<string:job_title>")
 
-attr_list = {\
-    "CASE_NUMBER": None,
-    "CASE_STATUS": None,
-    "CASE_SUBMITTED": None,
-    "DECISION_DATE": None,
-    "EMPLOYER_NAME": None,
-    "EMPLOYER_BUSINESS_DBA": None,
-    "EMPLOYER_STATE": None,
-    "EMPLOYER_COUNTRY": None,
-    "SOC_NAME": None, #"SOC_TITLE"
-    "TOTAL_WORKER_POSITIONS": None,
+#return the case status
+class CASE_STATUS(restful.Resource):
+    def get(self):
+        # format
+        return [case_status_17, case_status_18, case_status_19, case_status_20, case_status_21]
+api.add_resource(CASE_STATUS, "/case_status")
 
-# WORKSITE_CITY_1,WORKSITE_COUNTY_1,WORKSITE_STATE_1,WORKSITE_POSTAL_CODE_1
-    "WORKPLACE_CITY": None,
-    "WORKPLACE_STATE": None,
-    "WORKPLACE_COUNTRY": None,
-    "WORKPLACE_POSTAL_CODE": None,
+#return the case status
+class WORKSITE_STATE(restful.Resource):
+    def get(self):
+        # format
+        return worksite_state
+api.add_resource(WORKSITE_STATE, "/worksite_state")
 
+#return the case status
+class USTopo(restful.Resource):
+    def get(self):
+        # format
+        return [case_status_17, case_status_18, case_status_19, case_status_20, case_status_21]
+api.add_resource(USTopo, "/us_topo")
+# attr_list = {\
+#     "CASE_NUMBER": None,
+#     "CASE_STATUS": None,
+#     "CASE_SUBMITTED": None,
+#     "DECISION_DATE": None,
+#     "EMPLOYER_NAME": None,
+#     "EMPLOYER_BUSINESS_DBA": None,
+#     "EMPLOYER_STATE": None,
+#     "EMPLOYER_COUNTRY": None,
+#     "SOC_NAME": None, #"SOC_TITLE"
+#     "TOTAL_WORKER_POSITIONS": None,
 #
-    "NAICS_CODE": None,
-    "PW_WAGE_LEVEL": None,
-    "PREVAILING_WAGE": None,
-    "WAGE_RATE_OF_PAY_FROM": None,
-    "WAGE_RATE_OF_PAY_TO": None,
-    "WAGE_UNIT_OF_PAY": None,
-
-    "H-1B_DEPENDENT": None,
-    "SUPPORT_H1B": None,
-    # "CASE_STATUS": None,
-    # "JOB_TITLE": None,
-    # "SOC_TITLE": None,
-    # "FULL_TIME_POSITION": None,
-}
+# # WORKSITE_CITY_1,WORKSITE_COUNTY_1,WORKSITE_STATE_1,WORKSITE_POSTAL_CODE_1
+#     "WORKPLACE_CITY": None,
+#     "WORKPLACE_STATE": None,
+#     "WORKPLACE_COUNTRY": None,
+#     "WORKPLACE_POSTAL_CODE": None,
+#
+# #
+#     "NAICS_CODE": None,
+#     "PW_WAGE_LEVEL": None,
+#     "PREVAILING_WAGE": None,
+#     "WAGE_RATE_OF_PAY_FROM": None,
+#     "WAGE_RATE_OF_PAY_TO": None,
+#     "WAGE_UNIT_OF_PAY": None,
+#
+#     "H-1B_DEPENDENT": None,
+#     "SUPPORT_H1B": None,
+#     # "CASE_STATUS": None,
+#     # "JOB_TITLE": None,
+#     # "SOC_TITLE": None,
+#     # "FULL_TIME_POSITION": None,
+# }
 
 
 # df_shape_17 = reader.read_raw_data("dataset/H-1B_Disclosure_Data_FY17.csv", attr_list = attr_list, write_csv = True)

@@ -2,6 +2,8 @@ import {createRouter, createWebHistory} from "vue-router";
 import HelloWorld from "@/components/HelloWorld";
 import VisaTrends from "@/components/VisaTrends";
 import test from "@/components/test";
+import CaseStatus from "@/components/CaseStatus";
+import WorksiteState from "@/components/WorksiteState";
 
 const routes = [
     {
@@ -15,6 +17,14 @@ const routes = [
     {
         path: '/test',
         component: test
+    },
+    {
+        path: '/case_status',
+        component: CaseStatus
+    },
+    {
+        path: '/worksite_state',
+        component: WorksiteState
     }
 
 ];

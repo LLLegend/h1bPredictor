@@ -2,12 +2,13 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router/index'
 import axios from 'axios'
-import ElementUI from 'element-plus'
+// import ElementUI from 'element-plus'
+import { ElMessage } from 'element-plus'
 // import CONSTANT from "@/constant/constant";
 const app = createApp(App);
 app.config.globalProperties.fetchData = function (obj) {
     // let vm = this;
-    axios({
+    return axios({
         method: obj.method,
         url: obj.url,
         data: obj.data,
@@ -17,11 +18,11 @@ app.config.globalProperties.fetchData = function (obj) {
         }
     })
         .then(res => {
-            console.log(res);
+            console.log("res", res);
             if(res && res.data) {
                 obj.success && obj.success(res.data)
             }else{
-                ElementUI.Message.error(res);
+                ElMessage.error(res);
                 obj.error && obj.error(res)
             }
             // console.log(res)
@@ -38,7 +39,7 @@ app.config.globalProperties.fetchData = function (obj) {
             // }
         })
         .catch((err) => {
-            ElementUI.Message.error(`Error happens ${err}`);
+            ElMessage.error(`Error happens ${err}`);
             obj.error && obj.error(err)
         })
 };
