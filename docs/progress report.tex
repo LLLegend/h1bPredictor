@@ -21,11 +21,11 @@
 %\setcopyright{cagovmixed}
 \usepackage{graphicx}
 
-\copyrightyear{2017}
+% \copyrightyear{2017}
 
 
-\acmArticle{4}
-\acmPrice{15.00}
+% \acmArticle{4}
+% \acmPrice{15.00}
 
 
 \begin{document}
@@ -96,35 +96,35 @@ visa applicants to interpret current data, and predict the outcome of future app
 
 \section{Related work}
 
-As annual H1-B application records are publicly available through the US Department of Labor[cite], 
+As annual H1-B application records are publicly available through the US Department of Labor, 
 this data has been a popular topic for machine learning researchers as well as online enthusiasts. 
 The topic has also inspired several versions of truncated datasets that have been aggregated by several websites as a resource 
 for international applicants, and basic analyses appear frequently in academic journals. Interestingly, none of these studies or 
 websites have successfully integrated the database, visualizations, and prediction algorithms under one application. 
 We have considered several methods for data cleaning and integration. H1-B application data from the US DOL total over 3 million 
-records from 2017 to 2021. Chatterjee et al.[Chatterjee], use Python packages Pandas and Numpy for data cleansing, including the 
-completion of incomplete data in H1-B application data, column name renaming and subset selection. Specific operations can be done 
+records from 2017 to 2021. Chatterjee et al., use Python packages Pandas and Numpy for data cleansing, including the 
+completion of incomplete data in H1-B application data, column name renaming and subset selection (Chatterjee 2021). Specific operations can be done 
 by calling Python packages. Looking closely at their data, however, we found that not only is it from a non-official and unverifiable 
 source; their records are also severely truncated, and did not effectively consolidate job titles with negligible spelling variations. 
 Perhaps this truncation and lack of cleansing was out of convenience, but unfortunately this was the case for the majority of studies 
 we read during preliminary research. As the datasets among the different years generally only differ by a few column names while 
 retaining similar organization, we find it more convenient to use open-sourced applications such as OpenRefine to clean the data. 
-Dombe et al.[Dombe] use SQLite for its lightweight data storage and access.
+Dombe et al. use SQLite for its lightweight data storage and access(Dombe 2020).
 Several online databases exist providing similar information. The most accurate and comprehensive websites include H1-B Grader and 
 One Point Three Acres, which have aggregated US Department of Labor statistics into textual tables which allow for filtering based 
-on attributes such as country of origin, job title, sponsoring employer, and salary band[cite][cite]. These are relatively complete 
+on attributes such as country of origin, job title, sponsoring employer, and salary band(1Point3Acres 2022, H1BGrader 2022). These are relatively complete 
 relational database systems with interactive visualizations. The data is also collected directly from the US DOL and up to date. 
 As the data provided by US DOL is in XLS format and consists of over 26 attributes in its initial form, the SQL-style database used 
 by these websites appears most appropriate. However, these websites are unable to predict application outcomes for users, thus the 
 users must perform their own extrapolations based on their subjective interpretations of recent trends.
-The majority of the research to date compares the performance of several machine learning algorithms in predicting application outcomes. 
-Swain et al.[Swain] compared the accuracy of random forest, k-means clustering, and logistic regression algorithms for predicting 
-H1-B application acceptance based on roughly 3 million data points from 2011 to 2016, and Chatterjee et al. propose an artificial 
-neural network. They also show a variety of static charts, but the charts only compare across one dimension at a time. The data is 
+The majority of the research to date compares the performance of several machine learning algorithms in predicting application outcomes . 
+Swain et al. compared the accuracy of random forest, k-means clustering, and logistic regression algorithms for predicting 
+H1-B application acceptance based on roughly 3 million data points from 2011 to 2016 (Swain 2018), and Chatterjee et al. propose an artificial 
+neural network (Chatterjee 2021). They also show a variety of static charts, but the charts only compare across one dimension at a time. The data is 
 also nearly ten years old. While these studies set us in a good direction for doing some basic analysis, we seek to augment them 
 through an interactive visualization allowing the user to view results based on multiple attributes such as salary and location.
-The method espoused by Roy Raunak [Raunak] uses the collected feedback in applying the analytic hierarchy process and entropy 
-weight method to evaluate the data analysis and prediction model. This method decomposes the decision-making problem into different 
+The method espoused by Raunak Roy uses the collected feedback in applying the analytic hierarchy process and entropy 
+weight method to evaluate the data analysis and prediction model (Roy 2021). This method decomposes the decision-making problem into different 
 hierarchical structures according to the order of general objectives, sub objectives at all levels, evaluation criteria and specific 
 standby choice. Then, the problem is reduced to the determination of the relatively important weight of the lowest level, such as 
 schemes and measures for decision-making, relative to the highest level - the overall goal or the arrangement of the relative 
@@ -136,7 +136,7 @@ apply for H1-B visa.
 In order to show comprehensive aspects of H1-B statistics to potential users, we propose a set of interactive visualizations, 
 employing multiple widely used D3.js charts implemented in Vue and Flask.  The data is publicly available, and all the tools 
 are open source and can be deployed from a consumer-grade computer. As such, this project requires no special funding.
-We retrieve H1-B application data from years 2017 to 2021 from the US Department of Labor[DOL]. All records from these five 
+We retrieve H1-B application data from years 2017 to 2021 from the US Department of Labor. All records from these five 
 years in their original XLS format totaled over 1.5Gb. By accessing data directly from its original source, we can guarantee 
 our data will have the highest possible integrity for more accurate evaluation and predictions. There are some inconsistencies 
 in the naming and ordering of columns from year to year, as well as the addition of columns that are not pertinent to 
@@ -228,10 +228,11 @@ Success of H1-B VISA Using ANN.
  Springer, Singapore.
 
 \bibitem{}
-H1B Database 2022 - Sponsors, Salaries, Approvals, Grades!. 
-(2022). 
-Retrieved 1 April 2022. 
-\\\textit{https://h1bgrader.com/}
+Dombe, A., Rewale, R., \& Swain, D. 
+(2020). 
+A deep learning-based approach for predicting the outcome of H-1B VISA application. 
+\textit{In Machine Learning and Information Processing (pp. 193-202).}
+ Springer, Singapore.
 
 \bibitem{}
 Visa Tracker - 1Point3Acres. 
@@ -240,11 +241,11 @@ Retrieved 1 April 2022.
 \\\textit{https://visa.1point3acres.com/. }
 
 \bibitem{}
-Dombe, A., Rewale, R., \& Swain, D. 
-(2020). 
-A deep learning-based approach for predicting the outcome of H-1B VISA application. 
-\textit{In Machine Learning and Information Processing (pp. 193-202).}
- Springer, Singapore.
+H1B Database 2022 - Sponsors, Salaries, Approvals, Grades!. 
+(2022). 
+Retrieved 1 April 2022. 
+\\\textit{https://h1bgrader.com/}
+
 
 \bibitem{}
 Swain, D., Chakraborty, K., Dombe, A., Ashture, A., \& Valakunde, N. 
@@ -258,15 +259,9 @@ Roy, R. (2021).
 Data Analysis of H1B Visa Applications.
 
 \bibitem{}
-LightGBM. 
-\textit{Microsoft.} 
+D3: Data Driven Documents. 
 Retrieved 1 April 2022. 
-\\\textit{https://github.com/microsoft/LightGBM.}
-
-\bibitem{}
-Flask. 
-Retrieved 1 April 2022. 
-\\\textit{https://flask.palletsprojects.com/en/2.1.x/.}
+\\\textit{https://d3js.org/.}
 
 \bibitem{}
 Vue. 
@@ -274,15 +269,20 @@ Retrieved 1 April 2022.
 \\\textit{https://vuejs.org/.}
 
 \bibitem{}
+Flask. 
+Retrieved 1 April 2022. 
+\\\textit{https://flask.palletsprojects.com/en/2.1.x/.}
+
+\bibitem{}
 OpenRefine. 
 Retrieved 1 April 2022. 
 \\textit{https://openrefine.org/.}
 
 \bibitem{}
-D3: Data Driven Documents. 
+LightGBM. 
+\textit{Microsoft.} 
 Retrieved 1 April 2022. 
-\\\textit{https://d3js.org/.}
-
+\\\textit{https://github.com/microsoft/LightGBM.}
 
 \end{thebibliography}
 
