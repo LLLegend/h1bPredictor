@@ -91,7 +91,29 @@ placeholder
 placeholder
 
 \section{Proposed method}
-placeholder
+In order to show comprehensive aspects of H1-B statistics to the potential users, we propose a method of 
+heterogeneous visualization method employing multiply widely used charts implemented by popular Vue and Flask.
+
+Users will select the h1-b information which they are interested in on our portal page. Their request will be 
+passed to our backend REST API that was implemented by Python Flask. The API will then send the corresponding 
+statistics back to the front-end interface. The UI will then process the data and render the chart on the newly-directed 
+page. And the user can view the chart and use the mouse to interact with the chart. The front-end application 
+based on Vue and D3 is expected to be totally interactive so as to provide the user rich choices of viewing, 
+comparing, selecting and even searching by certain fields.
+
+There must be some arguments that this could all be done by h1bgrader.com. However, we are introducing three main 
+innovations. To begin with, our system will provide users more selections and interaction of the chart types. At least 
+cases by state choropleth chart has never been implemented by that known webstie. Besides, we would offer more 
+significant information like search by section and search by state that the users must have to visit other websites for. Last but not 
+least, our project introduced the machine learning method to predict the visa statistical trend which these kind of 
+websites never provide.
+
+All the h1-b case data was retrieved from DOL official website, which makes our source authoritative and trustworthy. 
+However, the naming rubric change still happened through these years. Therefore, OpenRefine is used to conformalize the data 
+extracting the columns the project actually needs.
+
+The cost of the development is terrifically economic. All of our data and framework are free, and we will be hosting the system 
+on any local business machine.
 
 \section{Experiments and evaluation}
 placeholder
