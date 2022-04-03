@@ -13,6 +13,9 @@ class H1bDataReader:
             if attr[1] is not None:
                 self.df = self.df[self.df[attr[0]] == attr[1]]
 
+    def get_df_shape(self):
+        return self.df.shape
+
     def write_to_csv(self):
         self.df.to_csv(self.input_file + "_new.csv", index = False)
 
