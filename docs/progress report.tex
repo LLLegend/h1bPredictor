@@ -5,7 +5,11 @@
 \pagestyle{plain} % removes running headers
 
 \usepackage{booktabs} % For formal tables
+% \usepackage[utf8]{inputenc}    
+% \usepackage[T1]{fontenc}
+\usepackage{graphicx}
 
+\DeclareUnicodeCharacter{00A0}{ }
 
 % Copyright
 %\setcopyright{none}
@@ -18,11 +22,11 @@
 %\setcopyright{cagovmixed}
 \usepackage{graphicx}
 
-\copyrightyear{2017}
+% \copyrightyear{2017}
 
 
-\acmArticle{4}
-\acmPrice{15.00}
+% \acmArticle{4}
+% \acmPrice{15.00}
 
 
 \begin{document}
@@ -81,175 +85,254 @@ pursuing specialty occupations on the United States H1-B visa
 
 
 \maketitle
-
+\pagestyle{plain}
 \section{Introduction}
 
-placeholder
+The H1-B visa program allows employers in the United States to hire temporary foreign workers specializing in one of many key occupations.  
+To date, numerous studies have been conducted on recent years’ certification data in an attempt to analyze hiring trends. 
+However, the usefulness of these studies remains to be questioned as they generally lack interactive visualizations for the user to gain 
+insight from this information. In this study, we seek to understand recent hiring trends among US employers as well as the makeup of 
+applications for these roles to project economic sectors with growth potential, creating meaningful visualizations for potential work 
+visa applicants to interpret current data, and predict the outcome of future applications.
+
 
 \section{Related work}
 
-placeholder
+
+As annual H1-B application records are publicly available through the US Department of Labor, 
+this data has been a popular topic for machine learning researchers as well as online enthusiasts. 
+The topic has also inspired several versions of truncated datasets that have been aggregated by several websites as a resource 
+for international applicants, and basic analyses appear frequently in academic journals. Interestingly, none of these studies or 
+websites have successfully integrated the database, visualizations, and prediction algorithms under one application. 
+
+
+We have considered several methods for data cleaning and integration. H1-B application data from the US DOL total over 3 million 
+records from 2017 to 2021. Chatterjee et al., use Python packages Pandas and Numpy for data cleansing, including the 
+completion of incomplete data in H1-B application data, column name renaming and subset selection (Chatterjee 2021). Specific operations can be done 
+by calling Python packages. Looking closely at their data, however, we found that not only is it from a non-official and unverifiable 
+source; their records are also severely truncated, and did not effectively consolidate job titles with negligible spelling variations. 
+Perhaps this truncation and lack of cleansing was out of convenience, but unfortunately this was the case for the majority of studies 
+we read during preliminary research. As the datasets among the different years generally only differ by a few column names while 
+retaining similar organization, we find it more convenient to use open-sourced applications such as OpenRefine to clean the data. 
+Dombe et al. use SQLite for its lightweight data storage and access(Dombe 2020).
+
+
+Several online databases exist providing similar information. The most accurate and comprehensive websites include H1-B Grader and 
+One Point Three Acres, which have aggregated US Department of Labor statistics into textual tables which allow for filtering based 
+on attributes such as country of origin, job title, sponsoring employer, and salary band(1Point3Acres 2022, H1BGrader 2022). These are relatively complete 
+relational database systems with interactive visualizations. The data is also collected directly from the US DOL and up to date. 
+As the data provided by US DOL is in XLS format and consists of over 26 attributes in its initial form, the SQL-style database used 
+by these websites appears most appropriate. However, these websites are unable to predict application outcomes for users, thus the 
+users must perform their own extrapolations based on their subjective interpretations of recent trends.
+
+
+The majority of the research to date compares the performance of several machine learning algorithms in predicting application outcomes . 
+Swain et al. compared the accuracy of random forest, k-means clustering, and logistic regression algorithms for predicting 
+H1-B application acceptance based on roughly 3 million data points from 2011 to 2016 (Swain 2018), and Chatterjee et al. propose an artificial 
+neural network (Chatterjee 2021). They also show a variety of static charts, but the charts only compare across one dimension at a time. The data is 
+also nearly ten years old. While these studies set us in a good direction for doing some basic analysis, we seek to augment them 
+through an interactive visualization allowing the user to view results based on multiple attributes such as salary and location.
+
+
+The method espoused by Raunak Roy uses the collected feedback in applying the analytic hierarchy process and entropy 
+weight method to evaluate the data analysis and prediction model (Roy 2021). This method decomposes the decision-making problem into different 
+hierarchical structures according to the order of general objectives, sub objectives at all levels, evaluation criteria and specific 
+standby choice. Then, the problem is reduced to the determination of the relatively important weight of the lowest level, such as 
+schemes and measures for decision-making, relative to the highest level - the overall goal or the arrangement of the relative 
+advantages and disadvantages, so as to judge whether the prediction scheme we provide can meet the needs of users on whether to 
+apply for H1-B visa.
+
 
 \section{Proposed method}
-In order to show comprehensive aspects of H1-B statistics to the potential users, we propose a method of 
-heterogeneous visualization method employing multiply widely used charts implemented by popular Vue and Flask.
 
-Users will select the h1-b information which they are interested in on our portal page. Their request will be 
-passed to our backend REST API that was implemented by Python Flask. The API will then send the corresponding 
-statistics back to the front-end interface. The UI will then process the data and render the chart on the newly-directed 
-page. And the user can view the chart and use the mouse to interact with the chart. The front-end application 
-based on Vue and D3 is expected to be totally interactive so as to provide the user rich choices of viewing, 
-comparing, selecting and even searching by certain fields.
 
-There must be some arguments that this could all be done by h1bgrader.com. However, we are introducing three main 
-innovations. To begin with, our system will provide users more selections and interaction of the chart types. At least 
-cases by state choropleth chart has never been implemented by that known webstie. Besides, we would offer more 
-significant information like search by section and search by state that the users must have to visit other websites for. Last but not 
-least, our project introduced the machine learning method to predict the visa statistical trend which these kind of 
-websites never provide.
+In order to show comprehensive aspects of H1-B statistics to potential users, we propose a set of interactive visualizations, 
+employing multiple widely used D3.js charts implemented in Vue and Flask.  The data is publicly available, and all the tools 
+are open source and can be deployed from a consumer-grade computer. As such, this project requires no special funding. 
 
-All the h1-b case data was retrieved from DOL official website, which makes our source authoritative and trustworthy. 
-However, the naming rubric change still happened through these years. Therefore, OpenRefine is used to conformalize the data 
-extracting the columns the project actually needs.
 
-The cost of the development is terrifically economic. All of our data and framework are free, and we will be hosting the system 
-on any local business machine.
+
+We retrieve H1-B application data from years 2017 to 2021 from the US Department of Labor. All records from these five 
+years in their original XLS format totaled over 1.5Gb. By accessing data directly from its original source, we can 
+guarantee our data will have the highest possible integrity for more accurate evaluation and predictions. 
+There are some inconsistencies 
+in the naming and ordering of columns from year to year, as well as the addition of columns that are not pertinent to 
+our analysis.  We use OpenRefine to clean and standardize the data, dropping columns that are not pertinent to our 
+analysis, thus making the file sizes manageable before consolidating into CSV files aggregated by year. 
+\begin{figure}
+  \includegraphics[width=\linewidth]{fig4.png}
+  \caption{App Process Flow}
+  \label{fig:appprocessflow}
+\end{figure}
+
+Users will select the attributes they are interested in on our portal page. Their request will be passed to our 
+backend REST API, implemented by Python Flask. The API will then send the corresponding statistics back to the 
+front-end interface. The user interface will then process the data and render the chart on the newly-directed page, 
+where the user can view and interact with the chart using their cursor. The front-end application, based on Vue and D3.js, 
+will have an interactive interface to provide the user rich choices of viewing, comparing, selecting and searching by certain fields. 
+
+
+
+As mentioned in Related Work, other implementations exist on the Web. Our implementation is distinct from these earlier 
+implementations by including several innovations or improvements. Our system provides users with more selections and 
+chart types that are more relevant to the user, such as a US choropleth with state-by-state comparison. 
+We provide more relevant details with the ability to combine search parameters such as state and salary. 
+We also introduce H1-B application outcome prediction through machine learning methods, a feature we have yet to find on 
+any frequently accessed website. A list of innovations and improvements is listed in Appendix B.  
+
+
+We also construct a model that can predict the probability that a given application will be certified by the DOL. 
+As mentioned above, the data requires minimal cleansing and feature engineering, dropping some unimportant features 
+by the results of correlation and manual selection. We then split the data 70\%-30\% for training and testing. 
+We define our task as a binary classification, setting the “Certified” status as 1 and all other non-certified statuses 
+as 0 to train our model. For the model, we choose a gradient boosting decision tree model named LightGBM because the data 
+is nonlinear as we believe that this tree model shows improved performance over some of the commonly applied linear models. 
+\begin{figure}
+  \includegraphics[width=\linewidth]{fig1.png}
+  \caption{Choropleth}
+  \label{fig:choropleth}
+\end{figure}
+
 
 \section{Experiments and evaluation}
-placeholder
+
+Our application is currently at the alpha state and therefore difficult to evaluate beyond limited use. As of April 1, 
+we have successfully launched the web application in a local testing environment using Flask for the backend and Vue for 
+the frontend. 
+
+We have preprocessed all data, reading it and producing a choropleth chart of applications by state. 
+The choropleth shows the greatest concentrations of applications in 
+California, Texas, and New York respectively, and are unchanged for each year. 
+We have also produced a line chart showing the change in application decisions by year, and a bar chart showing the total 
+amount of applications by year.
+
+As mentioned in our proposal, moving forward, we will implement the multiple criteria filters for the choropleth, line and 
+bar charts for single criteria comparisons. We also will implement a SQLite database for fast querying 
+and include an interface for the user to run predictions through the machine learning algorithm. 
+We have followed the original work distribution, which is distributed evenly among all 5 team members, 
+with each member responsible for one component as 
+well as making limited contributions to other components (see Appendix A). 
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{fig2.png}
+  \caption{Line chart}
+  \label{fig:linechart}
+\end{figure}
 
 \section{Conclusion}
 
-placeholder
+The progress report serves as a checkpoint halfway through the project duration. During the first phase of this project, 
+we have successfully applied the skills and leveraged the tools touched upon in class to devise a novel solution for a 
+real need among international students. In an effort to quickly become proficient in this domain, we have also studied 
+the intricacies of the US work visa application process, familiarizing ourselves with the geography and industry makeup 
+of the United States. 
+We are on schedule to complete our experiment and have a working application by our mid April deadline, at which time we 
+look forward to testing its efficacy with a student survey. 
+
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{fig3.png}
+  \caption{Bar chart}
+  \label{fig:barchart}
+\end{figure}
+
+
 \appendix
-\section{Timelines}
-\subsection{Current timeline}
-
-\begin{itemize}
-	\item November 13: Database, backend, and frontend connected and communicating
-	\item November 20: Application functioning on small dataset
-	\item November 24: Poster design complete
-	\item November 27: Application polished and presentable for poster presentations
-	\item November 30: Poster presentation, full dataset uploaded
-	\item December 4: Final report complete
-\end{itemize}
-
-\subsection{Previous timeline}
-\begin{itemize}
-	\item October 23: Able to query locations from front-end, all data added to database
-	\item November 6: Simple path generated and displayed based on user-provided start and end points
-	\item November 10: Progress report due
-	\item November 20: User can select options to impact path generation, continue to refine algorithm and front-end
-	\item November 28: Poster presentation
-	\item December 5: Project complete, final report due
-\end{itemize}
 
 \section{Work distribution}
 
 \begin{itemize}
-	\item Scraping and collecting data, geocaching (Alex)
-	\item Cleaning and standardizing data (Chuanqi)
-	\item Designing our algorithm (Qinrui)
-	\item Implementing the backend (Tianshu)
-	\item Creating the front-end (Tianyu)
+	\item Project coordinator: Tianshu
+	\item Data collection, cleansing, standardization, feature selection: Alexander
+	\item ML algorithm design: Chuanqi 
+	\item UI design, frontend implementation: Tianshu
+	\item Database design, backend implementation: Tianyu
+	\item Documentation: Alexander, Qunrui, Chuanqi, Tianshu
+	
 \end{itemize}
 
-All team members have contributed similar amount of effort.
+All team members have contributed similar amount of effort and results to this project.
 
 \section{Innovations}
 \begin{itemize}
-	\item Incorporating trail quality data
-	\item Using Tarjan's algorithm to generate paths
-	\item Scraping and providing points of interest specifically geared towards bikers and hikers
-\end{itemize}
+	\item More selections and chart types that are more relevant to the user, such as a US choropleth with state-by-state comparison
+	\item Ability to combine search parameters such as state and salary
+	\item Interactive H1-B application outcome prediction through machine learning
 
-Further possible innovations we would like to implement if we have time:
-\begin{itemize}
-	\item Hikers can update trails and give feedback
-	\item One can edit the trail he wants to follow directly in the interface (by drag and drop for example)
-	\item One can export the trail to a gps thanks to a gpx file
 \end{itemize}
 
 
-\begin{thebibliography}{9}
-\bibitem{} 
-Agarwal, Sathak and KS Rajan. 
-\textit{Analyzing the performance of NoSQL vs. SQL databases for Spatial and Aggregate queries.}. 
-Free and Open Source Software for Geospatial Conference Proceedings 17, 2017.
- 
-\bibitem{} 
-Allahbakhsh, Mohammad, Boualem Benatallah, and Aleksandar Ignjatovic.
-\textit{Quality Control in Crowdsourcing Systems.}.
-Web-Scale Workflow, 76-81, 2013.
+
+\begin{thebibliography}{12}
 
 \bibitem{} 
-Amirian, Pouria, Anahid Basiri, and Adam Winstanley.
-\textit{Evaluation of data management systems for geospatial big data}.
-International Conference on Computational Science and Its Applications. Springer, Cham, 2014.
+	H-1B Program. 
+\textit{United States Department of Labor.} 
+(2022). 
+Retrieved 1 April 2022. https://www.dol.gov/agencies/whd/immigration/h1b. 
 
-\bibitem{} 
-Dijkstra, Edsger W.
-\textit{A note on two problems in connexion with graphs}.
-Numerische mathematik 1.1 (1959): 269-271.
+\bibitem{}
+Chatterjee, P., Velpuru, M. S., \& Jagadeeswari, T. 
+(2021). 
+Success of H1-B VISA Using ANN. 
+\textit{In Machine Learning and Information Processing (pp. 491-499).}
+ Springer, Singapore.
 
-\bibitem{} 
-Fielding, Roy Thomas.
-\textit{Architectural Styles and the Design of Network-based Software Architectures}.
-Doctoral Dissertation, University of California, Irvine, 2000.
+\bibitem{}
+Dombe, A., Rewale, R., \& Swain, D. 
+(2020). 
+A deep learning-based approach for predicting the outcome of H-1B VISA application. 
+\textit{In Machine Learning and Information Processing (pp. 193-202).}
+ Springer, Singapore.
 
-\bibitem{} 
-Johnson, Donald B.
-\textit{Finding all the elementary circuits of a directed graph}.
-SIAM Journal on Computing 4.1 (1975): 77-84.
+\bibitem{}
+Visa Tracker - 1Point3Acres. 
+(2022). 
+Retrieved 1 April 2022.  
+\\\textit{https://visa.1point3acres.com/. }
 
-\bibitem{} 
-Haklay, Mordechai.
-\textit{How good is volunteered geographical information? A comparative study of OpenStreetMap and Ordnance Survey datasets}.
-Environment and Planning B: Planning and Design 37 (2010): 682-703.
+\bibitem{}
+H1B Database 2022 - Sponsors, Salaries, Approvals, Grades!. 
+(2022). 
+Retrieved 1 April 2022. 
+\\\textit{https://h1bgrader.com/}
 
-\bibitem{} 
-Holte, Robert C.
-\textit{Very Simple Classification Rules Perform Well on Most Commonly Used Datasets}.
-Computer Science Department, University of Ottawa, 1993.
+\bibitem{}
+Swain, D., Chakraborty, K., Dombe, A., Ashture, A., \& Valakunde, N. 
+(2018, December). 
+Prediction of H1B Visa Using Machine Learning Algorithms. 
+\textit{In 2018 International Conference on Advanced Computation and Telecommunication (ICACAT) (pp. 1-7).} 
+IEEE. 
 
-\bibitem{} 
-Provost, Foster, and Tom Fawcett.
-\textit{Chapter 7: Decision Analytic Thinking I: What Is a Good Model?}
-Data Science for Business: What You Need to Know about Data Mining and Data-Analytic Thinking, O'Reilly (2013).
+\bibitem{}
+Roy, R. (2021). 
+Data Analysis of H1B Visa Applications.
 
-\bibitem{} 
-Samer Buna.
-\textit{All the fundamental React.js concepts}
-Medium (blog), Aug 2017.
-\\\texttt{goo.gl/LUMxtp}
+\bibitem{}
+D3: Data Driven Documents. 
+Retrieved 1 April 2022. 
+\\\textit{https://d3js.org/.}
 
-\bibitem{} 
-Provost, Foster, and Tom Fawcett.
-\textit{Chapter 8: Visualizing Model Performance?}
-Data Science for Business: What You Need to Know about Data Mining and Data-Analytic Thinking, O'Reilly (2013).
+\bibitem{}
+Vue. 
+Retrieved 1 April 2022. 
+\\\textit{https://vuejs.org/.}
 
-\bibitem{} 
-Rosenzweig, Elizabeth.
-\textit{Successful User Experience: Strategies and Roadmaps}.
-Elsevier Science (2015): Chapter 3.
+\bibitem{}
+Flask. 
+Retrieved 1 April 2022. 
+\\\textit{https://flask.palletsprojects.com/en/2.1.x/.}
 
-\bibitem{} 
-Colt, Pini.
-\textit{React + Redux: Architecture Overview}
-Medium, Nov 2016.
-\\\texttt{goo.gl/8xYN6Q}
+\bibitem{}
+OpenRefine. 
+Retrieved 1 April 2022. 
+\\textit{https://openrefine.org/.}
 
-\bibitem{} 
-Tarjan, Robert.
-\textit{Depth-first search and linear graph algorithms}.
-SIAM journal on computing 1.2 (1972): 146-160.
-
-\bibitem{} 
-Paris, Michel.
-\textit{REST 2.0 is here and it’s name is GraphQL}
-SitePoint (blog), May 17, 2017.
-\\\texttt{https://www.sitepoint.com/rest-2-0-graphql/}
-
+\bibitem{}
+LightGBM. 
+\textit{Microsoft.} 
+Retrieved 1 April 2022. 
+\\\textit{https://github.com/microsoft/LightGBM.}
 
 \end{thebibliography}
 

@@ -34,6 +34,13 @@ case_status_20 = df_reader_2020.attr_operator("CASE_STATUS")
 case_status_21 = df_reader_2021.attr_operator("CASE_STATUS")
 worksite_state = df_reader_2017.attr_operator("WORKSITE_STATE")
 
+df_shape_17 = df_reader_2017.get_df_shape()[0]
+df_shape_18 = df_reader_2018.get_df_shape()[0]
+df_shape_19 = df_reader_2019.get_df_shape()[0]
+df_shape_20 = df_reader_2020.get_df_shape()[0]
+df_shape_21 = df_reader_2021.get_df_shape()[0]
+
+
 class HelloWorld(restful.Resource):
     def get(self):
         return {'hello': 'GUNDAM'}
@@ -44,11 +51,11 @@ class Trends(restful.Resource):
     def get(self):
         # put application's code here
         return {
-            # "2017": df_shape_17[0],
-            # "2018": df_shape_18[0],
-            # "2019": df_shape_19[0],
-            # "2020": df_shape_20_Q1[0] + df_shape_20_Q2[0] + df_shape_20_Q3[0] + df_shape_20_Q4[0],
-            # "2021": df_shape_21_Q1[0] + df_shape_21_Q2[0] + df_shape_21_Q3[0] + df_shape_21_Q4[0],
+            "2017": df_shape_17,
+            "2018": df_shape_18,
+            "2019": df_shape_19,
+            "2020": df_shape_20,
+            "2021": df_shape_21,
         }
 api.add_resource(Trends, "/trends")
 

@@ -16,6 +16,9 @@ class H1bDataReader:
     def write_to_csv(self, path):
         self.df.to_csv(path, index = False)
 
+    def get_df_shape(self):
+        return self.df.shape
+
     def attr_operator(self, attr, oper = "SUM"):
         unique_attrs = self.df[attr].unique()
         # print(unique_attrs)
