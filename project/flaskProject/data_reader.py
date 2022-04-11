@@ -19,14 +19,26 @@ class H1bDataReader:
     def get_df_shape(self):
         return self.df.shape
 
-    def attr_operator(self, attr, oper = "SUM"):
+    def attr_operator(self, attr, oper = "SUM", head = 0, others = False):
         unique_attrs = self.df[attr].unique()
         # print(unique_attrs)
 
         if oper == "SUM":
-            rtn = self.df[attr].reset_index(drop=True).value_counts().to_dict()
-            print(rtn)
-            return rtn
+            opered_data = self.df[attr].reset_index(drop=True).value_counts()
+
+        rtn = opered_data
+        if head > 0:
+            rtn = opered_data.head(head)
+
+        rtn_dict = rtn.to_dict()
+
+        if others:
+            tail = opered_data.shape[0] - head
+            data_tail = opered_data.tail(tail)
+            rtn_dict["OTHER"] = data_tail.sum()
+
+        print(rtn_dict)
+        return rtn_dict
 
     def state_preprocess(self):
         state_list = []
@@ -54,6 +66,6 @@ if __name__ == "__main__":
     df_reader.state_preprocess()
     df_reader.attr_operator("CASE_STATUS")
     df_reader.attr_operator("WORKSITE_STATE")
-    # df_reader.attr_operator("EMPLOYER_NAME")
-    df_reader.attr_operator("SOC_NAME")
+    df_reader.attr_operator("EMPLOYER_NAME", head = 10)
+    df_reader.attr_operator("SOC_NAME", head = 10)
 
