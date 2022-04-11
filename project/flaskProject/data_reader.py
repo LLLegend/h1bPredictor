@@ -47,10 +47,13 @@ if __name__ == "__main__":
         "CASE_STATUS": None,
         "SOC_NAME": None,
         "FULL_TIME_POSITION": None,
-        "WORKSITE_STATE": None
+        "WORKSITE_STATE": None,
+        "EMPLOYER_NAME": None,
     }
     df_reader = H1bDataReader("../../data/h1b_data_2019.csv", attr_list = attr_list)
     df_reader.state_preprocess()
     df_reader.attr_operator("CASE_STATUS")
     df_reader.attr_operator("WORKSITE_STATE")
+    # df_reader.attr_operator("EMPLOYER_NAME")
+    df_reader.attr_operator("SOC_NAME")
 
