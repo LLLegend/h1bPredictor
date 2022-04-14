@@ -4,6 +4,8 @@ import VisaTrends from "@/components/VisaTrends";
 import test from "@/components/test";
 import CaseStatus from "@/components/CaseStatus";
 import WorksiteState from "@/components/WorksiteState";
+import CasesByEmployer from "@/components/CasesByEmployer";
+import CasesByJobTitle from "@/components/CasesByJobTitle";
 
 const routes = [
     {
@@ -25,7 +27,16 @@ const routes = [
     {
         path: '/worksite_state',
         component: WorksiteState
+    },
+    {
+        path: '/cases_by_employer',
+        component: CasesByEmployer
+    },
+    {
+        path: '/cases_by_job_title',
+        component: CasesByJobTitle
     }
+
 
 ];
 export default createRouter({
