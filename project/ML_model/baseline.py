@@ -42,11 +42,11 @@ fold = StratifiedKFold(n_splits=n_fold, shuffle=True, random_state=42)
 
 X_train = train[features].copy()
 y_train = train[target]
-X_train = X_train[cat_features].astype('category')
+X_train[cat_features] = X_train[cat_features].astype('category')
 
 X_test = test[features].copy()
 y_test = test[target]
-X_test = X_test[cat_features].astype('category')
+X_test[cat_features] = X_test[cat_features].astype('category')
 
 models = []
 oof = np.zeros((len(X_train), ))
