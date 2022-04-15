@@ -1,0 +1,6 @@
+acc for training data:  0.9604615170859353
+acc for testing data:  0.9603013485036781
+recall for training data:  0.9992607091417578
+recall for testing data:  0.9993552546744036
+f1 score for training data:  0.9797659157382246
+f1 score for testing data:  0.9796834200432167
