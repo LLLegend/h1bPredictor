@@ -8,6 +8,8 @@
 % \usepackage[utf8]{inputenc}    
 % \usepackage[T1]{fontenc}
 \usepackage{graphicx}
+% \usepackage{url}
+% \usepackage[breaklinks]{hyperref}
 
 \DeclareUnicodeCharacter{00A0}{ }
 
@@ -88,6 +90,7 @@ pursuing specialty occupations on the United States H1-B visa
 \pagestyle{plain}
 \section{Introduction}
 
+
 The H1-B visa program allows employers in the United States to hire temporary foreign workers specializing in one of many key occupations.  
 To date, numerous studies have been conducted on recent years’ certification data in an attempt to analyze hiring trends. 
 However, the usefulness of these studies remains to be questioned as they generally lack interactive visualizations for the user to gain 
@@ -100,10 +103,14 @@ visa applicants to interpret current data, and predict the outcome of future app
 
 
 As annual H1-B application records are publicly available through the US Department of Labor, 
-this data has been a popular topic for machine learning researchers as well as online enthusiasts. 
+this data has been a popular topic for machine learning researchers as well as online enthusiasts.  
 The topic has also inspired several versions of truncated datasets that have been aggregated by several websites as a resource 
-for international applicants, and basic analyses appear frequently in academic journals. Interestingly, none of these studies or 
-websites have successfully integrated the database, visualizations, and prediction algorithms under one application. 
+for international applicants, and basic analyses appear frequently in academic journals. The general consensus among 
+scholarly literature points to an overall positive economic impact by H1-B workers in the United States (Butler 2012, Peri 2014) and 
+skilled immigrant workers successfully integrate into the general population (Grimm 2019, Hermansen 2022). 
+Interestingly, none of these studies or websites have successfully integrated the database, 
+visualizations, and prediction algorithms under one application. 
+
 
 
 We have considered several methods for data cleaning and integration. H1-B application data from the US DOL total over 3 million 
@@ -113,8 +120,10 @@ by calling Python packages. Looking closely at their data, however, we found tha
 source; their records are also severely truncated, and did not effectively consolidate job titles with negligible spelling variations. 
 Perhaps this truncation and lack of cleansing was out of convenience, but unfortunately this was the case for the majority of studies 
 we read during preliminary research. As the datasets among the different years generally only differ by a few column names while 
-retaining similar organization, we find it more convenient to use open-sourced applications such as OpenRefine to clean the data. 
-Dombe et al. use SQLite for its lightweight data storage and access(Dombe 2020).
+retaining similar organization, we find it more convenient to use open-sourced applications such as OpenRefine to clean the data, selecting features 
+that may be the most meaningful to the reader (Chadha 2021).  
+Dombe et al. use SQLite for its lightweight data storage and access (Dombe 2020).  
+
 
 
 Several online databases exist providing similar information. The most accurate and comprehensive websites include H1-B Grader and 
@@ -126,12 +135,30 @@ by these websites appears most appropriate. However, these websites are unable t
 users must perform their own extrapolations based on their subjective interpretations of recent trends.
 
 
-The majority of the research to date compares the performance of several machine learning algorithms in predicting application outcomes . 
+
+Most academic studies rely on various Python libraries for visualizations. Tandon et al compares Python and Tableau as accessible technologies 
+for quickly producing charts (Tandon 2021). A similar approach is taken by Chavda et al, analyzing records with Apache Hive and Pig with Tableau 
+visualizations (Chavda 2019). We elected to use D3 in Javascript for its rich features and greater availability of documentation 
+for creating interactive charts. 
+
+
+
+The majority of the research to date compares the performance of several machine learning algorithms in predicting application outcomes. 
+Random Forest appears to be the most popular model among other studies (Sundararaman 2017), but other methods have been tested as well. 
 Swain et al. compared the accuracy of random forest, k-means clustering, and logistic regression algorithms for predicting 
 H1-B application acceptance based on roughly 3 million data points from 2011 to 2016 (Swain 2018), and Chatterjee et al. propose an artificial 
 neural network (Chatterjee 2021). They also show a variety of static charts, but the charts only compare across one dimension at a time. The data is 
 also nearly ten years old. While these studies set us in a good direction for doing some basic analysis, we seek to augment them 
-through an interactive visualization allowing the user to view results based on multiple attributes such as salary and location.
+through an interactive visualization allowing the user to view results based on multiple attributes such as salary and location. 
+Thakur et al apply seven classification models - Decision tree, C5.0, Random
+Forest, Naïve Bayes, Neural Network and SVM - to predict the status of each H1-B application (Thakur 2018). 
+Interestingly, their C5.0 decision tree model proved the most accurate on the same data set used by Swain et al in their research. 
+Their liberal use of bar charts makes some of their findings hard to follow. Similar results were found by Jethwani et al, who 
+achieved the highest prediction accuracy with a decision tree as opposed to random forest and logistic regression (Jethwani 2019). 
+We will run a more recent data set to better reflect 
+current trends, and instead of comparing several classifiers for their accuracy, we will focus more on providing meaningful insights 
+to users through the dynamic integration of the charts.
+
 
 
 The method espoused by Raunak Roy uses the collected feedback in applying the analytic hierarchy process and entropy 
@@ -155,8 +182,7 @@ are open source and can be deployed from a consumer-grade computer. As such, thi
 We retrieve H1-B application data from years 2017 to 2021 from the US Department of Labor. All records from these five 
 years in their original XLS format totaled over 1.5Gb. By accessing data directly from its original source, we can 
 guarantee our data will have the highest possible integrity for more accurate evaluation and predictions. 
-There are some inconsistencies 
-in the naming and ordering of columns from year to year, as well as the addition of columns that are not pertinent to 
+There are some inconsistencies in the naming and ordering of columns from year to year, as well as the addition of columns that are not pertinent to 
 our analysis.  We use OpenRefine to clean and standardize the data, dropping columns that are not pertinent to our 
 analysis, thus making the file sizes manageable before consolidating into CSV files aggregated by year. 
 \begin{figure}
@@ -265,11 +291,43 @@ All team members have contributed similar amount of effort and results to this p
 
 \begin{thebibliography}{12}
 
+\bibitem{}
+
+\textit{}
+Peri, G., Shih, K. Y., \& Sparber, C. 
+(2014). 
+Foreign STEM workers and native wages and employment in US cities (No. w20093). 
+\textit{National Bureau of Economic Research. }
+\url{https://www.nber.org/system/files/working_papers/w20093/w20093.pdf}.
+
+\bibitem{}
+Butler, E. W. 
+(2012). 
+The H-1B visa immigration program: Analysis and comments. 
+\textit{International Journal of Business and Social Science, 3(9).}
+\url{https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.1066.7924&rep=rep1&type=pdf}.
+
+
+\bibitem{}
+Hermansen, A. S. 
+(2022). 
+Visualizing Intergenerational Immigrant Assimilation at Work. 
+\textit{Socius,} 8, 23780231211072590.
+\url{https://journals.sagepub.com/doi/full/10.1177/23780231211072590}.
+
+\bibitem{}
+Grimm, A. 
+(2019). 
+Studying to stay: Understanding graduate visa policy content and context in the United States and Australia. 
+\textit{International Migration,} 57(5), 235-251. 
+\url{https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9664747}.
+
 \bibitem{} 
 	H-1B Program. 
 \textit{United States Department of Labor.} 
 (2022). 
-Retrieved 1 April 2022. https://www.dol.gov/agencies/whd/immigration/h1b. 
+Retrieved 1 April 2022. 
+\url{https://www.dol.gov/agencies/whd/immigration/h1b}.
 
 \bibitem{}
 Chatterjee, P., Velpuru, M. S., \& Jagadeeswari, T. 
@@ -277,6 +335,13 @@ Chatterjee, P., Velpuru, M. S., \& Jagadeeswari, T.
 Success of H1-B VISA Using ANN. 
 \textit{In Machine Learning and Information Processing (pp. 491-499).}
  Springer, Singapore.
+
+\bibitem{}
+Thakur, P., Singh, M., Singh, H., \& Rana, P. S. 
+(2018). 
+An allotment of H1B work VISA in USA using machine learning. 
+\textit{International Journal of Engineering \& Technology, 7(2.27), 93-103. }
+\url{https://www.researchgate.net/profile/Prashant-Rana-4/publication/328488339_An_allotment_of_H1B_work_visa_in_USA_using_machine_learning}.
 
 \bibitem{}
 Dombe, A., Rewale, R., \& Swain, D. 
@@ -289,13 +354,37 @@ A deep learning-based approach for predicting the outcome of H-1B VISA applicati
 Visa Tracker - 1Point3Acres. 
 (2022). 
 Retrieved 1 April 2022.  
-\\\textit{https://visa.1point3acres.com/. }
+\\\url{https://visa.1point3acres.com/}.
 
 \bibitem{}
 H1B Database 2022 - Sponsors, Salaries, Approvals, Grades!. 
 (2022). 
 Retrieved 1 April 2022. 
-\\\textit{https://h1bgrader.com/}
+\\\url{https://h1bgrader.com/}.
+
+\bibitem{}
+Tandon, A. 
+(2021). 
+ANALYSIS OF IMMIGRATION TRENDS IN THE US TO DISCOVER PATTERNS AND MAKE BETTER POLICY DECISIONS.
+\\\url{https://scholarworks.lib.csusb.edu/cgi/viewcontent.cgi?article=2387}.
+
+\bibitem{}
+Tableau.
+Retrieved 1 April 2022.
+\\\url{https://tableau.com}.
+
+\bibitem{}
+CHAVDA, J. 
+(2019). 
+Big Data analysis on H-1B Visa Application in the United States.
+\url{https://www.researchgate.net/profile/Jyoti-Chavda/publication/341132236_Big_Data_analysis_on_H-1B_Visa_Application_in_the_United_State/}.
+
+\bibitem{}
+Sundararaman, D., Pal, N., \& Misraa, A. K. 
+(2017). 
+An analysis of nonimmigrant work VISAs in the USA using machine learning. 
+\textit{Int. J. Comput. Sci. Secur.(IJCSS), 6.}
+\url{https://dhanasekar-s.github.io/research/3paper.pdf}.
 
 \bibitem{}
 Swain, D., Chakraborty, K., Dombe, A., Ashture, A., \& Valakunde, N. 
@@ -303,6 +392,21 @@ Swain, D., Chakraborty, K., Dombe, A., Ashture, A., \& Valakunde, N.
 Prediction of H1B Visa Using Machine Learning Algorithms. 
 \textit{In 2018 International Conference on Advanced Computation and Telecommunication (ICACAT) (pp. 1-7).} 
 IEEE. 
+
+\bibitem{}
+Jethwani, G., Sachdeva, A., \& Goswami, M. 
+(2019). 
+An Empirical Analysis of ML Algorithms. 
+\textit{Proceedings of International Conference on Sustainable Computing in Science, Technology and Management (SUSCOM),} 
+Amity University Rajasthan, Jaipur-India.
+
+\bibitem{}
+Chadha, A. S., \& Shitole, A. 
+(2021, November). 
+A Hybrid Machine Learning Model Approach to H-1B Visa. 
+\textit{2021 3rd International Conference on Electrical, Control and Instrumentation Engineering (ICECIE)} (pp. 1-8). 
+IEEE.
+\url{https://www.researchgate.net/publication/357663888_A_Hybrid_Machine_Learning_Model_Approach_to_H-1B_Visa}.
 
 \bibitem{}
 Roy, R. (2021). 
@@ -333,6 +437,9 @@ LightGBM.
 \textit{Microsoft.} 
 Retrieved 1 April 2022. 
 \\\textit{https://github.com/microsoft/LightGBM.}
+
+
+
 
 \end{thebibliography}
 

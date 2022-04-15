@@ -15,7 +15,10 @@ attr_list = {\
         "CASE_STATUS": None,
         "SOC_NAME": None,
         "FULL_TIME_POSITION": None,
-        "WORKSITE_STATE": None
+        "WORKSITE_STATE": None,
+        "EMPLOYER_NAME": None,
+        "SOC_NAME": None
+
     }
 df_reader_2017 = util.H1bDataReader("../../data/h1b_data_2017.csv", attr_list = attr_list)
 df_reader_2018 = util.H1bDataReader("../../data/h1b_data_2018.csv", attr_list = attr_list)
@@ -27,18 +30,41 @@ df_reader_2018.state_preprocess()
 df_reader_2019.state_preprocess()
 df_reader_2020.state_preprocess()
 df_reader_2021.state_preprocess()
+
+#case_status
 case_status_17 = df_reader_2017.attr_operator("CASE_STATUS")
 case_status_18 = df_reader_2018.attr_operator("CASE_STATUS")
 case_status_19 = df_reader_2019.attr_operator("CASE_STATUS")
 case_status_20 = df_reader_2020.attr_operator("CASE_STATUS")
 case_status_21 = df_reader_2021.attr_operator("CASE_STATUS")
+
+# worksite_state
 worksite_state = df_reader_2017.attr_operator("WORKSITE_STATE")
+
+#number of visa applications by employer_name
+cases_by_employer_17 = df_reader_2017.attr_operator("EMPLOYER_NAME", head = 10)
+cases_by_employer_18 = df_reader_2018.attr_operator("EMPLOYER_NAME", head = 10)
+cases_by_employer_19 = df_reader_2019.attr_operator("EMPLOYER_NAME", head = 10)
+cases_by_employer_20 = df_reader_2020.attr_operator("EMPLOYER_NAME", head = 10)
+cases_by_employer_21 = df_reader_2021.attr_operator("EMPLOYER_NAME", head = 10)
+
+#number of visa applications by soc_name
+cases_by_job_title_17 = df_reader_2017.attr_operator("SOC_NAME", head = 10)
+cases_by_job_title_18 = df_reader_2018.attr_operator("SOC_NAME", head = 10)
+cases_by_job_title_19 = df_reader_2019.attr_operator("SOC_NAME", head = 10)
+cases_by_job_title_20 = df_reader_2020.attr_operator("SOC_NAME", head = 10)
+cases_by_job_title_21 = df_reader_2021.attr_operator("SOC_NAME", head = 10)
+
+
 
 df_shape_17 = df_reader_2017.get_df_shape()[0]
 df_shape_18 = df_reader_2018.get_df_shape()[0]
 df_shape_19 = df_reader_2019.get_df_shape()[0]
 df_shape_20 = df_reader_2020.get_df_shape()[0]
 df_shape_21 = df_reader_2021.get_df_shape()[0]
+
+
+
 
 
 class HelloWorld(restful.Resource):
@@ -99,6 +125,20 @@ class USTopo(restful.Resource):
         # format
         return [case_status_17, case_status_18, case_status_19, case_status_20, case_status_21]
 api.add_resource(USTopo, "/us_topo")
+
+#return the cases by employer
+class CasesByEmployer(restful.Resource):
+    def get(self):
+        # format
+        return [cases_by_employer_17, cases_by_employer_18, cases_by_employer_19, cases_by_employer_20, cases_by_employer_21]
+api.add_resource(CasesByEmployer, "/cases_by_employer")
+
+#return the cases by job title
+class CasesByJobTitle(restful.Resource):
+    def get(self):
+        # format
+        return [cases_by_job_title_17, cases_by_job_title_18, cases_by_job_title_19, cases_by_job_title_20, cases_by_job_title_21]
+api.add_resource(CasesByJobTitle, "/cases_by_job_title")
 # attr_list = {\
 #     "CASE_NUMBER": None,
 #     "CASE_STATUS": None,

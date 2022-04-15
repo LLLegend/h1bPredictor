@@ -17,7 +17,9 @@
       <li><router-link to="/trends">Trends</router-link></li>
       <li><router-link to="/case_status">Case Status</router-link></li>
       <li><router-link to="/worksite_state">Worksite by State</router-link></li>
-      <li><router-link to="/test">Companies</router-link></li>
+
+      <li><router-link to="/cases_by_employer">Cases by Employer</router-link></li>
+      <li><router-link to="/cases_by_job_title">Cases by Job Title</router-link></li>
       <li><router-link to="/test">Job Titles</router-link></li>
       <li><router-link to="/test">Cities</router-link></li>
     </ul>
