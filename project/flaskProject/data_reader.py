@@ -139,6 +139,8 @@ if __name__ == "__main__":
     df_reader.attr_operator("EMPLOYER_NAME", head = 10)
     df_reader.attr_operator("SOC_NAME", head = 10)
     df_reader.salary_range(split = 10)
+    # Given that salary range from 100000 to 200000, get the the top 10 job titles
     df_reader.attr_operator("SOC_NAME", head = 10, filter_dict = {"WAGE_RATE_OF_PAY_FROM": {"GREATER": 100000, "LESS": 200000}})
+    # Return the top 10 job title with highest pass rate (all jobs with less than 1000 applications are elminated)
     df_reader.attr_operator("SOC_NAME", oper = "RATIO", head = 10, drop_cases_val = 1000)
 
