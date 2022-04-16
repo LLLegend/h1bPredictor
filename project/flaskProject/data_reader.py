@@ -63,6 +63,7 @@ class H1bDataReader:
         print(rtn_dict)
         return rtn_dict
 
+
     def salary_range(self, split = 20, max_bar = 350000):
         salary_app_num_dict = {}
         salary_pass_rate_dict = {}
@@ -86,15 +87,14 @@ class H1bDataReader:
                 salary_pass_rate_dict[salary] = (tmp_df[tmp_df["CASE_STATUS"] == "CERTIFIED"].shape[0] + \
                                                 tmp_df[tmp_df["CASE_STATUS"] == "CERTIFIED-WITHDRAWN"].shape[0]) / tmp_df.shape[0]
 
-        salary_app_num_dict[max_bar] = salary_part_up.shape[0]
-        salary_pass_rate_dict[max_bar] = 0
+        salary_app_num_dict[float(max_bar)] = salary_part_up.shape[0]
+        salary_pass_rate_dict[float(max_bar)] = 0
         if salary_part_up.shape[0] > 0:
-            salary_pass_rate_dict[max_bar] = (salary_part_up[salary_part_up["CASE_STATUS"] == "CERTIFIED"].shape[0] + \
+            salary_pass_rate_dict[float(max_bar)] = (salary_part_up[salary_part_up["CASE_STATUS"] == "CERTIFIED"].shape[0] + \
                                             salary_part_up[salary_part_up["CASE_STATUS"] == "CERTIFIED-WITHDRAWN"].shape[0]) / salary_part_up.shape[0]
 
         print(salary_app_num_dict, salary_pass_rate_dict)
         return salary_app_num_dict, salary_pass_rate_dict
-
 
 
     def state_preprocess(self):
@@ -103,7 +103,6 @@ class H1bDataReader:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 state_list.append((row["State"], row["Code"]))
-
 
         for state in state_list:
             self.df["WORKSITE_STATE"].replace(state[1], state[0], inplace = True)
@@ -131,7 +130,7 @@ if __name__ == "__main__":
         "WAGE_RATE_OF_PAY_FROM": None,
         "WAGE_UNIT_OF_PAY": "Year"
     }
-    df_reader = H1bDataReader("../../data/h1b_data_2017.csv", attr_list = attr_list)
+    df_reader = H1bDataReader("../../data/h1b_data_2021.csv", attr_list = attr_list)
     df_reader.state_preprocess()
     df_reader.salary_preprocess()
     df_reader.casestate_preprocess()
@@ -139,7 +138,7 @@ if __name__ == "__main__":
     df_reader.attr_operator("WORKSITE_STATE")
     df_reader.attr_operator("EMPLOYER_NAME", head = 10)
     df_reader.attr_operator("SOC_NAME", head = 10)
-    df_reader.salary_range()
+    df_reader.salary_range(split = 10)
     df_reader.attr_operator("SOC_NAME", head = 10, filter_dict = {"WAGE_RATE_OF_PAY_FROM": {"GREATER": 100000, "LESS": 200000}})
     df_reader.attr_operator("SOC_NAME", oper = "RATIO", head = 10, drop_cases_val = 1000)
 
