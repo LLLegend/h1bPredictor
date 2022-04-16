@@ -139,6 +139,13 @@ class CasesByJobTitle(restful.Resource):
         # format
         return [cases_by_job_title_17, cases_by_job_title_18, cases_by_job_title_19, cases_by_job_title_20, cases_by_job_title_21]
 api.add_resource(CasesByJobTitle, "/cases_by_job_title")
+
+class FeatureImportance(restful.Resource):
+    def get(self):
+        df = pd.read_csv("../../data/feature_importance.csv", index_col="name")
+        return [df.to_dict()]
+api.add_resource(FeatureImportance, "feature_importance")
+
 # attr_list = {\
 #     "CASE_NUMBER": None,
 #     "CASE_STATUS": None,
