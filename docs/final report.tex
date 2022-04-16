@@ -35,7 +35,7 @@
 \begin{document}
 \title{A Chance to Work}
 \subtitle{Understanding the composition of foreign workers 
-pursuing specialty occupations on the United States H1-B visa
+pursuing \\specialty occupations on the United States H1-B visa
 }
 
 
@@ -231,9 +231,6 @@ We have followed the original work distribution, which is distributed evenly amo
 with each member responsible for one component as well as making limited contributions to other components (see Appendix A). 
 
 
-As mentioned in our proposal, moving forward, we will implement the multiple criteria filters for the choropleth, line and 
-bar charts for single criteria comparisons. 
-
 \subsection{Data Preprocessing and Feature Selection}
 
 The raw data from US Department of Labor, organized by fiscal quarter, 
@@ -252,11 +249,19 @@ We retained the following attributes for our analysis:
   ie. Certified, Withdrawn, Denied. 
   \item \textbf{SOC name}: Official occupation title as defined by US Bureau of Labor Statistics, 
   ie. Software Developer, Computer Systems Analyst.
+  \item \textbf{NAICS code}: Primary industry sector/vertical of employer as defined by 
+  the North American Industry Classification System, 
+  ie. Manufacturing, Information.
   \item \textbf{Full time position}: Whether the position is full-time.
   \item \textbf{Worksite state}: State of primary location of employment,
   ie. CA, NY, TX.
+  \item \textbf{Worksite city}: City of primary location of employment, 
+  ie. Menlo Park, Austin.
   \item \textbf{Employer name}: Name of petitioning employer,
   ie. Amazon, Deloitte.
+  \item \textbf{Employer Business DBA}: Alternate name for employer. 
+  \item \textbf{Total workers}: Number of workers included in a single petition. 
+  Often the case when an employer hires several workers with the same occupation title. 
   \item \textbf{Wage rate of pay - From}: Minimum prevailing annual salary for the position.
   ie. \$85,000.
   \item \textbf{Wage - unit of pay}: Our analysis concentrates on USD paying occupations.
@@ -266,6 +271,21 @@ We retained the following attributes for our analysis:
 A test run with the data using several gradient boosted decision tree learners, 
 mentioned in more detail below, achieved an F1 score of 98\% on both testing 
 and training data; therefore, we retained the exact attributes from our manual selection. 
+
+
+
+% EMPLOYER NAME,1513.5
+% WORKSITE CITY,490.5
+% NAICS CODE,319.9
+% SOC NAME,240.4
+% WAGE_RATE_OF_PAY_FROM,99.9
+% WORKSITE_STATE,88.2
+% EMPLOYER_BUSINESS_DBA,82.6
+% PREVAILING_WAGE,81.9
+% WAGE_UNIT_OF_PAY,32.9
+% PW_UNIT_OF_PAY,24.6
+% TOTAL_WORKERS,22.2
+% FULL_TIME_POSITION,3.4
 
 
 We apply regular expressions to remove superfluous characters from the records, 
@@ -295,21 +315,62 @@ We integrated all data, the prediction model, and visualizations within a single
 web application built on the Flask framework, with a responsive interface using Vue. 
 
 
-
 Although the overall volume of our data is quite large at roughly 450 MB, 
 each individual record size is trivial after feature selection; thus, we 
 were able to handle the processing and querying of these records through Pandas data frames, 
 bypassing the need for a database. 
 
 
+(Including visualizations by year, state, and occupation. ASDFASDFASDFASDFASDFASDFASDFASDFASDFASDF)
+
+We found the choropleth to make the most sense for breaking data up by state, 
+
+We include the multiple criteria filters for the choropleth, line and 
+bar charts for single criteria comparisons. 
+
+
+
 \subsection{Analysis}
 
+Overall applications ranged from XXX in YYYY, to XXX in YYYY, averaging XXX per year. 
+We can see a (spike/drop) in YYYY, followed by a (spike/drop) in YYYY. 
+Incidentally, (ABCDEFG) took place in YYYY, which may provide an explanation for (ASDFASDFASDF).
 
-The choropleth shows the greatest concentrations of applications in 
-California, Texas, and New York respectively, and are unchanged for each year. 
-We have also produced a line chart showing the change in application decisions by year, 
-and a bar chart showing the total 
-amount of applications by year.
+
+We can see from the US choropleth map that for each of the five years from 2017 to 2021, applications are mostly 
+concentrated in the top three states of California, 
+New York, and Texas, which incidentally were among the most populous US states during this period. 
+Interestingly, Florida, the third most populous state, is not among the top three states for certified applications. 
+
+
+We found the most influential attribute by far to be the employer sponsoring 
+the application. This begs the question: What practices are these employers employing 
+to hire the workers that most closely match US strategic interests? 
+Is this the result of best-in-class hiring practices, or is it primarily due to 
+recent trends and outpaced growth in selected industry verticals? 
+Or is there encouragement to stimulate economic growth in certain geographic areas? 
+
+
+Worksite city came in as a distant second with respect to the employer. 
+With regards to location, the difference in significance between worksite city 
+and worksite state is staggering, with worksite city showing six times more significance 
+than the worksite state. This indicates that states themselves do not have an absolute advantage 
+when it comes to application certification. One may argue that states hosting clusters of 
+the more successful cities do indeed enjoy such hegemony, but our data is inconclusive in this regard.
+Indeed, the metropolitan area of the company plays a much more important role than the state alone. 
+
+
+As the initial premise for the H1-B program is to bring in qualified workers in specialty occupations with urgent 
+talent needs, we expected industry and job title to play a more important role than the above two attributes. Their significance 
+score are high; however, they place immediately after employer and worksite city. 
+
+
+The remaining attributes ranged from having a small to negligible effect on the prediction results. 
+
+
+.......insert feature importance figure here.....
+
+
 
 
 \begin{figure}
