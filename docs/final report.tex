@@ -225,6 +225,7 @@ We cross-validate the data with 10 folds.
 \end{figure}
 
 
+
 \section{Experiments and Evaluation}
 
 We have followed the original work distribution, which is distributed evenly among all 5 team members, 
@@ -311,8 +312,22 @@ While all provided very high accuracy and an F1 score of 97\%, our choice of Lig
 
 
 \subsection{Integration}
-We integrated all data, the prediction model, and visualizations within a single 
+We integrated all visualizations and our predictor within a single 
 web application built on the Flask framework, with a responsive interface using Vue. 
+The user clicks a link to one of several visualizations of any given year's applications 
+by state, employer, or job title. 
+
+The user may also review application trends by similar criteria using a drop-down list. 
+We hoped to include elastic search supporting multiple user-defined parameters, but this 
+proved to be too cumbersome for the scope of this project. 
+
+Due to the like-kind nature between objects, we show (XXX) with bar charts, and line charts for (XXX). 
+
+
+Naturally, the US choropleth map fits best for geographical comparison among states. To incrementally 
+provide more information based on user feedback, each state displays a tooltip upon cursor hovering, 
+which includes key details such as the total applications for that year, the top employer, and the top 
+job title.  
 
 
 Although the overall volume of our data is quite large at roughly 450 MB, 
@@ -321,9 +336,8 @@ were able to handle the processing and querying of these records through Pandas 
 bypassing the need for a database. 
 
 
-(Including visualizations by year, state, and occupation. ASDFASDFASDFASDFASDFASDFASDFASDFASDFASDF)
+(Include visualizations by year, state, and occupation. ASDFASDFASDFASDFASDFASDFASDFASDFASDFASDF)
 
-We found the choropleth to make the most sense for breaking data up by state, 
 
 We include the multiple criteria filters for the choropleth, line and 
 bar charts for single criteria comparisons. 
