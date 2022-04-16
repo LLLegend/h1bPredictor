@@ -2,8 +2,8 @@ PWD /Users/bzh/dev/datadreamteam/docs
 INPUT /usr/local/texlive/2021/texmf.cnf
 INPUT /usr/local/texlive/2021/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2021/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.tex
-OUTPUT /Users/bzh/dev/datadreamteam/docs/progress report.log
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.tex
+OUTPUT /Users/bzh/dev/datadreamteam/docs/final report.log
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/acmart/acmart.cls
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/acmart/acmart.cls
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/acmart/acmart.cls
@@ -761,7 +761,7 @@ INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/fontenc.sty
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/jknappen/ec/ecrm0900.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/cmap/t1.cmap
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/cmap/t1.cmap
-OUTPUT /Users/bzh/dev/datadreamteam/docs/progress report.pdf
+OUTPUT /Users/bzh/dev/datadreamteam/docs/final report.pdf
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/cmap/t1.cmap
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/libertine/libertine.sty
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/libertine/libertine.sty
@@ -976,10 +976,10 @@ INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.de
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.aux
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.aux
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.aux
-OUTPUT /Users/bzh/dev/datadreamteam/docs/progress report.aux
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.aux
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.aux
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.aux
+OUTPUT /Users/bzh/dev/datadreamteam/docs/final report.aux
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/newtx/omlnxlmi.fd
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/newtx/omlnxlmi.fd
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/newtx/omlnxlmi.fd
@@ -1072,17 +1072,17 @@ INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestri
 INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.out
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.out
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.out
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.out
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.out
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.out
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.out
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.out
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.out
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.out
-OUTPUT /Users/bzh/dev/datadreamteam/docs/progress report.out
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.out
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.out
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.out
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.out
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.out
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.out
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.out
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.out
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.out
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.out
+OUTPUT /Users/bzh/dev/datadreamteam/docs/final report.out
 INPUT /usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -1175,16 +1175,6 @@ INPUT /usr/local/texlive/2021/texmf-dist/fonts/vf/public/libertine/LinLibertineT
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/libertine/LinLibertineTB-tlf-t1--base.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/vf/public/libertine/LinLibertineT-tlf-t1.vf
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/libertine/LinLibertineT-tlf-t1--base.tfm
-INPUT /Users/bzh/dev/datadreamteam/docs/fig2.png
-INPUT /Users/bzh/dev/datadreamteam/docs/fig2.png
-INPUT /Users/bzh/dev/datadreamteam/docs/fig2.png
-INPUT /Users/bzh/dev/datadreamteam/docs/fig2.png
-INPUT /Users/bzh/dev/datadreamteam/docs/fig2.png
-INPUT /Users/bzh/dev/datadreamteam/docs/fig3.png
-INPUT /Users/bzh/dev/datadreamteam/docs/fig3.png
-INPUT /Users/bzh/dev/datadreamteam/docs/fig3.png
-INPUT /Users/bzh/dev/datadreamteam/docs/fig3.png
-INPUT /Users/bzh/dev/datadreamteam/docs/fig3.png
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/libertine/LinLibertineT-tlf-ot1.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/newtx/nxlmi.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/newtx/ntxsy.tfm
@@ -1195,29 +1185,39 @@ INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/newtx/nxlmia.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/newtx/ntxsym.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/newtx/ntxsyc.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/newtx/ntxexa.tfm
-INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/libertine/LinLibertineTI-tlf-t1.tfm
+INPUT /Users/bzh/dev/datadreamteam/docs/fig2.png
+INPUT /Users/bzh/dev/datadreamteam/docs/fig2.png
+INPUT /Users/bzh/dev/datadreamteam/docs/fig2.png
+INPUT /Users/bzh/dev/datadreamteam/docs/fig2.png
+INPUT /Users/bzh/dev/datadreamteam/docs/fig2.png
+INPUT /Users/bzh/dev/datadreamteam/docs/fig3.png
+INPUT /Users/bzh/dev/datadreamteam/docs/fig3.png
+INPUT /Users/bzh/dev/datadreamteam/docs/fig3.png
+INPUT /Users/bzh/dev/datadreamteam/docs/fig3.png
+INPUT /Users/bzh/dev/datadreamteam/docs/fig3.png
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/vf/public/newtx/ntxsy.vf
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/newtx/txsys.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/newtx/txex-bar.tfm
+INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/libertine/LinLibertineTI-tlf-t1.tfm
+INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-utf8.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-utf8.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-utf8.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-utf8.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-utf8.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-utf8.def
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/vf/public/libertine/LinLibertineT-tlf-t1.vf
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/libertine/LinLibertineT-tlf-t1--base.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/vf/public/libertine/LinLibertineTI-tlf-t1.vf
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/libertine/LinLibertineTI-tlf-t1--base.tfm
-INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
-INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
-INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
-INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
-INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
-INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
-INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-utf8.def
-INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-utf8.def
-INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-utf8.def
-INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-utf8.def
-INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-utf8.def
-INPUT /usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-utf8.def
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.aux
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.out
-INPUT /Users/bzh/dev/datadreamteam/docs/progress report.out
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.aux
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.out
+INPUT /Users/bzh/dev/datadreamteam/docs/final report.out
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc
