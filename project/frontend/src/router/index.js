@@ -6,6 +6,8 @@ import CaseStatus from "@/components/CaseStatus";
 import WorksiteState from "@/components/WorksiteState";
 import CasesByEmployer from "@/components/CasesByEmployer";
 import CasesByJobTitle from "@/components/CasesByJobTitle";
+import ScrollBar from "@/components/ScrollBar";
+import SalaryRange from "@/components/SalaryRange";
 
 const routes = [
     {
@@ -35,7 +37,13 @@ const routes = [
     {
         path: '/cases_by_job_title',
         component: CasesByJobTitle
+    },
+    {
+        path: '/salary_range',
+        component: SalaryRange
     }
+
+
 
 
 ];

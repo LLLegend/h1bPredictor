@@ -1,6 +1,6 @@
 <template>
   <div id="trendsPage">
-    <h1>Visa Trends</h1>
+    <h1>Salary Range</h1>
     <el-row :gutter="50">
       <el-col :span="5">
         <div :style="{ visibility: hiddenOrVisible }">
@@ -8,7 +8,7 @@
         </div>
       </el-col>
       <el-col :span="19">
-        <visa-trends-chart/>
+        <salary-range-chart/>
       </el-col>
     </el-row>
 
@@ -16,22 +16,17 @@
 </template>
 
 <script>
+import SalaryRangeChart from "@/components/SalaryRangeChart";
 import NewSideBar from "@/components/NewSideBar"
-import VisaTrendsChart from "@/components/VisaTrendsChart";
-
 export default {
-  name: "VisaTrends",
+  name: "SalaryRange",
   components:{
-    NewSideBar,
-    VisaTrendsChart
-  },
+    SalaryRangeChart,
+    NewSideBar
+  }
 }
-
-
 </script>
 
 <style scoped>
-.bar {
-  fill: steelblue;
-}
+
 </style>

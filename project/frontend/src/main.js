@@ -3,9 +3,12 @@ import App from './App.vue'
 import router from './router/index'
 import axios from 'axios'
 // import ElementUI from 'element-plus'
-import { ElMessage } from 'element-plus'
+import ElementPlus from 'element-plus'
+import { ElMessage} from 'element-plus'
+import 'element-plus/dist/index.css';
 // import CONSTANT from "@/constant/constant";
 const app = createApp(App);
+app.use(ElementPlus, { size: 'small', zIndex: 3000 })
 app.config.globalProperties.fetchData = function (obj) {
     // let vm = this;
     return axios({

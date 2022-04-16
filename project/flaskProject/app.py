@@ -17,7 +17,8 @@ attr_list = {\
         "FULL_TIME_POSITION": None,
         "WORKSITE_STATE": None,
         "EMPLOYER_NAME": None,
-        "SOC_NAME": None
+        "WAGE_RATE_OF_PAY_FROM": None,
+        "WAGE_UNIT_OF_PAY": "Year"
 
     }
 df_reader_2017 = util.H1bDataReader("../../data/h1b_data_2017.csv", attr_list = attr_list)
@@ -30,6 +31,11 @@ df_reader_2018.state_preprocess()
 df_reader_2019.state_preprocess()
 df_reader_2020.state_preprocess()
 df_reader_2021.state_preprocess()
+df_reader_2017.salary_preprocess()
+df_reader_2018.salary_preprocess()
+df_reader_2019.salary_preprocess()
+df_reader_2020.salary_preprocess()
+df_reader_2021.salary_preprocess()
 
 #case_status
 case_status_17 = df_reader_2017.attr_operator("CASE_STATUS")
@@ -139,6 +145,19 @@ class CasesByJobTitle(restful.Resource):
         # format
         return [cases_by_job_title_17, cases_by_job_title_18, cases_by_job_title_19, cases_by_job_title_20, cases_by_job_title_21]
 api.add_resource(CasesByJobTitle, "/cases_by_job_title")
+
+
+salary_range_2017 = df_reader_2017.salary_range(split=10)
+salary_range_2018 = df_reader_2018.salary_range(split=10)
+salary_range_2019 = df_reader_2019.salary_range(split=10)
+salary_range_2020 = df_reader_2020.salary_range(split=10)
+salary_range_2021 = df_reader_2021.salary_range(split=10)
+#return the cases by job title
+class SalaryRange(restful.Resource):
+    def get(self):
+        # format
+        return [salary_range_2017, salary_range_2018, salary_range_2019, salary_range_2020, salary_range_2021]
+api.add_resource(SalaryRange, "/salary_range")
 # attr_list = {\
 #     "CASE_NUMBER": None,
 #     "CASE_STATUS": None,

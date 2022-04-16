@@ -20,6 +20,7 @@
 
       <li><router-link to="/cases_by_employer">Cases by Employer</router-link></li>
       <li><router-link to="/cases_by_job_title">Cases by Job Title</router-link></li>
+      <li><router-link to="/salary_range">Salary Range</router-link></li>
       <li><router-link to="/test">Job Titles</router-link></li>
       <li><router-link to="/test">Cities</router-link></li>
     </ul>
@@ -35,8 +36,11 @@
 </template>
 
 <script>
+import "./NewSideBar"
+import NewSideBar from "@/components/NewSideBar";
 export default {
   name: 'HelloWorld',
+  components: {NewSideBar},
   props: {
     msg: String
   }
