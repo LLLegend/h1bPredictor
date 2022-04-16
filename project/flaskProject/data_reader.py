@@ -48,6 +48,15 @@ class H1bDataReader:
             opered_data = tmp_df["sum"] / tmp_df["count"]
             opered_data = opered_data.sort_values(ascending=False)
 
+        if oper == "AVG_SAL":
+            tmp_df = tmp_df.groupby(attr).agg({"WAGE_RATE_OF_PAY_FROM": ["sum", "count"]})
+            tmp_df.columns = tmp_df.columns.droplevel(0)
+            tmp_df = tmp_df[tmp_df["count"] > drop_cases_val]
+
+            opered_data = tmp_df["sum"] / tmp_df["count"]
+            opered_data = opered_data.sort_values(ascending=False)
+
+
 
         rtn = opered_data
         if head > 0:
@@ -143,4 +152,10 @@ if __name__ == "__main__":
     df_reader.attr_operator("SOC_NAME", head = 10, filter_dict = {"WAGE_RATE_OF_PAY_FROM": {"GREATER": 100000, "LESS": 200000}})
     # Return the top 10 job title with highest pass rate (all jobs with less than 1000 applications are elminated)
     df_reader.attr_operator("SOC_NAME", oper = "RATIO", head = 10, drop_cases_val = 1000)
+
+    # Tooltip
+    df_reader.attr_operator("WORKSITE_STATE") # dict["state_name"] state casese
+    df_reader.attr_operator("WORKSITE_STATE", oper = "RATIO") # dict["state_name"] certification rate
+    df_reader.attr_operator("WORKSITE_STATE", oper = "AVG_SAL") # dict["state_name"] avg salary
+    df_reader.attr_operator("EMPLOYER_NAME", head = 3, filter_dict = {"WORKSITE_STATE": {"EQUAL": "California"}}) # top 3 employer
 
