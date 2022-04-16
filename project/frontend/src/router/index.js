@@ -6,6 +6,7 @@ import CaseStatus from "@/components/CaseStatus";
 import WorksiteState from "@/components/WorksiteState";
 import CasesByEmployer from "@/components/CasesByEmployer";
 import CasesByJobTitle from "@/components/CasesByJobTitle";
+import FeatureImportance from "@/components/FeatureImportance";
 
 const routes = [
     {
@@ -35,7 +36,12 @@ const routes = [
     {
         path: '/cases_by_job_title',
         component: CasesByJobTitle
+    },
+    {
+        path: '/feature_importance',
+        component: FeatureImportance
     }
+
 
 
 ];
