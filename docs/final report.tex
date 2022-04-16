@@ -232,9 +232,7 @@ with each member responsible for one component as well as making limited contrib
 
 
 As mentioned in our proposal, moving forward, we will implement the multiple criteria filters for the choropleth, line and 
-bar charts for single criteria comparisons. We also will implement a SQLite database for fast querying 
-and include an interface for the user to run predictions through the machine learning algorithm. 
-
+bar charts for single criteria comparisons. 
 
 \subsection{Data Preprocessing and Feature Selection}
 
@@ -270,18 +268,48 @@ mentioned in more detail below, achieved an F1 score of 98\% on both testing
 and training data; therefore, we retained the exact attributes from our manual selection. 
 
 
-We apply regular expressions to remove superfluous characters from the records, such as commas from some of the wage entries.  
+We apply regular expressions to remove superfluous characters from the records, 
+such as commas and dollar signs from some of the wage entries, 
+as well as correct input errors and standardize capitalization of Case Status entries, 
+and standardized Worksite State to display the full name of their respective states.  
+
+
+We discovered several outliers with wages that are far beyond the typical range. 
+We set an accepted wage ceiling at \$350,000 to mitigate any potential skewing of results 
+by these outliers. 
+
+
+\subsection{Prediction Algorithm}
+Based on existing literature, boosted decision tree has generally proven 
+the most accurate with historical application data due to its non-linearity. 
+We investigated several open-source gradient boosted frameworks, including XGBoost, 
+Yandex’s CatBoost, and Microsoft’s LightGBM. We tested all three frameworks on 
+all 5 years of data with a 30\%-70\% training split and 10-fold cross validation. 
+While all provided very high accuracy and an F1 score of 97\%, our choice of LightGBM ran 20\% faster than the others. 
+
+[figure showing accuracy and speed of different frameworks]
+
+
+\subsection{Integration}
+We integrated all data, the prediction model, and visualizations within a single 
+web application built on the Flask framework, with a responsive interface using Vue. 
+
+
+
+Although the overall volume of our data is quite large at roughly 450 MB, 
+each individual record size is trivial after feature selection; thus, we 
+were able to handle the processing and querying of these records through Pandas data frames, 
+bypassing the need for a database. 
 
 
 \subsection{Analysis}
-When setting the quartiles for salary comparison, we discovered several outliers with salaries that are too high to make sense. 
+
 
 The choropleth shows the greatest concentrations of applications in 
 California, Texas, and New York respectively, and are unchanged for each year. 
-We have also produced a line chart showing the change in application decisions by year, and a bar chart showing the total 
+We have also produced a line chart showing the change in application decisions by year, 
+and a bar chart showing the total 
 amount of applications by year.
-
-\subsection{Prediction Algorithm}
 
 
 \begin{figure}
@@ -315,11 +343,11 @@ look forward to testing its efficacy with a student survey.
 
 \begin{itemize}
 	\item Project coordinator: Tianshu
-	\item Data collection, cleansing, standardization, feature selection: Alexander
+	\item Data collection, cleansing, standardization, feature selection: Alexander, Tianyu
 	\item ML algorithm design: Chuanqi 
-	\item UI design, frontend implementation: Tianshu
+	\item UI and visualization design, frontend implementation: Tianshu
 	\item Database design, backend implementation: Tianyu
-	\item Documentation: Alexander, Qunrui, Chuanqi, Tianshu
+	\item Documentation: Alexander, Qinrui, Chuanqi, Tianshu, Tianyu
 	
 \end{itemize}
 
