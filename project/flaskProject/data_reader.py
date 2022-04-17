@@ -127,6 +127,9 @@ class H1bDataReader:
         self.df["CASE_STATUS"].replace("Certifi", "CERTIFIED", inplace = True)
         self.df["CASE_STATUS"] = self.df["CASE_STATUS"].str.replace(' ', '').str.upper()
 
+    def soc_preprocess(self):
+        self.df["SOC_NAME"] = self.df["SOC_NAME"].str.title()
+
 
 if __name__ == "__main__":
     attr_list = {\
@@ -139,10 +142,11 @@ if __name__ == "__main__":
         "WAGE_RATE_OF_PAY_FROM": None,
         "WAGE_UNIT_OF_PAY": "Year"
     }
-    df_reader = H1bDataReader("../../data/h1b_data_2021.csv", attr_list = attr_list)
+    df_reader = H1bDataReader("../../data/h1b_data_2019.csv", attr_list = attr_list)
     df_reader.state_preprocess()
     df_reader.salary_preprocess()
     df_reader.casestate_preprocess()
+    df_reader.soc_preprocess()
     df_reader.attr_operator("CASE_STATUS")
     df_reader.attr_operator("WORKSITE_STATE")
     df_reader.attr_operator("EMPLOYER_NAME", head = 10)
