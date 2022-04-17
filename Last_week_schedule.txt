@@ -8,7 +8,7 @@ Salary range chart
 
 feature importance chart 前后端
 
-state tooltip: 1. state cases, 2. certification rate, 3.average salary, 4.top 1/3 employer 
+state tooltip: 1. state cases, 2. certification rate, 3.average salary, 4.top 3 employer 
 
 interface of prediction late afternoon/evening 前后端
 

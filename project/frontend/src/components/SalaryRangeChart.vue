@@ -10,65 +10,19 @@ export default {
   name: "SalaryRangeChart",
   data() {
     return {
-      salaryRangeData: {},
+      // salaryRangeData: {},
     }
   },
   created() {
-    this.getCasesByJobTitle();
-  },
-  mounted(){
-    this.createDropdown();
+    // this.getSalaryRangeData();
+
   },
   methods: {
-    createDropdown(){
-      let yearArr = [2017,2018,2019,2020,2021];
-
-      const dropDown = d3.select("#CasesByJobTitle")
-          .append("select")
-          // .attr("class", "selection")
-          .attr("id", "Dropdown");
-      d3.select("#CasesByJobTitle").append("br");
-      dropDown
-          .selectAll("option")
-          .data(yearArr)
-          .enter()
-          .append("option")
-          .text(function (d) {
-            console.log(d3.select(this).node().__data__)
-            return d;
-          })
-          .attr("value", function (d) {
-            return d;
-          });
-      let g = this;
-      // event listener for the dropdown. Update choropleth and legend when selection changes. Call createMapAndLegend() with required arguments.
-      dropDown.on("change", function () {
-        let svg = d3.select("#CasesByJobTitle").select("svg")
-        svg.selectAll("*").remove();
-        svg.remove();
-        // recover the option that has been chosen
-        var selectedOption = d3.select(this).property("value")
-        // run the updateChart function with this selected option
-        g.updateUI(g.casesByJobTitleData[+selectedOption - 2017]);
-
-      })
-    },
-    getSalaryRangeData() {
-      this.fetchData({
-        method: "get",
-        url: "/api/salary_range",
-        params: {},
-        success: (data) => {
-          console.log(data);
-          this.salaryRangeData = data;
-          this.updateUI(this.salaryRangeData[0][0]);
-        },
-      });
-    },
     updateUI(salaryRangeData) {
+      console.log("updateUICHART")
       // define the dimensions and margins for the graph
       // use the Margin Convention to layout our graph
-      var margin = {top: 0, right: 0, bottom: 0, left: 250},
+      var margin = {top: 0, right: 100, bottom: 0, left: 100},
           padding = {top: 60, right: 60, bottom: 60, left: 60},
           outerWidth = 960,
           outerHeight = 500,
@@ -80,7 +34,7 @@ export default {
 
       // // append svg element to the body of the page
       // // set dimensions and position of the svg element
-      var svg = d3.select("#CasesByJobTitle").append("svg")
+      var svg = d3.select("#SalaryRangeChart").append("svg")
           .attr("width", outerWidth)
           .attr("height", outerHeight)
           .append("g")
@@ -88,12 +42,12 @@ export default {
 
       let data = [];
       for (let [key, value] of Object.entries(salaryRangeData)) {
-        data.push({"jobTitle": key, "cases": value});
+        data.push({"salary_range": key, "cases": value});
       }
       console.log(data)
       // create scales x & y for X and Y axis and set their ranges
       var x = d3.scaleLinear().range([0, width]).domain([0, d3.max(data, function(d) { return d.cases; })]);
-      var y = d3.scaleBand().range([0, height]).domain(data.map(function(d) { return d.jobTitle; })).padding(0.1);
+      var y = d3.scaleBand().range([0, height]).domain(data.map(function(d) { return d.salary_range; })).padding(0.1);
 
       svg.append("g")
           //         .attr("class", "x axis")
@@ -113,7 +67,7 @@ export default {
           //         .attr("class", "bar")
           .attr("x", 0)
           .attr("height", y.bandwidth())
-          .attr("y", function(d) { return y(d.jobTitle); })
+          .attr("y", function(d) { return y(d.salary_range); })
           .attr("width", function(d) { return x(d.cases); });
 
       svg.selectAll(".barText")
@@ -125,7 +79,7 @@ export default {
             return x(d.cases);
           })
           .attr("y", function(d) {
-            return y(d.jobTitle) + y.bandwidth()/2;
+            return y(d.salary_range) + y.bandwidth()/2;
           })
           .style("text-anchor", "right")
           .text(function(d) {
@@ -161,11 +115,11 @@ export default {
       svg.append("text")
           .attr("id", "y_axis_label")
           .attr("transform", "rotate(-90)")
-          .attr("y", 0 - padding.left * 5)
+          .attr("y", 0 - padding.left * 2)
           .attr("x", 0 - (height / 2))
           .attr("dy", "1em")
           .style("text-anchor", "middle")
-          .text("Job Title");
+          .text("Salary Range");
 
       svg.append("text")
           .attr("id", "title")
@@ -179,7 +133,7 @@ export default {
           .attr("transform", "translate(" + (width - 30) + "," + (height + 30) + ")")
           .style("text-anchor", "right")
           .text("Team GUNDAM");
-
+      console.log("END")
     }
   }
 }

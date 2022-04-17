@@ -8,6 +8,7 @@ import CasesByEmployer from "@/components/CasesByEmployer";
 import CasesByJobTitle from "@/components/CasesByJobTitle";
 import ScrollBar from "@/components/ScrollBar";
 import SalaryRange from "@/components/SalaryRange";
+import PredictionInput from "@/components/PredictionInput"
 
 const routes = [
     {
@@ -41,6 +42,10 @@ const routes = [
     {
         path: '/salary_range',
         component: SalaryRange
+    },
+    {
+        path: '/prediction_input',
+        component: PredictionInput
     }
 
 

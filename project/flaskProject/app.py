@@ -36,6 +36,11 @@ df_reader_2018.salary_preprocess()
 df_reader_2019.salary_preprocess()
 df_reader_2020.salary_preprocess()
 df_reader_2021.salary_preprocess()
+df_reader_2017.casestate_preprocess()
+df_reader_2018.casestate_preprocess()
+df_reader_2019.casestate_preprocess()
+df_reader_2020.casestate_preprocess()
+df_reader_2021.casestate_preprocess()
 
 #case_status
 case_status_17 = df_reader_2017.attr_operator("CASE_STATUS")
@@ -147,11 +152,11 @@ class CasesByJobTitle(restful.Resource):
 api.add_resource(CasesByJobTitle, "/cases_by_job_title")
 
 
-salary_range_2017 = df_reader_2017.salary_range(split=10)
-salary_range_2018 = df_reader_2018.salary_range(split=10)
-salary_range_2019 = df_reader_2019.salary_range(split=10)
-salary_range_2020 = df_reader_2020.salary_range(split=10)
-salary_range_2021 = df_reader_2021.salary_range(split=10)
+salary_range_2017 = df_reader_2017.salary_range(split=10, max_bar=250000)
+salary_range_2018 = df_reader_2018.salary_range(split=10, max_bar=250000)
+salary_range_2019 = df_reader_2019.salary_range(split=10, max_bar=250000)
+salary_range_2020 = df_reader_2020.salary_range(split=10, max_bar=250000)
+salary_range_2021 = df_reader_2021.salary_range(split=10, max_bar=250000)
 #return the cases by job title
 class SalaryRange(restful.Resource):
     def get(self):

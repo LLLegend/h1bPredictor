@@ -60,6 +60,7 @@ export default {
         params: {},
         success: (data) => {
           this.casesByEmployerData = data;
+          console.log("cao",this.casesByEmployerData)
           this.updateUI(this.casesByEmployerData[0]);
         },
       });
