@@ -163,6 +163,12 @@ class SalaryRange(restful.Resource):
         # format
         return [salary_range_2017, salary_range_2018, salary_range_2019, salary_range_2020, salary_range_2021]
 api.add_resource(SalaryRange, "/salary_range")
+class FeatureImportance(restful.Resource):
+    def get(self):
+        df = pd.read_csv("../../data/feature_importance.csv", index_col="name")
+        return [df.to_dict()]
+api.add_resource(FeatureImportance, "feature_importance")
+
 # attr_list = {\
 #     "CASE_NUMBER": None,
 #     "CASE_STATUS": None,

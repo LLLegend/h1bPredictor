@@ -9,6 +9,7 @@ import CasesByJobTitle from "@/components/CasesByJobTitle";
 import ScrollBar from "@/components/ScrollBar";
 import SalaryRange from "@/components/SalaryRange";
 import PredictionInput from "@/components/PredictionInput"
+import FeatureImportance from "@/components/FeatureImportance";
 
 const routes = [
     {
@@ -46,6 +47,11 @@ const routes = [
     {
         path: '/prediction_input',
         component: PredictionInput
+        
+    },
+    {
+        path: '/feature_importance',
+        component: FeatureImportance
     }
 
 
