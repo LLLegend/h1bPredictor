@@ -57,7 +57,7 @@ export default {
           low: d3.min(Object.values(worksiteStateData)),
           ...worksiteStateData
         }
-        console.log("statistics", statistics);
+        // console.log("statistics", statistics);
         // create Choropleth
         const pieces = 7;
         const tenth = (statistics.high - statistics.low) / pieces;

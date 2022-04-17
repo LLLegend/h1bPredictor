@@ -2,12 +2,12 @@
   <div id="worksiteStatePage">
     <h1>Cases by State</h1>
     <el-row :gutter="50">
-      <el-col :span="5">
-        <div :style="{ visibility: hiddenOrVisible }">
+      <el-col :span="3">
+        <div>
           <new-side-bar/>
         </div>
       </el-col>
-      <el-col :span="19">
+      <el-col :span="15">
         <worksite-state-chart/>
       </el-col>
     </el-row>

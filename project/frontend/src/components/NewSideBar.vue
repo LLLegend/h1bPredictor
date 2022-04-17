@@ -1,6 +1,5 @@
 <template>
-    <div :span="5">
-      <h5 class="mb-2">Navigation Bar</h5>
+    <div :span="3">
       <el-menu
           class="el-menu-vertical-demo"
           @open="handleOpen"
@@ -29,8 +28,12 @@
           <span>Worksite State</span>
         </el-menu-item>
         <el-menu-item index="/salary_range">
-          <el-icon><Location/></el-icon>
+          <el-icon><Histogram/></el-icon>
           <span>Salary Range</span>
+        </el-menu-item>
+        <el-menu-item index="/feature_importance">
+          <el-icon><Histogram/></el-icon>
+          <span>Feature Importance</span>
         </el-menu-item>
       </el-menu>
     </div>
