@@ -30,8 +30,8 @@ export default {
       });
     },
     updateUI() {
-      var margin = {top: 20, right: 20, bottom: 20, left: 20},
-          padding = {top: 0, right: 80, bottom: 60, left: 70},
+      var margin = {top: 0, right: 0, bottom: 0, left: 0},
+          padding = {top: 70, right: 70, bottom: 70, left: 70},
           outerWidth = 960,
           outerHeight = 500,
           innerWidth = outerWidth - margin.left - margin.right,
@@ -83,7 +83,7 @@ export default {
           .append("rect")
           .attr("style", "fill: steelblue;")
           .attr("class", "bar")
-          .attr("width", 30)
+          .attr("width", 60)
           .attr("x", function (d) {
             return x(d.year);
           })
@@ -94,6 +94,24 @@ export default {
           .attr("height", function (d) {
             return height - y(d.cases);
           });
+
+      svg.append("g")
+          .attr("id", "cases")
+          // .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+          .selectAll(".case")
+          .data(data)
+          .enter()
+          .append("text")
+          .attr("class", "caseText")
+          // .attr("width", 60)
+          .attr("x", function (d) {
+            return x(d.year);
+          })
+          // .attr("width", x.bandwidth())
+          .attr("y", function (d) {
+            return y(d.cases);
+          })
+          .text(function(d) { return d.cases});
 
       // add the x Axis
       const xAxis = d3.axisBottom(x).ticks(d3.timeYear.every(1));
@@ -130,13 +148,13 @@ export default {
       svg.append("text")
           .attr("id", "title")
           .attr("transform",
-              "translate(" + (width / 2) + "," + 0 + ")")
+              "translate(" + (width / 2) + "," + -padding.top/2 + ")")
           .style("text-anchor", "middle")
           .text("Case Trends By Year");
 
       svg.append("text")
           .attr("id", "credit")
-          .attr("transform", "translate(" + (width - 30) + "," + (height + 30) + ")")
+          .attr("transform", "translate(" + (width - 60) + "," + (height + 30) + ")")
           .style("text-anchor", "right")
           .text("Team GUNDAM");
 

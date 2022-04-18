@@ -3,11 +3,11 @@
     <h1>Cases by Employer</h1>
     <el-row :gutter="50">
       <el-col :span="5">
-        <div :style="{ visibility: hiddenOrVisible }">
+        <div>
           <new-side-bar />
         </div>
       </el-col>
-      <el-col :span="19">
+      <el-col :span="19" align="left">
         <cases-by-employer-chart/>
       </el-col>
     </el-row>

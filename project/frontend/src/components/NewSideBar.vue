@@ -35,12 +35,17 @@
           <el-icon><Histogram/></el-icon>
           <span>Feature Importance</span>
         </el-menu-item>
+        <el-menu-item index="/predict_case_prob">
+          <el-icon><Opportunity/></el-icon>
+          <span>Predict Your Case</span>
+        </el-menu-item>
       </el-menu>
     </div>
 </template>
 
 <script setup>
 import {
+  Opportunity,
   Document,
     Histogram,
     TrendCharts,

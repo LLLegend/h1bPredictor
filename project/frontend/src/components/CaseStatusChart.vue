@@ -31,18 +31,19 @@ export default {
     },
     update(){
       let caseStatus = this.caseStatus;
-      var margin = {top: 200, right: 200, bottom: 200, left: 200}
-          , width = window.innerWidth - margin.left - margin.right // Use the window's width
-          , height = window.innerHeight - margin.top - margin.bottom; // Use the window's height
+      var margin = {top: 60, right: 60, bottom: 60, left: 200}
+          ,outerWidth = 960
+          ,outerHeight = 600
+          , width = outerWidth - margin.left - margin.right // Use the window's width
+          , height = outerHeight - margin.top - margin.bottom; // Use the window's height
       // 1. Add the SVG to the page and employ #2
       var svg = d3.select("#case_status").append("svg")
           .attr("id", "svg")
           .attr("width", (width + margin.left + margin.right))
           .attr("height", (height + margin.top + margin.bottom));
 
-      svg.append("text").attr("id", "title").attr("transform", "translate(" + (width / 2 + margin.left / 2) + "," + 170 + ")").text("Case status 2017-2021");
-      const legend = svg.append("g").attr("id", "legend").attr("transform", "translate(" + (250 + width) + "," + (height + 200) + ")");
-      legend.append("text").text("Case").attr("transform", "translate(-50, 30)");
+      svg.append("text").attr("id", "title").attr("transform", "translate(" + (width / 2 + margin.left / 2) + "," + margin.top  / 2  + ")").text("Case Status 2017-2021");
+
       svg = svg.append("g")
           .attr("id", "plot")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -127,6 +128,51 @@ export default {
           .attr("d", function (d) {
             return line(d.measurement);
           });
+
+      lines.append("rect")
+          .attr("style",function (d, i) {
+            console.log(i, colorScheme(i));
+            return "fill:"+colorScheme(i);
+          })
+          .attr("width", 10).attr("height", 10)
+          .attr("transform", function(d, i) {
+            return "translate(" + (xScale(d.measurement[3].year))
+                + "," +  10 * i + ")";})
+          .attr("y", -10);
+      lines.append("text")
+          .attr("style",function (d, i) {
+            console.log(i, colorScheme(i));
+            return "fill:"+colorScheme(i) + ";font-family: Georgia;font-size: 70%;";
+          })
+          .attr("transform", function(d, i) {
+            return "translate(" + (xScale(d.measurement[3].year))
+                + "," +  10 * i + ")";})
+          .attr("x", 10)
+          .text(function(d) { return d.status; });
+      for(let line = 0; line < 5; line++){
+        if(line == 3){
+          lines.append("text")
+              .attr("style","font-family: Georgia;font-size: 70%;")
+              .attr("transform", function(d) {
+                console.log("d", d);
+                return "translate(" + xScale(d.measurement[line].year)
+                    + "," +  yScale(d.measurement[0].value) + ")";})
+              .attr("x", 10)
+              .text(function(d) { return d.measurement[line].value; });
+        }
+        else{
+          lines.append("text")
+              .attr("style","font-family: Georgia;font-size: 70%;")
+              .attr("transform", function(d) {
+                console.log("d", d);
+                return "translate(" + xScale(d.measurement[line].year)
+                    + "," +  yScale(d.measurement[line].value) + ")";})
+              .attr("x", 10)
+              .text(function(d) { return d.measurement[line].value; });
+        }
+
+      }
+
     }
   }
 }
@@ -135,7 +181,5 @@ export default {
 </script>
 
 <style scoped>
-.bar {
-  fill: steelblue;
-}
+
 </style>

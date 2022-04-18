@@ -2,6 +2,16 @@ from flask import Flask
 import flask_restful as restful
 import data_reader as util
 import pandas as pd
+from ML_model import predictor
+from flask_restful import reqparse
+
+parser = reqparse.RequestParser()
+parser.add_argument('employer', type=str)
+parser.add_argument('jobTitle', type=str)
+parser.add_argument('city', type=str)
+parser.add_argument('state', type=str)
+parser.add_argument('wage', type=float)
+
 
 app = Flask(__name__)
 api = restful.Api(app)
@@ -13,6 +23,7 @@ def download_file(filepath):
     return app.send_static_file(filepath)
 
 
+
 attr_list = { \
     "CASE_NUMBER": None,
     "CASE_STATUS": None,
@@ -21,8 +32,8 @@ attr_list = { \
     "WORKSITE_STATE": None,
     "EMPLOYER_NAME": None,
     "WAGE_RATE_OF_PAY_FROM": None,
-    "WAGE_UNIT_OF_PAY": "Year"
-
+    "WAGE_UNIT_OF_PAY": "Year",
+    "WORKSITE_CITY": None,
 }
 df_reader_2017 = util.H1bDataReader("../../data/h1b_data_2017.csv", attr_list=attr_list)
 df_reader_2018 = util.H1bDataReader("../../data/h1b_data_2018.csv", attr_list=attr_list)
@@ -75,12 +86,78 @@ df_shape_19 = df_reader_2019.get_df_shape()[0]
 df_shape_20 = df_reader_2020.get_df_shape()[0]
 df_shape_21 = df_reader_2021.get_df_shape()[0]
 
+employer_list_17 = df_reader_2017.attr_operator("EMPLOYER_NAME")
+employer_list_18 = df_reader_2018.attr_operator("EMPLOYER_NAME")
+employer_list_19 = df_reader_2018.attr_operator("EMPLOYER_NAME")
+employer_list_20 = df_reader_2018.attr_operator("EMPLOYER_NAME")
+employer_list_21 = df_reader_2018.attr_operator("EMPLOYER_NAME")
+employer_set = set()
+employer_set.update(tuple(employer_list_17))
+employer_set.update(tuple(employer_list_18))
+employer_set.update(tuple(employer_list_19))
+employer_set.update(tuple(employer_list_20))
+employer_set.update(tuple(employer_list_21))
+
+
+job_list_17 = df_reader_2017.attr_operator("SOC_NAME")
+job_list_18 = df_reader_2018.attr_operator("SOC_NAME")
+job_list_19 = df_reader_2019.attr_operator("SOC_NAME")
+job_list_20 = df_reader_2020.attr_operator("SOC_NAME")
+job_list_21 = df_reader_2021.attr_operator("SOC_NAME")
+job_set = set()
+job_set.update(job_list_17)
+job_set.update(job_list_18)
+job_set.update(job_list_19)
+job_set.update(job_list_20)
+job_set.update(job_list_21)
+
+city_list_17 = df_reader_2017.attr_operator("WORKSITE_CITY")
+city_list_18 = df_reader_2018.attr_operator("WORKSITE_CITY")
+city_list_19 = df_reader_2019.attr_operator("WORKSITE_CITY")
+city_list_20 = df_reader_2020.attr_operator("WORKSITE_CITY")
+city_list_21 = df_reader_2021.attr_operator("WORKSITE_CITY")
+city_set = set()
+city_set.update(city_list_17)
+city_set.update(city_list_18)
+city_set.update(city_list_19)
+city_set.update(city_list_20)
+city_set.update(city_list_21)
+
+state_list_17 = df_reader_2017.attr_operator("WORKSITE_STATE")
+state_list_18 = df_reader_2018.attr_operator("WORKSITE_STATE")
+state_list_19 = df_reader_2019.attr_operator("WORKSITE_STATE")
+state_list_20 = df_reader_2020.attr_operator("WORKSITE_STATE")
+state_list_21 = df_reader_2021.attr_operator("WORKSITE_STATE")
+state_set = set()
+state_set.update(state_list_17)
+state_set.update(state_list_18)
+state_set.update(state_list_19)
+state_set.update(state_list_20)
+state_set.update(state_list_21)
+
+class EmployerList(restful.Resource):
+    def get(self):
+        return list(employer_set)
+api.add_resource(EmployerList, '/employer_list')
+
+class JobList(restful.Resource):
+    def get(self):
+        return list(job_set)
+api.add_resource(JobList, '/job_list')
+
+class CityList(restful.Resource):
+    def get(self):
+        return list(city_set)
+api.add_resource(CityList, '/city_list')
+
+class StateList(restful.Resource):
+    def get(self):
+        return list(state_set)
+api.add_resource(StateList, '/state_list')
 
 class HelloWorld(restful.Resource):
     def get(self):
         return {'hello': 'GUNDAM'}
-
-
 api.add_resource(HelloWorld, '/')
 
 
@@ -197,6 +274,16 @@ class FeatureImportance(restful.Resource):
     def get(self):
         return [df.to_dict()]
 api.add_resource(FeatureImportance, "/feature_importance")
+
+print(predictor.predict(["TEKSHAPERS, INC.", "", "Marketing Managers", "45411.0", "Y",
+                       "Year", "Year", "Seattle", "WA", 1.0, 125171.0, 137400.0]))
+class PredictCaseProb(restful.Resource):
+    def get(self):
+        args = parser.parse_args()
+        print(args)
+        return predictor.predict([args['employer'], "", args['jobTitle'], "45411.0", "Y",
+                       "Year", "Year", args['city'], args['state'], 1.0, args['wage'], args['wage']]).tolist()
+api.add_resource(PredictCaseProb, "/predict_case_prob")
 
 # attr_list = {\
 #     "CASE_NUMBER": None,

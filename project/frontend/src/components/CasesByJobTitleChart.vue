@@ -176,7 +176,7 @@ export default {
 
       svg.append("text")
           .attr("id", "credit")
-          .attr("transform", "translate(" + (width - 30) + "," + (height + 30) + ")")
+          .attr("transform", "translate(" + (width - 70) + "," + (height + 30) + ")")
           .style("text-anchor", "right")
           .text("Team GUNDAM");
 

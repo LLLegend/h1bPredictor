@@ -69,8 +69,8 @@ export default {
       console.log("when updating", casesByEmployerData)
       // define the dimensions and margins for the graph
       // use the Margin Convention to layout our graph
-      var margin = {top: 0, right: 0, bottom: 0, left: 250},
-          padding = {top: 60, right: 60, bottom: 60, left: 60},
+      var margin = {top: 0, right: 0, bottom: 0, left: 0},
+          padding = {top: 60, right: 60, bottom: 60, left: 250},
           outerWidth = 960,
           outerHeight = 500,
           innerWidth = outerWidth - margin.left - margin.right,
@@ -163,7 +163,7 @@ export default {
       svg.append("text")
           .attr("id", "y_axis_label")
           .attr("transform", "rotate(-90)")
-          .attr("y", 0 - padding.left * 4)
+          .attr("y", 0 - padding.left)
           .attr("x", 0 - (height / 2))
           .attr("dy", "1em")
           .style("text-anchor", "middle")
@@ -178,7 +178,7 @@ export default {
 
       svg.append("text")
           .attr("id", "credit")
-          .attr("transform", "translate(" + (width - 30) + "," + (height + 30) + ")")
+          .attr("transform", "translate(" + (width - 70) + "," + (height + 30) + ")")
           .style("text-anchor", "right")
           .text("Team GUNDAM");
 

@@ -7,7 +7,7 @@
           <new-side-bar/>
         </div>
       </el-col>
-      <el-col :span="19">
+      <el-col :span="19" align="left">
         <case-status-chart/>
       </el-col>
     </el-row>

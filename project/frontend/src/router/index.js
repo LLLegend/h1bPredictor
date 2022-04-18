@@ -1,7 +1,7 @@
 import {createRouter, createWebHistory} from "vue-router";
 import HelloWorld from "@/components/HelloWorld";
 import VisaTrends from "@/components/VisaTrends";
-import test from "@/components/test";
+import test from "@/components/TestComponent";
 import CaseStatus from "@/components/CaseStatus";
 import WorksiteState from "@/components/WorksiteState";
 import CasesByEmployer from "@/components/CasesByEmployer";
@@ -10,6 +10,8 @@ import ScrollBar from "@/components/ScrollBar";
 import SalaryRange from "@/components/SalaryRange";
 import PredictionInput from "@/components/PredictionInput"
 import FeatureImportance from "@/components/FeatureImportance";
+import TestComponent from "@/components/TestComponent"
+import PredictionInputForm from "@/components/PredictionInputForm";
 
 const routes = [
     {
@@ -45,13 +47,21 @@ const routes = [
         component: SalaryRange
     },
     {
-        path: '/prediction_input',
+        path: '/predict_case_prob',
         component: PredictionInput
-        
+
     },
     {
         path: '/feature_importance',
         component: FeatureImportance
+    },
+    {
+        path: '/test',
+        component: TestComponent
+    },
+    {
+        path: '/prediction',
+        component: PredictionInputForm
     }
 
 
