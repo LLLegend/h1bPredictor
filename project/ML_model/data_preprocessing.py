@@ -14,6 +14,11 @@ def str2num(x):
             a += int(x[j]) * 1000 ** (j - 1)
     return a
 
+def cleaning(a):
+    a = a.replace(" ", "")
+    a = re.sub('\W*', '', a)
+    return a
+
 def data_preprocessing(data):
     selected_features = ["CASE_STATUS", "EMPLOYER_NAME", "EMPLOYER_BUSINESS_DBA", "SOC_NAME",
                          "NAICS_CODE", "FULL_TIME_POSITION",
@@ -45,6 +50,13 @@ def data_preprocessing(data):
     # data["PW_WAGE_LEVEL"] = data["PW_WAGE_LEVEL"].replace("III", 3)
     # data["PW_WAGE_LEVEL"] = data["PW_WAGE_LEVEL"].replace("IV", 4)
     # data["PW_WAGE_LEVEL"] = data["PW_WAGE_LEVEL"].replace("N/A", np.nan)
+
+    data["EMPLOYER_NAME"] = data["EMPLOYER_NAME"].apply(cleaning)
+    data["EMPLOYER_NAME"] = data["EMPLOYER_NAME"].apply(lambda x: x.replace("LLC", ""))
+    data["EMPLOYER_NAME"] = data["EMPLOYER_NAME"].apply(lambda x: x.replace("INC", ""))
+
+    data["SOC_NAME"] = data["SOC_NAME"].apply(cleaning)
+    data["WORKSITE_CITY"] = data["WORKSITE_CITY"].apply(cleaning)
 
     return data
 
