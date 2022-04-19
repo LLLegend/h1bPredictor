@@ -306,43 +306,32 @@ Yandex’s CatBoost, and Microsoft’s LightGBM. We tested all three frameworks 
 all 5 years of data with a 30\%-70\% training split and 10-fold cross validation. 
 While all provided very high accuracy and an F1 score of 97\%, our choice of LightGBM ran 20\% faster than the others. 
 
-[figure showing accuracy and speed of different frameworks]
 
-
-\subsection{Integration}
+\subsection{Visualization and Integration}
 We integrated all visualizations and our predictor within a single 
 web application built on the Flask framework, with a responsive interface using Vue, so that 
 the user clicks a link to access one of several visualizations of any given year's applications 
-by state, employer, or job title. 
-
-This turned out to be the most time-consuming part of the project, as individual components that worked 
+by state, employer, or job title. The integration of all functionality under a single application 
+turned out to be the most time-consuming part of our project, as individual components that worked 
 flawlessly as standalone components would not always function properly on integration. 
-
-
-Due to the like-kind nature between objects, we show (XXX) with bar charts, and line charts for (XXX). 
-
 
 We initially showed the total number of applications for each year in a bar chart, as well as a breakdown by application 
 outcome as a line chart. We later consolidated this information into a stacked bar chart to show the trend in total number 
 of applications as well as year-on-year differences for each different application outcome. 
 
-
-We represent the top ten employers with the greatest number of applications for each year with a bar chart. 
+We have a separate bar chart to represent the top ten employers with the greatest number of applications for each year. 
 Earlier iterations showed that larger companies often apply using different subsidiaries with similar names, 
 differentiated only by "Inc", "LLC", or other suffixes. We aggregated these more obvious employer name variations 
 to make the comparisons more meaningful for the average user (potential job applicant). 
 
+The top ten job titles (SOC names) for each year are also expressed with a bar chart. We avoided 
+potential data inconsistencies in job titles by basing our comparison on the official job title provided 
+by the US Department of Labor Statistics. 
 
-
-Applications by job title 
-what kind of bar chart? 
-what is x axis? what is y axis? why?
-
-Application results by year 
-line chart 
-shows trend in total number of applications and their results 
-
-
+We also provide the number of successful applications and their respective likelihood of certification 
+by salary, by increments of \$25,000. The salary value for each sample is the greater value among 
+the US DOL determined prevailing wage and the low end of the salary range offered for that position by 
+its respective employer. 
 
 Naturally, the US choropleth map fits best for geographical comparison among states. To incrementally 
 provide more information based on user feedback, we originally intended for each state to display a 
@@ -351,14 +340,15 @@ job title. We were able to implement the tooltip in Javascript when embedded in 
 properly when integrated within the Vue framework. We instead include a dynamic table as a workaround, which updates with 
 the above mentioned details in the same manner as a tooltip. 
 
-We are most proud of prediction service, which takes user input parameters such as employer, job location, 
-and expected salary, returning with over 95\% confidence the expected likelihood of such an application obtaining 
-certification by the US Department of Labor. 
-
-The user may also review application trends by similar criteria using a drop-down list. 
-We hoped to include elastic search supporting multiple user-defined parameters, but this 
-proved to be too cumbersome for the scope of this project. 
-
+We deploy our data analytics to provide an application certification prediction service, 
+which takes user input parameters such as employer, job location, 
+and expected salary, returning with over 95\% confidence the expected likelihood of 
+such an application obtaining certification by the US Department of Labor. 
+This is an exciting, new tool that allows the user to evaluate similar trends and relate these 
+trends to their own individual situation. 
+As the user inputs several keywords, suggestions are populated from which the user may select 
+their desired employer and location. We hoped to include full elastic search supporting multiple 
+user-defined parameters, but this proved to be beyond for the scope of this project. 
 
 Although the overall volume of our data is quite large at roughly 450 MB, 
 each individual record size is trivial after feature selection; thus, we 
@@ -366,41 +356,19 @@ were able to handle the processing and querying of these records through Pandas 
 bypassing the need for a database. 
 
 
+\subsection{Analysis and Discussion}
+
+% Overall applications ranged from XXX in YYYY, to XXX in YYYY, averaging XXX per year. 
+% We can see a (spike/drop) in YYYY, followed by a (spike/drop) in YYYY. 
+% Incidentally, (ABCDEFG) took place in YYYY, which may provide an explanation for (ASDFASDFASDF).
 
 
-
-data cleansing operations, we found that the data still contained various types of input errors from the original 
-author. 
-
-
-capitalization
-extra or missing punctuation such as commas
-extra or missing space 
-misspelling of city and state names 
-abbreviation of state names
-state name in place of city name 
-incorrect aggregation of other address fields
-numbers and special characters in city names 
-
-(Include visualizations by year, state, and occupation. ASDFASDFASDFASDFASDFASDFASDFASDFASDFASDF)
-
-
-We include the multiple criteria filters for the choropleth, line and 
-bar charts for single criteria comparisons. 
-
-
-
-\subsection{Analysis}
-
-Overall applications ranged from XXX in YYYY, to XXX in YYYY, averaging XXX per year. 
-We can see a (spike/drop) in YYYY, followed by a (spike/drop) in YYYY. 
-Incidentally, (ABCDEFG) took place in YYYY, which may provide an explanation for (ASDFASDFASDF).
-
-
-We can see from the US choropleth map that for each of the five years from 2017 to 2021, applications are mostly 
+We can see from the US choropleth map that for each of the five years from 2017 to 2021, 
+applications are mostly 
 concentrated in the top three states of California, 
 New York, and Texas, which incidentally were among the most populous US states during this period. 
-Interestingly, Florida, the third most populous state, is not among the top three states for certified applications. 
+Interestingly, Florida, the third most populous state, is not among the top three states for 
+certified applications. 
 
 
 We found the most influential attribute by far to be the employer sponsoring 
@@ -420,8 +388,10 @@ the more successful cities do indeed enjoy such hegemony, but our data is inconc
 Indeed, the metropolitan area of the company plays a much more important role than the state alone. 
 
 
-As the initial premise for the H1-B program is to bring in qualified workers in specialty occupations with urgent 
-talent needs, we expected industry and job title to play a more important role than the above two attributes. Their significance 
+As the initial premise for the H1-B program is to bring in qualified workers in specialty 
+occupations with urgent 
+talent needs, we expected industry and job title to play a more important role than 
+the above two attributes. Their significance 
 score are high; however, they place immediately after employer and worksite city. 
 
 
@@ -464,13 +434,20 @@ The remaining attributes ranged from having a small to negligible effect on the 
 
 \section{Conclusion}
 
-During the first phase of this project, 
-we have successfully applied the skills and leveraged the tools touched upon in class to devise a novel solution for a 
-real need among international students. In an effort to quickly become proficient in this domain, we have also studied 
-the intricacies of the US work visa application process, familiarizing ourselves with the geography and industry makeup 
-of the United States. 
+Through the research conducted on H1-B visa application process, exploring the tools and technologies 
+to process and extract information from the data, and experimenting with different media to 
+express our findings, we have successfully applied the skills and leveraged the tools touched 
+upon in class to devise a novel solution for a real need among international students. 
+In an effort to quickly become proficient in this domain, we have also studied 
+the intricacies of the US work visa application process, familiarizing ourselves 
+with the geography and industry makeup of the United States. 
 
-Keep in mind that US DOL certification does not guarantee an applicant will receive a visa; rather, it only certifies that the 
+The readability of aggregated employer statistics can be further improved by further exploring 
+company name changes and parent company information. This would require collecting data from another 
+source to serve as a reference for more advanced data wrangling. 
+
+Something to consider is that US DOL certification does not guarantee an applicant will receive a visa; 
+rather, it only certifies that the 
 position for which the applicant is hired meets the requirements. Certified applicants are then entered into a pool of 
 applicants, from which the US Citizenship and Immigration Services randomly selects 65,000 initial applicants to receive 
 the H1-B visa. Unsuccessful applicants holding a Master's degree or higher are then entered into a smaller pool from which 
