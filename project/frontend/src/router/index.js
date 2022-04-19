@@ -12,6 +12,7 @@ import PredictionInput from "@/components/PredictionInput"
 import FeatureImportance from "@/components/FeatureImportance";
 import TestComponent from "@/components/TestComponent"
 import PredictionInputForm from "@/components/PredictionInputForm";
+import CertificationRate from "@/components/CertificationRate";
 
 const routes = [
     {
@@ -63,7 +64,6 @@ const routes = [
         path: '/prediction',
         component: PredictionInputForm
     }
-
 
 
 

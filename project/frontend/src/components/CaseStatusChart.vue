@@ -31,9 +31,9 @@ export default {
     },
     update(){
       let caseStatus = this.caseStatus;
-      var margin = {top: 60, right: 60, bottom: 60, left: 200}
+      var margin = {top: 60, right: 60, bottom: 60, left: 100}
           ,outerWidth = 960
-          ,outerHeight = 600
+          ,outerHeight = 500
           , width = outerWidth - margin.left - margin.right // Use the window's width
           , height = outerHeight - margin.top - margin.bottom; // Use the window's height
       // 1. Add the SVG to the page and employ #2
@@ -42,7 +42,7 @@ export default {
           .attr("width", (width + margin.left + margin.right))
           .attr("height", (height + margin.top + margin.bottom));
 
-      svg.append("text").attr("id", "title").attr("transform", "translate(" + (width / 2 + margin.left / 2) + "," + margin.top  / 2  + ")").text("Case Status 2017-2021");
+      // svg.append("text").attr("id", "title").attr("transform", "translate(" + (width / 2 + margin.left / 2) + "," + margin.top  / 2  + ")").text("Case Status 2017-2021");
 
       svg = svg.append("g")
           .attr("id", "plot")
@@ -137,22 +137,22 @@ export default {
           .attr("width", 10).attr("height", 10)
           .attr("transform", function(d, i) {
             return "translate(" + (xScale(d.measurement[3].year))
-                + "," +  10 * i + ")";})
+                + "," +  15 * i + ")";})
           .attr("y", -10);
       lines.append("text")
           .attr("style",function (d, i) {
             console.log(i, colorScheme(i));
-            return "fill:"+colorScheme(i) + ";font-family: Georgia;font-size: 70%;";
+            return "fill:"+colorScheme(i) + ";font-family: Georgia;font-size: 90%;";
           })
           .attr("transform", function(d, i) {
             return "translate(" + (xScale(d.measurement[3].year))
-                + "," +  10 * i + ")";})
+                + "," +  15 * i + ")";})
           .attr("x", 10)
           .text(function(d) { return d.status; });
       for(let line = 0; line < 5; line++){
         if(line == 3){
           lines.append("text")
-              .attr("style","font-family: Georgia;font-size: 70%;")
+              .attr("style","font-family: Georgia;font-size: 90%;")
               .attr("transform", function(d) {
                 console.log("d", d);
                 return "translate(" + xScale(d.measurement[line].year)

@@ -69,7 +69,11 @@ case_status_20 = df_reader_2020.attr_operator("CASE_STATUS")
 case_status_21 = df_reader_2021.attr_operator("CASE_STATUS")
 
 # worksite_state
-worksite_state = df_reader_2017.attr_operator("WORKSITE_STATE")
+worksite_state_17 = df_reader_2017.attr_operator("WORKSITE_STATE")
+worksite_state_18 = df_reader_2018.attr_operator("WORKSITE_STATE")
+worksite_state_19 = df_reader_2019.attr_operator("WORKSITE_STATE")
+worksite_state_20 = df_reader_2020.attr_operator("WORKSITE_STATE")
+worksite_state_21 = df_reader_2021.attr_operator("WORKSITE_STATE")
 
 # number of visa applications by employer_name
 cases_by_employer_17 = df_reader_2017.attr_operator("EMPLOYER_NAME", head=10)
@@ -167,6 +171,11 @@ class StateList(restful.Resource):
         return list(state_set)
 api.add_resource(StateList, '/state_list')
 
+class CertificationRate(restful.Resource):
+    def get(self):
+        return {"2017": df_cert_rate_17, "2018": df_cert_rate_18, "2019": df_cert_rate_19, "2020": df_cert_rate_20, "2021": df_cert_rate_21}
+api.add_resource(CertificationRate, '/certification_rate')
+
 class HelloWorld(restful.Resource):
     def get(self):
         return {'hello': 'GUNDAM'}
@@ -228,7 +237,7 @@ api.add_resource(CASE_STATUS, "/case_status")
 class WORKSITE_STATE(restful.Resource):
     def get(self):
         # format
-        return worksite_state
+        return [worksite_state_17, worksite_state_18, worksite_state_19, worksite_state_20, worksite_state_21]
 
 
 api.add_resource(WORKSITE_STATE, "/worksite_state")

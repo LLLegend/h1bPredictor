@@ -7,10 +7,10 @@
 import * as d3 from "d3";
 
 export default {
-  name: "VisaTrends",
+  name: "CertificationRateChart",
   data() {
     return {
-      trendData: {},
+      certificationRateData: {},
     }
   },
   created() {
@@ -20,11 +20,11 @@ export default {
     getTrendsAvailable() {
       this.fetchData({
         method: "get",
-        url: "/api/trends",
+        url: "/api/certification_rate",
         params: {},
         success: (data) => {
-          console.log(data);
-          this.trendData = data;
+          // console.log(data);
+          this.certificationRateData = data;
           this.updateUI();
         },
       });
@@ -58,9 +58,9 @@ export default {
           .attr("id", "container")
           .attr("transform", "translate(" + (margin.left + padding.left) + "," + (margin.top + padding.top) + ")");
       let data = [];
-      for (let [key, value] of Object.entries(this.trendData)) {
-        console.log(key, value);
-        data.push({"year": key, "cases": value});
+      for (let [key, value] of Object.entries(this.certificationRateData)) {
+        // console.log(key, value);
+        data.push({"year": +key, "cases": value});
       }
       console.log("data", data);
       // const formatData = d3.timeParse("%Y");
@@ -145,12 +145,12 @@ export default {
           .style("text-anchor", "middle")
           .text("Cases");
 
-      // svg.append("text")
-      //     .attr("id", "title")
-      //     .attr("transform",
-      //         "translate(" + (width / 2) + "," + -padding.top/2 + ")")
-      //     .style("text-anchor", "middle")
-      //     .text("Case Trends By Year");
+      svg.append("text")
+          .attr("id", "title")
+          .attr("transform",
+              "translate(" + (width / 2) + "," + -padding.top/2 + ")")
+          .style("text-anchor", "middle")
+          .text("Case Trends By Year");
 
       svg.append("text")
           .attr("id", "credit")

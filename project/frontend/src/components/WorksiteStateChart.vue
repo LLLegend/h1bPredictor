@@ -1,5 +1,19 @@
 <template>
   <div id="worksiteState">
+    <el-row>
+      <el-col :span="5" >
+        <span class="demonstration" >Select Year</span>
+        <el-slider
+            v-model="year"
+            :min="2017"
+            :max="2021"
+            :step="1"
+            show-stops
+            @change="handleSliding">
+        </el-slider>
+      </el-col>
+    </el-row>
+    <br>
   </div>
 </template>
 
@@ -15,15 +29,24 @@ export default {
   data() {
     return {
       worksiteStateData: {},
+      year: 2017
     }
   },
   created() {
     this.getWorksiteStateData();
   },
   methods: {
-    updateUI(worksiteStateData) {
-      console.log("updating UI...");
-      console.log("this.worksiteStateData", worksiteStateData);
+    handleSliding(year){
+      let svg = d3.select("#worksiteState").select("svg")
+      svg.selectAll("*").remove();
+      svg.remove();
+      this.updateUI(year);
+      // console.log("E", e);
+    },
+    updateUI(idx) {
+      let worksiteStateData = this.worksiteStateData[+idx - 2017];
+      // console.log("updating UI...");
+      // console.log("this.worksiteStateData", worksiteStateData);
 
       d3.json("/api/download/state.topo.json").then(function (US) {
         console.log(US);
@@ -121,7 +144,7 @@ export default {
         success: (data) => {
           console.log(data);
           this.worksiteStateData = data;
-          this.updateUI(data);
+          this.updateUI(2017);
         },
       });
     },

@@ -44,11 +44,14 @@ export default {
       for (let [key, value] of Object.entries(salaryRangeData)) {
         data.push({"salary_range": key, "cases": value});
       }
-      console.log(data)
+      console.log("data",data)
       // create scales x & y for X and Y axis and set their ranges
       var x = d3.scaleLinear().range([0, width]).domain([0, d3.max(data, function(d) { return d.cases; })]);
-      var y = d3.scaleBand().range([0, height]).domain(data.map(function(d) { return d.salary_range; })).padding(0.1);
-
+      // var y = d3.scaleLinear().range([0, height]).domain(data.map(function(d) { return d.salary_range; })).padding(0.1);
+      var y = d3.scaleLinear().range([height, 0])
+          .domain([d3.min(data, function(d) { return +d.salary_range; }),
+            d3.max(data, function(d) { return +d.salary_range; })
+          + (d3.max(data, function(d) { return +d.salary_range; }) - d3.min(data, function(d) { return +d.salary_range; })) / 10 ]);
       svg.append("g")
           .attr("class", "x axis")
           .attr("transform", "translate(0," + height + ")")
@@ -56,9 +59,10 @@ export default {
               .tickFormat(function(d) { return d; })
               .tickSizeInner([-height]));
 
+      var yAxis = d3.axisLeft().scale(y);
       svg.append("g")
           .attr("class", "y axis")
-          .call(d3.axisLeft(y));
+          .call(yAxis.tickValues( Object.keys(salaryRangeData)));
 
       svg.selectAll(".bar")
           .data(data)
@@ -66,8 +70,8 @@ export default {
           .attr("style", "fill: steelblue;")
           //         .attr("class", "bar")
           .attr("x", 0)
-          .attr("height", y.bandwidth())
-          .attr("y", function(d) { return y(d.salary_range); })
+          .attr("height", 30)
+          .attr("y", function(d) { return y(+d.salary_range) - 30; })
           .attr("width", function(d) { return x(d.cases); });
 
       svg.selectAll(".barText")
@@ -79,7 +83,7 @@ export default {
             return x(d.cases);
           })
           .attr("y", function(d) {
-            return y(d.salary_range) + y.bandwidth()/2;
+            return y(+d.salary_range) - 10;
           })
           .style("text-anchor", "right")
           .text(function(d) {
@@ -121,12 +125,12 @@ export default {
           .style("text-anchor", "middle")
           .text("Salary Range");
 
-      svg.append("text")
-          .attr("id", "title")
-          .attr("transform",
-              "translate(" + (width / 2) + "," + 0 + ")")
-          .style("text-anchor", "middle")
-          .text("Cases by Job Title");
+      // svg.append("text")
+      //     .attr("id", "title")
+      //     .attr("transform",
+      //         "translate(" + (width / 2) + "," + 0 + ")")
+      //     .style("text-anchor", "middle")
+      //     .text("Cases by Job Title");
 
       svg.append("text")
           .attr("id", "credit")

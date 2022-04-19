@@ -120,12 +120,12 @@ export default {
       svg.append("text")
           .attr("id", "title")
           .attr("transform",
-              "translate(" + (width / 2) + "," + 0 + ")")
+              "translate(" + (width / 2) + "," + -padding.top/4 + ")")
           .style("text-anchor", "middle")
           .text("Score by Name");
       svg.append("text")
           .attr("id", "credit")
-          .attr("transform", "translate(" + (width - 30) + "," + (height + 30) + ")")
+          .attr("transform", "translate(" + (width - 70) + "," + (height + 30) + ")")
           .style("text-anchor", "right")
           .text("Team GUNDAM");
     }

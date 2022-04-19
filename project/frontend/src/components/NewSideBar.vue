@@ -39,6 +39,7 @@
           <el-icon><Opportunity/></el-icon>
           <span>Predict Your Case</span>
         </el-menu-item>
+
       </el-menu>
     </div>
 </template>

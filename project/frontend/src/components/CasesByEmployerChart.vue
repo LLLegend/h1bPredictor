@@ -169,12 +169,12 @@ export default {
           .style("text-anchor", "middle")
           .text("Employer");
 
-      svg.append("text")
-          .attr("id", "title")
-          .attr("transform",
-              "translate(" + (width / 2) + "," + 0 + ")")
-          .style("text-anchor", "middle")
-          .text("Cases by Employer");
+      // svg.append("text")
+      //     .attr("id", "title")
+      //     .attr("transform",
+      //         "translate(" + (width / 2) + "," + 0 + ")")
+      //     .style("text-anchor", "middle")
+      //     .text("Cases by Employer");
 
       svg.append("text")
           .attr("id", "credit")

@@ -3,7 +3,7 @@
     <h1>Visa Trends</h1>
     <el-row :gutter="50">
       <el-col :span="5">
-        <div :style="{ visibility: hiddenOrVisible }">
+        <div>
           <new-side-bar/>
         </div>
       </el-col>
@@ -11,7 +11,6 @@
         <visa-trends-chart/>
       </el-col>
     </el-row>
-
   </div>
 </template>
 
@@ -23,7 +22,7 @@ export default {
   name: "VisaTrends",
   components:{
     NewSideBar,
-    VisaTrendsChart
+    VisaTrendsChart,
   },
 }
 

@@ -88,10 +88,13 @@ export default {
           console.log("keys",keys)
           for(let idx in keys){
             console.log("idx",idx)
-            if(idx != keys.length - 1){
-              newProbArr.push({"salary_range": keys[idx] + " to " + keys[+idx+1], "certified_rate": this.salaryRangeData[0][1][keys[idx]]});
+            if(idx == 0){
+              newProbArr.push({"salary_range": "$" + +keys[idx] + " to " + "$" + +((+(keys[+idx+1])/1000) - 1)+","+"999", "certified_rate": this.salaryRangeData[0][1][keys[idx]]});
+            }
+            else if(idx != keys.length - 1){
+              newProbArr.push({"salary_range": "$" + +(+keys[idx]/1000)+","+"000" + " to " + "$" + +((+(keys[+idx+1])/1000) - 1)+","+"999", "certified_rate": this.salaryRangeData[0][1][keys[idx]]});
             }else{
-              newProbArr.push({"salary_range": ">" + keys[idx], "certified_rate": this.salaryRangeData[0][1][keys[idx]]});
+              newProbArr.push({"salary_range": ">= $"+ +(+keys[idx]/1000)+","+"000", "certified_rate": this.salaryRangeData[0][1][keys[idx]]});
             }
           }
           this.salaryRangeProb = newProbArr;
