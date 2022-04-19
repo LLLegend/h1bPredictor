@@ -66,7 +66,7 @@ export default {
 
       // Add Y axis
       var y = d3.scaleLinear()
-          .domain([0, 1000000])
+          .domain([0, 900000])
           .range([height, 0]);
       svg.append("g")
           .call(d3.axisLeft(y));
@@ -89,27 +89,27 @@ export default {
           .data(stackedData)
           .enter().append("g")
           .attr("fill", function (d, i) {
-            console.log("d.key", d, d.key);
+            // console.log("d.key", d, d.key);
             return colorScheme(i);
           })
           .selectAll("rect")
           // enter a second time = loop subgroup per subgroup to add all rectangles
           .data(function (d) {
-            console.log("d", d)
+            // console.log("d", d)
             return d;
           })
           .enter().append("rect")
           .attr("x", function (d, i) {
-            return x((2017 + i) + "");
+            return x((2017 + i) + "") + 24;
           })
           .attr("y", function (d) {
-            console.log("d1", d[1])
+            // console.log("d1", d[1])
             return y(d[1]);
           })
           .attr("height", function (d) {
             return y(d[0]) - y(d[1]);
           })
-          .attr("width", x.bandwidth())
+          .attr("width", 80)
       // text label for the y axis
       svg.append("text")
           .attr("id", "y_axis_label")
@@ -124,6 +124,51 @@ export default {
           .attr("transform", "translate(" + (width - 60) + "," + (height + 30) + ")")
           .style("text-anchor", "right")
           .text("Team GUNDAM");
+
+      const lines = svg.append("g").attr("id", "lines").selectAll("lines")
+          .data(subgroups)
+          .enter();
+      lines.append("rect")
+          .attr("style",function (d, i) {
+            // console.log(i, colorScheme(i));
+            return "fill:"+colorScheme(i);
+          })
+          .attr("width", 10).attr("height", 10)
+          .attr("transform", function(d, i) {
+            console.log("d",d)
+            return "translate(" + (600)
+                + "," +  15 * i + ")";})
+          .attr("y", -10);
+      lines.append("text")
+          .attr("style",function (d, i) {
+            // console.log(i, colorScheme(i));
+            return "fill:"+colorScheme(i) + ";font-family: Georgia;font-size: 90%;";
+          })
+          .attr("transform", function(d, i) {
+            return "translate(" + (600)
+                + "," +  15 * i + ")";})
+          .attr("x", 10)
+          .text(function(d) { return d; });
+
+      svg.append("g")
+          .attr("id", "cases")
+          // .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+          .selectAll(".case")
+          .data(this.statusData)
+          .enter()
+          .append("text")
+          .attr("class", "caseText")
+          // .attr("width", 60)
+          .attr("x", function (d, i) {
+            // console.log("dd",d)
+            return x((i + 2017) + "") + 30;
+          })
+          // .attr("width", x.bandwidth())
+          .attr("y", function (d) {
+            console.log("d.values()",Object.values(d));
+            return y(d3.sum(Object.values(d)));
+          })
+          .text(function(d) { return ((Object.values(d)[0] + Object.values(d)[1]) /d3.sum(Object.values(d))*100).toFixed(2) + "%"});
     }
   }
 }
