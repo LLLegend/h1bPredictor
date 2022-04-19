@@ -55,6 +55,11 @@ df_reader_2018.casestate_preprocess()
 df_reader_2019.casestate_preprocess()
 df_reader_2020.casestate_preprocess()
 df_reader_2021.casestate_preprocess()
+df_reader_2017.soc_preprocess()
+df_reader_2018.soc_preprocess()
+df_reader_2019.soc_preprocess()
+df_reader_2020.soc_preprocess()
+df_reader_2021.soc_preprocess()
 
 # case_status
 case_status_17 = df_reader_2017.attr_operator("CASE_STATUS")
@@ -85,6 +90,13 @@ df_shape_18 = df_reader_2018.get_df_shape()[0]
 df_shape_19 = df_reader_2019.get_df_shape()[0]
 df_shape_20 = df_reader_2020.get_df_shape()[0]
 df_shape_21 = df_reader_2021.get_df_shape()[0]
+
+# certified rate
+df_cert_rate_17 = (case_status_17["CERTIFIED"] + case_status_17["CERTIFIED-WITHDRAWN"]) / df_shape_17
+df_cert_rate_18 = (case_status_18["CERTIFIED"] + case_status_18["CERTIFIED-WITHDRAWN"]) / df_shape_18
+df_cert_rate_19 = (case_status_19["CERTIFIED"] + case_status_19["CERTIFIED-WITHDRAWN"]) / df_shape_19
+df_cert_rate_20 = (case_status_20["CERTIFIED"] + case_status_20["CERTIFIED-WITHDRAWN"]) / df_shape_20
+df_cert_rate_21 = (case_status_21["CERTIFIED"] + case_status_21["CERTIFIED-WITHDRAWN"]) / df_shape_21
 
 employer_list_17 = df_reader_2017.attr_operator("EMPLOYER_NAME")
 employer_list_18 = df_reader_2018.attr_operator("EMPLOYER_NAME")
