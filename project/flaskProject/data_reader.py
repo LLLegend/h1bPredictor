@@ -132,6 +132,8 @@ class H1bDataReader:
 
     def employer_preprocess(self):
         self.df["EMPLOYER_NAME"] = self.df["EMPLOYER_NAME"].str.upper()
+        self.df["EMPLOYER_NAME"].replace('.$', '', inplace = True, regex=True)
+        self.df["EMPLOYER_NAME"].replace(',', '', inplace = True, regex=True)
 
     def city_preprocess(self):
         self.df["WORKSITE_CITY"].replace('[,/(].*$', '', inplace = True, regex=True)
