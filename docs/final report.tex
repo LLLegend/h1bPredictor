@@ -11,6 +11,8 @@
 % \usepackage{url}
 % \usepackage[breaklinks]{hyperref}
 
+% \usepackage{multirow}
+
 
 \DeclareUnicodeCharacter{00A0}{ }
 
@@ -209,8 +211,8 @@ any frequently accessed website. A list of innovations and improvements is liste
 
 
 We also construct a model that can predict the probability that a given application will be certified by the DOL. 
-As mentioned above, the data requires minimal cleansing and feature engineering, dropping some unimportant features 
-by the results of correlation and manual selection. We split the data 70\%-30\% for training and testing. 
+We drop unimportant features by the results of correlation and manual selection based on prior domain knowledge. 
+We split the data 70\%-30\% for training and testing. 
 We define our task as a binary classification, setting the “Certified” status as 1 and all other non-certified statuses 
 as 0 to train our model. For the model, we choose a gradient boosting decision tree model named LightGBM because the data 
 is nonlinear as we believe that this tree model shows improved performance over some of the commonly applied linear models. 
@@ -274,25 +276,21 @@ mentioned in more detail below, achieved an F1 score of 98\% on both testing
 and training data; therefore, we retained the exact attributes from our manual selection. 
 
 
-
-% EMPLOYER NAME,1513.5
-% WORKSITE CITY,490.5
-% NAICS CODE,319.9
-% SOC NAME,240.4
-% WAGE_RATE_OF_PAY_FROM,99.9
-% WORKSITE_STATE,88.2
-% EMPLOYER_BUSINESS_DBA,82.6
-% PREVAILING_WAGE,81.9
-% WAGE_UNIT_OF_PAY,32.9
-% PW_UNIT_OF_PAY,24.6
-% TOTAL_WORKERS,22.2
-% FULL_TIME_POSITION,3.4
-
-
 We apply regular expressions to remove superfluous characters from the records, 
 such as commas and dollar signs from some of the wage entries, 
 as well as correct input errors and standardize capitalization of Case Status entries, 
 and standardized Worksite State to display the full name of their respective states.  
+
+
+The alpha iteration of our application revealed several glaring data quality issues that were not addressed in our initial 
+data cleansing. These were mostly input errors, such as incorrect capitalization, 
+superfluous or missing punctuation and/or whitespace, 
+numbers and special characters in alpha only fields, 
+non-existent state names, state name included with city name, et cetera. 
+This surprised us that data from the US federal government would be so dirty and lack validation. 
+We then had to go back revise our cleansing suite to include more comprehensive operations using the 
+Python library Pandas with regular expressions. 
+
 
 
 We discovered several outliers with wages that are far beyond the typical range. 
@@ -313,21 +311,53 @@ While all provided very high accuracy and an F1 score of 97\%, our choice of Lig
 
 \subsection{Integration}
 We integrated all visualizations and our predictor within a single 
-web application built on the Flask framework, with a responsive interface using Vue. 
-The user clicks a link to one of several visualizations of any given year's applications 
+web application built on the Flask framework, with a responsive interface using Vue, so that 
+the user clicks a link to access one of several visualizations of any given year's applications 
 by state, employer, or job title. 
 
-The user may also review application trends by similar criteria using a drop-down list. 
-We hoped to include elastic search supporting multiple user-defined parameters, but this 
-proved to be too cumbersome for the scope of this project. 
+This turned out to be the most time-consuming part of the project, as individual components that worked 
+flawlessly as standalone components would not always function properly on integration. 
+
 
 Due to the like-kind nature between objects, we show (XXX) with bar charts, and line charts for (XXX). 
 
 
+We initially showed the total number of applications for each year in a bar chart, as well as a breakdown by application 
+outcome as a line chart. We later consolidated this information into a stacked bar chart to show the trend in total number 
+of applications as well as year-on-year differences for each different application outcome. 
+
+
+We represent the top ten employers with the greatest number of applications for each year with a bar chart. 
+Earlier iterations showed that larger companies often apply using different subsidiaries with similar names, 
+differentiated only by "Inc", "LLC", or other suffixes. We aggregated these more obvious employer name variations 
+to make the comparisons more meaningful for the average user (potential job applicant). 
+
+
+
+Applications by job title 
+what kind of bar chart? 
+what is x axis? what is y axis? why?
+
+Application results by year 
+line chart 
+shows trend in total number of applications and their results 
+
+
+
 Naturally, the US choropleth map fits best for geographical comparison among states. To incrementally 
-provide more information based on user feedback, each state displays a tooltip upon cursor hovering, 
-which includes key details such as the total applications for that year, the top employer, and the top 
-job title.  
+provide more information based on user feedback, we originally intended for each state to display a 
+tooltip upon cursor hover, which includes key details such as the total applications for that year, the top employer, and the top 
+job title. We were able to implement the tooltip in Javascript when embedded in HTML, but it would not display 
+properly when integrated within the Vue framework. We instead include a dynamic table as a workaround, which updates with 
+the above mentioned details in the same manner as a tooltip. 
+
+We are most proud of prediction service, which takes user input parameters such as employer, job location, 
+and expected salary, returning with over 95\% confidence the expected likelihood of such an application obtaining 
+certification by the US Department of Labor. 
+
+The user may also review application trends by similar criteria using a drop-down list. 
+We hoped to include elastic search supporting multiple user-defined parameters, but this 
+proved to be too cumbersome for the scope of this project. 
 
 
 Although the overall volume of our data is quite large at roughly 450 MB, 
@@ -335,6 +365,22 @@ each individual record size is trivial after feature selection; thus, we
 were able to handle the processing and querying of these records through Pandas data frames, 
 bypassing the need for a database. 
 
+
+
+
+
+data cleansing operations, we found that the data still contained various types of input errors from the original 
+author. 
+
+
+capitalization
+extra or missing punctuation such as commas
+extra or missing space 
+misspelling of city and state names 
+abbreviation of state names
+state name in place of city name 
+incorrect aggregation of other address fields
+numbers and special characters in city names 
 
 (Include visualizations by year, state, and occupation. ASDFASDFASDFASDFASDFASDFASDFASDFASDFASDF)
 
@@ -382,7 +428,30 @@ score are high; however, they place immediately after employer and worksite city
 The remaining attributes ranged from having a small to negligible effect on the prediction results. 
 
 
-.......insert feature importance figure here.....
+\begin{figure}
+  \begin{tabular}{ |p{4cm}||p{2cm}|  }
+    \hline
+    \multicolumn{2}{|c|}{\textbf{Feature Importance}} \\
+    \hline
+    Feature & Score\\
+    \hline
+    Employer Name & 1513.5\\
+    Worksite City & 490.5\\
+    NAICS Code & 319.9\\
+    SOC Name & 240.4\\
+    Wage Rate of Pay - From & 99.9\\
+    Worksite State & 88.2\\
+    Employer Business DBA & 82.6\\
+    Prevailing Wage & 81.9\\
+    Wage Unit of Pay & 32.9\\
+    Prevailing Wage Unit of Pay & 24.6\\
+    Total Workers & 22.2\\
+    Full Time Position & 3.4\\
+    \hline
+   \end{tabular}
+  \caption{Feature Importance}
+   \label{fig:featureimportance}
+\end{figure}
 
 
 
@@ -401,8 +470,16 @@ real need among international students. In an effort to quickly become proficien
 the intricacies of the US work visa application process, familiarizing ourselves with the geography and industry makeup 
 of the United States. 
 
-We are on schedule to complete our experiment and have a working application by our mid April deadline, at which time we 
-look forward to testing its efficacy with a student survey. 
+Keep in mind that US DOL certification does not guarantee an applicant will receive a visa; rather, it only certifies that the 
+position for which the applicant is hired meets the requirements. Certified applicants are then entered into a pool of 
+applicants, from which the US Citizenship and Immigration Services randomly selects 65,000 initial applicants to receive 
+the H1-B visa. Unsuccessful applicants holding a Master's degree or higher are then entered into a smaller pool from which 
+20,000 applicants are selected. This step is essentially a lottery, primarily based on factors out of 
+the applicant's control. Based on our research, serious applicants would most greatly benefit from understanding the 
+qualities possessed by successful applicants at the top employers - those with the highest certification rate - and 
+working towards that benchmark. Possessing a postgraduate degree would also significantly increase one's chances of 
+acceptance by providing a second shot at one of the 20,000 slots exclusively for postgraduate degree holders. 
+
 
 
 \begin{figure}
@@ -415,18 +492,18 @@ look forward to testing its efficacy with a student survey.
 \appendix
 
 \section{Work distribution}
+All team members have contributed similar amount of effort and results to this project.
 
 \begin{itemize}
 	\item Project coordinator: Tianshu
 	\item Data collection, cleansing, standardization, feature selection: Alexander, Tianyu
-	\item ML algorithm design: Chuanqi 
+	\item ML algorithm design and implementation: Chuanqi 
 	\item UI and visualization design, frontend implementation: Tianshu
-	\item Database design, backend implementation: Tianyu
+	\item Data manipulation, backend implementation: Tianyu
 	\item Documentation: Alexander, Qinrui, Chuanqi, Tianshu, Tianyu
 	
 \end{itemize}
 
-All team members have contributed similar amount of effort and results to this project.
 
 \section{Innovations}
 \begin{itemize}
