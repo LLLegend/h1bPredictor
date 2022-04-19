@@ -60,6 +60,16 @@ df_reader_2018.soc_preprocess()
 df_reader_2019.soc_preprocess()
 df_reader_2020.soc_preprocess()
 df_reader_2021.soc_preprocess()
+df_reader_2017.city_preprocess()
+df_reader_2018.city_preprocess()
+df_reader_2019.city_preprocess()
+df_reader_2020.city_preprocess()
+df_reader_2021.city_preprocess()
+df_reader_2017.employer_preprocess()
+df_reader_2018.employer_preprocess()
+df_reader_2019.employer_preprocess()
+df_reader_2020.employer_preprocess()
+df_reader_2021.employer_preprocess()
 
 # case_status
 case_status_17 = df_reader_2017.attr_operator("CASE_STATUS")
@@ -115,11 +125,11 @@ employer_set.update(tuple(employer_list_20))
 employer_set.update(tuple(employer_list_21))
 
 
-job_list_17 = df_reader_2017.attr_operator("SOC_NAME")
-job_list_18 = df_reader_2018.attr_operator("SOC_NAME")
-job_list_19 = df_reader_2019.attr_operator("SOC_NAME")
-job_list_20 = df_reader_2020.attr_operator("SOC_NAME")
-job_list_21 = df_reader_2021.attr_operator("SOC_NAME")
+job_list_17 = df_reader_2017.attr_operator("SOC_NAME", drop_cases_val=10)
+job_list_18 = df_reader_2018.attr_operator("SOC_NAME", drop_cases_val=10)
+job_list_19 = df_reader_2019.attr_operator("SOC_NAME", drop_cases_val=10)
+job_list_20 = df_reader_2020.attr_operator("SOC_NAME", drop_cases_val=10)
+job_list_21 = df_reader_2021.attr_operator("SOC_NAME", drop_cases_val=10)
 job_set = set()
 job_set.update(job_list_17)
 job_set.update(job_list_18)
@@ -228,18 +238,14 @@ class CASE_STATUS(restful.Resource):
     def get(self):
         # format
         return [case_status_17, case_status_18, case_status_19, case_status_20, case_status_21]
-
-
 api.add_resource(CASE_STATUS, "/case_status")
 
 
-# return the case status
+# return the worksite state
 class WORKSITE_STATE(restful.Resource):
     def get(self):
         # format
         return [worksite_state_17, worksite_state_18, worksite_state_19, worksite_state_20, worksite_state_21]
-
-
 api.add_resource(WORKSITE_STATE, "/worksite_state")
 
 

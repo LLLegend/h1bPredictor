@@ -13,6 +13,7 @@ import FeatureImportance from "@/components/FeatureImportance";
 import TestComponent from "@/components/TestComponent"
 import PredictionInputForm from "@/components/PredictionInputForm";
 import CertificationRate from "@/components/CertificationRate";
+import StackedStatus from "@/components/StackedStatus";
 
 const routes = [
     {
@@ -27,10 +28,10 @@ const routes = [
         path: '/test',
         component: test
     },
-    {
-        path: '/case_status',
-        component: CaseStatus
-    },
+    // {
+    //     path: '/case_status',
+    //     component: CaseStatus
+    // },
     {
         path: '/worksite_state',
         component: WorksiteState
@@ -63,6 +64,10 @@ const routes = [
     {
         path: '/prediction',
         component: PredictionInputForm
+    },
+    {
+        path: '/case_status',
+        component: StackedStatus
     }
 
 
