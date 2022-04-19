@@ -129,11 +129,18 @@ class H1bDataReader:
 
     def soc_preprocess(self):
         self.df["SOC_NAME"] = self.df["SOC_NAME"].str.title()
+        self.df["SOC_NAME"].replace(',', ' ', inplace = True, regex=True)
+        self.df["SOC_NAME"].replace('[-_]',' ', inplace = True, regex=True)
+        self.df["SOC_NAME"].replace('[ ]+$', '', inplace = True, regex=True)
+        self.df["SOC_NAME"].replace('[ ]+', ' ', inplace = True, regex=True)
 
     def employer_preprocess(self):
         self.df["EMPLOYER_NAME"] = self.df["EMPLOYER_NAME"].str.upper()
-        self.df["EMPLOYER_NAME"].replace('.$', '', inplace = True, regex=True)
-        self.df["EMPLOYER_NAME"].replace(',', '', inplace = True, regex=True)
+        self.df["EMPLOYER_NAME"].replace('.$', ' ', inplace = True, regex=True)
+        self.df["EMPLOYER_NAME"].replace(',', ' ', inplace = True, regex=True)
+        self.df["EMPLOYER_NAME"].replace('[-_]',' ', inplace = True, regex=True)
+        self.df["EMPLOYER_NAME"].replace('[ ]+$', '', inplace = True, regex=True)
+        self.df["EMPLOYER_NAME"].replace('[ ]+', ' ', inplace = True, regex=True)
 
     def city_preprocess(self):
         self.df["WORKSITE_CITY"].replace('[,/(].*$', '', inplace = True, regex=True)
