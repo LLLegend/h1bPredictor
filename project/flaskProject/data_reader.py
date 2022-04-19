@@ -130,6 +130,20 @@ class H1bDataReader:
     def soc_preprocess(self):
         self.df["SOC_NAME"] = self.df["SOC_NAME"].str.title()
 
+    def employer_preprocess(self):
+        self.df["EMPLOYER_NAME"] = self.df["EMPLOYER_NAME"].str.upper()
+
+    def city_preprocess(self):
+        self.df["WORKSITE_CITY"].replace('[,/(].*$', '', inplace = True, regex=True)
+        self.df["WORKSITE_CITY"].replace('^.*[\d]+.*$', '', inplace = True, regex=True)
+        self.df["WORKSITE_CITY"].replace('[-_]',' ', inplace = True, regex=True)
+        self.df["WORKSITE_CITY"].replace('[ ]+$', '', inplace = True, regex=True)
+        self.df["WORKSITE_CITY"].replace('[ ]+', ' ', inplace = True, regex=True)
+        self.df["WORKSITE_CITY"].replace('^..$', '', inplace = True, regex=True)
+        self.df["WORKSITE_CITY"].replace('^.*[!#$%&()*+/:;<=>?@\^`{|}~]+.*$', '', inplace = True, regex=True)
+
+        self.df["WORKSITE_CITY"] = self.df["WORKSITE_CITY"].str.title()
+
 
 if __name__ == "__main__":
     attr_list = {\
@@ -140,13 +154,16 @@ if __name__ == "__main__":
         "WORKSITE_STATE": None,
         "EMPLOYER_NAME": None,
         "WAGE_RATE_OF_PAY_FROM": None,
-        "WAGE_UNIT_OF_PAY": "Year"
+        "WAGE_UNIT_OF_PAY": "Year",
+        "WORKSITE_CITY": None,
     }
     df_reader = H1bDataReader("../../data/h1b_data_2019.csv", attr_list = attr_list)
     df_reader.state_preprocess()
     df_reader.salary_preprocess()
     df_reader.casestate_preprocess()
     df_reader.soc_preprocess()
+    df_reader.employer_preprocess()
+    df_reader.city_preprocess()
     df_reader.attr_operator("CASE_STATUS")
     df_reader.attr_operator("WORKSITE_STATE")
     df_reader.attr_operator("EMPLOYER_NAME", head = 10)
@@ -156,10 +173,11 @@ if __name__ == "__main__":
     df_reader.attr_operator("SOC_NAME", head = 10, filter_dict = {"WAGE_RATE_OF_PAY_FROM": {"GREATER": 100000, "LESS": 200000}})
     # Return the top 10 job title with highest pass rate (all jobs with less than 1000 applications are elminated)
     df_reader.attr_operator("SOC_NAME", oper = "RATIO", head = 10, drop_cases_val = 1000)
+    df_reader.attr_operator("WORKSITE_CITY")
 
     # Tooltip
-    df_reader.attr_operator("WORKSITE_STATE") # dict["state_name"] state casese
-    df_reader.attr_operator("WORKSITE_STATE", oper = "RATIO") # dict["state_name"] certification rate
-    df_reader.attr_operator("WORKSITE_STATE", oper = "AVG_SAL") # dict["state_name"] avg salary
-    df_reader.attr_operator("EMPLOYER_NAME", head = 3, filter_dict = {"WORKSITE_STATE": {"EQUAL": "California"}}) # top 3 employer
+    # df_reader.attr_operator("WORKSITE_STATE") # dict["state_name"] state casese
+    # df_reader.attr_operator("WORKSITE_STATE", oper = "RATIO") # dict["state_name"] certification rate
+    # df_reader.attr_operator("WORKSITE_STATE", oper = "AVG_SAL") # dict["state_name"] avg salary
+    # df_reader.attr_operator("EMPLOYER_NAME", head = 3, filter_dict = {"WORKSITE_STATE": {"EQUAL": "California"}}) # top 3 employer
 
