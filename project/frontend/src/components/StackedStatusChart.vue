@@ -169,6 +169,13 @@ export default {
             return y(d3.sum(Object.values(d)));
           })
           .text(function(d) { return ((Object.values(d)[0] + Object.values(d)[1]) /d3.sum(Object.values(d))*100).toFixed(2) + "%"});
+      // text label for the x axis
+      svg.append("text")
+          .attr("id", "x_axis_label")
+          .attr("transform",
+              "translate(" + (width / 2) + " ," + (height + 30) + ")")
+          .style("text-anchor", "middle")
+          .text("Year");
     }
   }
 }
