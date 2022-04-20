@@ -7,10 +7,7 @@
 - Tianshu
 - Tianyu
 
-README.txt - a concise, short README.txt file, corresponding to the "user guide".
-
-This file should contain:
-## DESCRIPTION
+## Description
 
 This package contains all the necessary tools to process, H1-B application data from US Department of Labor statistics, generate visualizations based on the statistics and their trends, and run a predictor on application certification likelihood based on user-determined parameters. 
 
@@ -23,17 +20,17 @@ All visualizations are dynamic charts created with D3.js.
 
 The predictor is a gradient-boosted decision tree using the LightGBM framework. 
 
-## INSTALLATION 
+## Installation 
 
 Download the .zip package. 
 
-Or `git clone https://github.com/AlexandrePalo/TrailBlazer.git` after we open our project as public.
+Or `git clone https://github.com/budd713/datadreamteam.git` after we open our project as public.
 
 ##### Dataset
 
 - The dataset is with the project in PROJECT_ROOT/data.
 
-- Or the preprocessed datasets can be accessed in cloud storage by the links provided below: 
+- Or the preprocessed datasets can be accessed in cloud storage by the links provided below (there should be 5):
 
   https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2017.csv
   https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2018.csv
@@ -58,7 +55,7 @@ Be sure to have python3 with flask and pandas installed.
 
 
 
-## EXECUTION - How to run a demo on your code
+## Execution
 
 Run `python app.py` in the root directory of back-end PROJECT_ROOT/flaskProject to launch the back-end service.
 
@@ -67,7 +64,7 @@ Run `npm run serve` in the root directory of front-end PROJECT_ROOT/frontend to 
 Enter `localhost:8080` in your browser to explore and enjoy our project!
 
 
-## DEMO VIDEO - [Optional, but recommended] 
+<!-- ## DEMO VIDEO - [Optional, but recommended] 
 
 Include the URL of a 1-minute *unlisted* YouTube video in this txt file. The video would show how to install and execute your system/tool/approach (e.g, from typing the first command to compile, to system launching, and running some examples).
 
@@ -75,4 +72,4 @@ Feel free to speed up the video if needed (e.g., remove less relevant video
 segments). This video is optional (i.e., submitting a video does not increase scores; not submitting one does not decrease scores). However, we
 recommend teams to try and create such a video, because making the video
 helps teams better think through what they may want to write in the
-README.txt, and generally how they want to "sell" their work.
+README.txt, and generally how they want to "sell" their work. -->
