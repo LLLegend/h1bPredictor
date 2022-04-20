@@ -43,18 +43,19 @@ Or `git clone https://github.com/AlexandrePalo/TrailBlazer.git` after we open ou
 
 ##### Frontend
 
- - Be sure to have NodeJs installed (or npm).
+ - Be sure to have NodeJs v14.17.3 installed (or npm v6.14.13).
  - Run `npm install` in the root directory of front-end PROJECT_ROOT/project/frontend.
 
 ##### Backend
 
-Be sure to have python3 with flask and pandas installed.
+Be sure to have python v3.8.x with flask-restful v0.3.9 and pandas installed.
 
 - if not, download python3 from its official website 
-- then run `pip install flask` 
-- `pip install pandas`
-- `pip install numpy`
-- `pip install lightgbm`
+- then run `pip install -v flask==2.0.2` 
+- `pip install -v flask-restful==0.3.9`
+- `pip install -v pandas==2.3`
+- `pip install -v numpy==1.21.2`
+- `pip install -v lightgbm==3.2.1`
 
 
 
