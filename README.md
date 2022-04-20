@@ -44,7 +44,7 @@ Or `git clone https://github.com/AlexandrePalo/TrailBlazer.git` after we open ou
 ##### Frontend
 
  - Be sure to have NodeJs installed (or npm).
- - Run `npm install` in the root directory of front-end PROJECT_ROOT/project project/frontend.
+ - Run `npm install` in the root directory of front-end PROJECT_ROOT/project/frontend.
 
 ##### Backend
 
