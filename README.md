@@ -11,7 +11,7 @@ README.txt - a concise, short README.txt file, corresponding to the "user guide"
 
 This file should contain:
 ## DESCRIPTION
-    
+
 This package contains all the necessary tools to process, H1-B application data from US Department of Labor statistics, generate visualizations based on the statistics and their trends, and run a predictor on application certification likelihood based on user-determined parameters. 
 
 The datasets were directly downloaded from the US Department of Labor's webpage on Performance Data. 
@@ -27,31 +27,44 @@ The predictor is a gradient-boosted decision tree using the LightGBM framework.
 
 Download the .zip package. 
 
-What dependencies do we have?
+Or `git clone https://github.com/AlexandrePalo/TrailBlazer.git` after we open our project as public.
 
- - Download NPM?
+##### Dataset
 
- - Download D3?
+- The dataset is with the project in PROJECT_ROOT/data.
 
- - Download data?
+- Or the preprocessed datasets can be accessed in cloud storage by the links provided below: 
 
-The preprocessed datasets can be accessed in cloud storage by the links provided below: 
+  https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2017.csv
+  https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2018.csv
+  https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2019.csv
+  https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2020.csv
+  https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2021.csv
 
-https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2017.csv
-https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2018.csv
-https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2019.csv
-https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2020.csv
-https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2021.csv
+##### Frontend
+
+ - Be sure to have NodeJs installed (or npm).
+ - Run `npm install` in the root directory of front-end PROJECT_ROOT/project project/frontend.
+
+##### Backend
+
+Be sure to have python3 with flask and pandas installed.
+
+- if not, download python3 from its official website 
+- then run `pip install flask` 
+- `pip install pandas`
+- `pip install numpy`
+- `pip install lightgbm`
 
 
 
 ## EXECUTION - How to run a demo on your code
 
-Where do I open the terminal?
+Run `python app.py` in the root directory of back-end PROJECT_ROOT/flaskProject to launch the back-end service.
 
-What commands do I enter? 
+Run `npm run serve` in the root directory of front-end PROJECT_ROOT/frontend to launch the frontend project.
 
-What URL should I enter in my browser? 
+Enter `localhost:5000` in your browser to explore and enjoy our project!
 
 
 ## DEMO VIDEO - [Optional, but recommended] 
