@@ -64,7 +64,7 @@ Run `python app.py` in the root directory of back-end PROJECT_ROOT/flaskProject 
 
 Run `npm run serve` in the root directory of front-end PROJECT_ROOT/frontend to launch the frontend project.
 
-Enter `localhost:5000` in your browser to explore and enjoy our project!
+Enter `localhost:8080` in your browser to explore and enjoy our project!
 
 
 ## DEMO VIDEO - [Optional, but recommended] 
