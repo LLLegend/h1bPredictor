@@ -443,20 +443,45 @@ In an effort to quickly become proficient in this domain, we have also studied
 the intricacies of the US work visa application process, familiarizing ourselves 
 with the geography and industry makeup of the United States. 
 
+After discussion among our CSE 6242 peers, we have found several areas that require further 
+improvement before we deploy our application to production. 
+
+Multiple layer filtering of search criteria: Although we successfully visualized the 
+relevant data in an initial static representation, we have yet to implement a workaround 
+in Vue to display the tooltip in our choropleth charts showing top employers 
+and job titles for each state. In a future iteration, showing more granular statistics, 
+such as the top jobs for each employer and the top states for each job, would add to 
+the information value of each bar chart. 
+
+Further cleaning of data: Although over half of our total time spend on this project 
+was managing data, there remain many inconsistencies among features whose values 
+should have been standardized. For example, dozens of records contain a SOC title 
+that does not match any of the official SOC titles. Rectifying these errors as well 
+as special characteristics of other features will be a key focus in future improvements. 
+
 The readability of aggregated employer statistics can be further improved by further exploring 
 company name changes and parent company information. This would require collecting data from another 
 source to serve as a reference for more advanced data wrangling. 
 
-Something to consider is that US DOL certification does not guarantee an applicant will receive a visa; 
+The reader should keep in mind that US DOL certification does not guarantee an 
+applicant will receive a visa; 
 rather, it only certifies that the 
-position for which the applicant is hired meets the requirements. Certified applicants are then entered into a pool of 
-applicants, from which the US Citizenship and Immigration Services randomly selects 65,000 initial applicants to receive 
-the H1-B visa. Unsuccessful applicants holding a Master's degree or higher are then entered into a smaller pool from which 
-20,000 applicants are selected. This step is essentially a lottery, primarily based on factors out of 
-the applicant's control. Based on our research, serious applicants would most greatly benefit from understanding the 
-qualities possessed by successful applicants at the top employers - those with the highest certification rate - and 
-working towards that benchmark. Possessing a postgraduate degree would also significantly increase one's chances of 
-acceptance by providing a second shot at one of the 20,000 slots exclusively for postgraduate degree holders. 
+position for which the applicant is hired meets the requirements. 
+Certified applicants are then entered into a pool of 
+applicants, from which the US Citizenship and Immigration Services randomly 
+selects 65,000 initial applicants to receive 
+the H1-B visa. Unsuccessful applicants holding a Master's degree or higher are 
+then entered into a smaller pool from which 
+20,000 applicants are selected. This step is essentially a lottery, 
+primarily based on factors out of 
+the applicant's control. Based on our research, serious applicants would most 
+greatly benefit from understanding the 
+qualities possessed by successful applicants at the top employers - those with 
+the highest certification rate - and 
+working towards that benchmark. Possessing a postgraduate degree would also 
+significantly increase one's chances of 
+acceptance by providing a second shot at one of the 20,000 slots exclusively 
+for postgraduate degree holders. 
 
 
 
