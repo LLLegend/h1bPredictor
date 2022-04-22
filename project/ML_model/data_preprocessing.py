@@ -15,6 +15,7 @@ def str2num(x):
     return a
 
 def cleaning(a):
+    a = str(a)
     a = a.replace(" ", "")
     a = re.sub('\W*', '', a)
     return a
@@ -55,7 +56,8 @@ def data_preprocessing(data):
     data["EMPLOYER_NAME"] = data["EMPLOYER_NAME"].apply(lambda x: x.replace("LLC", ""))
     data["EMPLOYER_NAME"] = data["EMPLOYER_NAME"].apply(lambda x: x.replace("INC", ""))
 
-    data["SOC_NAME"] = data["SOC_NAME"].apply(cleaning)
+    # data["SOC_NAME"] = data["SOC_NAME"].apply(cleaning)
+    # data["SOC_NAME"] = data["SOC_NAME"].replace("\..*$", "", regex=True)
     data["WORKSITE_CITY"] = data["WORKSITE_CITY"].apply(cleaning)
 
     return data
@@ -69,10 +71,10 @@ test_path = "../../data/test.csv"
 
 for i in range(len(years)):
     if i == 0:
-        df_1 = pd.read_csv("../../data/h1b_data_{}.csv".format(years[i]))
+        df_1 = pd.read_csv("../../data/h1b_data_{}_new.csv".format(years[i]))
         df_1 = data_preprocessing(df_1)
     else:
-        df_2 = pd.read_csv("../../data/h1b_data_{}.csv".format(years[i]))
+        df_2 = pd.read_csv("../../data/h1b_data_{}_new.csv".format(years[i]))
         df_2 = data_preprocessing(df_2)
         df_1 = pd.concat([df_1, df_2], axis=0)
 
