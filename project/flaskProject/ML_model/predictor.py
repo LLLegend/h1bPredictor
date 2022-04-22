@@ -36,6 +36,4 @@ def predict(x):
         model = lgb.Booster(model_file="models/lgb_model_{}.txt".format(k))
         prob += model.predict(df) / 10
     return prob
-if __name__ == "__main__":
-    print(predict(["TEKSHAPERS, INC.", None, "Marketing Managers", "45411.0", "Y",
-                       "Year", "Year", "Seattle", "WA", 1.0, 125171.0, 137400.0]))
+
