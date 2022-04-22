@@ -42,7 +42,7 @@
         />
       </el-form-item>
       <el-form-item label="Expected Wage">
-        <el-autocomplete
+        <el-input
             v-model="form.wage"
             clearable
             class="inline-input"
@@ -125,7 +125,8 @@ export default {
           { required: true, message:'Please input the state', trigger: 'change'}
         ],
         wage: [
-          { required: true,type: 'number', message:'Please input the wage', trigger: 'change'}
+          { required: true,type: 'number', message:'Please input the wage', trigger: 'change'},
+          {min: 0, message: '长度在 3 到 5 个字符', trigger: 'blur'}
         ]
       }
     }
@@ -164,6 +165,11 @@ export default {
             alert('Invalid job title!');
             return false;
           }
+          else if(isNaN(+this.form.wage) || +this.form.wage < 0) {
+            alert('Invalid wage!');
+            return false;
+          }
+
           this.fetchData({
             method: "get",
             url: "/api/predict_case_prob",
