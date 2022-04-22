@@ -13,11 +13,13 @@ class H1bDataReader:
         for attr in attr_list.items():
             if attr[1] is not None:
                 self.df = self.df[self.df[attr[0]] == attr[1]]
+        self.soc_name_to_code = {}
 
     def write_to_csv(self, path):
         self.df.to_csv(path, index = False)
 
     def get_df_shape(self):
+        print(self.df.shape)
         return self.df.shape
 
     def attr_operator(self, attr, oper = "SUM", head = 0, others = False, filter_dict = {}, drop_cases_val = 0):
@@ -128,11 +130,32 @@ class H1bDataReader:
         self.df["CASE_STATUS"] = self.df["CASE_STATUS"].str.replace(' ', '').str.upper()
 
     def soc_preprocess(self):
-        self.df["SOC_NAME"] = self.df["SOC_NAME"].str.title()
-        self.df["SOC_NAME"].replace(',', ' ', inplace = True, regex=True)
-        self.df["SOC_NAME"].replace('[-_]',' ', inplace = True, regex=True)
-        self.df["SOC_NAME"].replace('[ ]+$', '', inplace = True, regex=True)
-        self.df["SOC_NAME"].replace('[ ]+', ' ', inplace = True, regex=True)
+        soc_list = []
+        soc_list_code = []
+        with open("../../data/soc_2018_definitions.csv", newline='', encoding='utf-8-sig') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                soc_list_code.append(row["SOC Code"])
+                soc_list.append((row["SOC Code"], row["SOC Title"]))
+
+        with open("../../data/soc_2010_definitions.csv", newline='', encoding='utf-8-sig') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                if row["SOC Code"] in soc_list_code:
+                    continue
+                soc_list_code.append(row["SOC Code"])
+                soc_list.append((row["SOC Code"], row["SOC Title"]))
+
+        for soc in soc_list:
+            self.soc_name_to_code[soc[1]] = soc[0]
+            self.df["SOC_CODE"].replace(soc[0], soc[1], inplace = True)
+
+        self.df = self.df.rename(columns = {"SOC_CODE": "SOC_NAME"})
+
+
+
+
+
 
     def employer_preprocess(self):
         self.df["EMPLOYER_NAME"] = self.df["EMPLOYER_NAME"].str.upper()
@@ -160,7 +183,7 @@ if __name__ == "__main__":
     attr_list = {\
         "CASE_NUMBER": None,
         "CASE_STATUS": None,
-        "SOC_NAME": None,
+        "SOC_CODE": None,
         "FULL_TIME_POSITION": None,
         "WORKSITE_STATE": None,
         "EMPLOYER_NAME": None,
@@ -186,9 +209,9 @@ if __name__ == "__main__":
     df_reader.attr_operator("SOC_NAME", oper = "RATIO", head = 10, drop_cases_val = 1000)
     df_reader.attr_operator("WORKSITE_CITY")
 
-    # Tooltip
-    # df_reader.attr_operator("WORKSITE_STATE") # dict["state_name"] state casese
-    # df_reader.attr_operator("WORKSITE_STATE", oper = "RATIO") # dict["state_name"] certification rate
-    # df_reader.attr_operator("WORKSITE_STATE", oper = "AVG_SAL") # dict["state_name"] avg salary
-    # df_reader.attr_operator("EMPLOYER_NAME", head = 3, filter_dict = {"WORKSITE_STATE": {"EQUAL": "California"}}) # top 3 employer
+    Tooltip
+    df_reader.attr_operator("WORKSITE_STATE") # dict["state_name"] state casese
+    df_reader.attr_operator("WORKSITE_STATE", oper = "RATIO") # dict["state_name"] certification rate
+    df_reader.attr_operator("WORKSITE_STATE", oper = "AVG_SAL") # dict["state_name"] avg salary
+    df_reader.attr_operator("EMPLOYER_NAME", head = 3, filter_dict = {"WORKSITE_STATE": {"EQUAL": "California"}}) # top 3 employer
 
