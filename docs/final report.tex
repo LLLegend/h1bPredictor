@@ -37,7 +37,7 @@
 \begin{document}
 \title{A Chance to Work}
 \subtitle{Understanding the composition of foreign workers 
-pursuing \\specialty occupations on the United States H1-B visa
+pursuing \\specialty occupations on the United States H-1B visa
 }
 
 
@@ -94,7 +94,7 @@ pursuing \\specialty occupations on the United States H1-B visa
 \section{Introduction}
 
 
-The United States Person in Specialty Occupation Visa, more commonly known as the H1-B visa, 
+The United States Person in Specialty Occupation Visa, more commonly known as the H-1B visa, 
 allows employers in the United States to hire temporary foreign workers specializing in one of many key occupations.  
 To date, numerous studies have been conducted on recent years’ certification data in an attempt to analyze hiring trends. 
 However, the usefulness of these studies remains to be questioned as they generally lack interactive visualizations for the user to gain 
@@ -106,20 +106,20 @@ visa applicants to interpret current data, and predict the outcome of future app
 \section{Related work}
 
 
-As annual H1-B application records are publicly available through the US Department of Labor, 
+As annual H-1B application records are publicly available through the US Department of Labor, 
 this data has been a popular topic for machine learning researchers as well as online enthusiasts.  
 The topic has also inspired several versions of truncated datasets that have been aggregated by several websites as a resource 
 for international applicants, and basic analyses appear frequently in academic journals. The general consensus among 
-scholarly literature points to an overall positive economic impact by H1-B workers in the United States (Butler 2012, Peri 2014) and 
+scholarly literature points to an overall positive economic impact by H-1B workers in the United States (Butler 2012, Peri 2014) and 
 skilled immigrant workers successfully integrate into the general population (Grimm 2019, Hermansen 2022). 
 Interestingly, none of these studies or websites have successfully integrated the database, 
 visualizations, and prediction algorithms under one application. 
 
 
 
-We have considered several methods for data cleaning and integration. H1-B application data from the US DOL total over 3 million 
+We have considered several methods for data cleaning and integration. H-1B application data from the US DOL total over 3 million 
 records from 2017 to 2021. Chatterjee et al., use Python packages Pandas and Numpy for data cleansing, including the 
-completion of incomplete data in H1-B application data, column name renaming and subset selection (Chatterjee 2021). Specific operations can be done 
+completion of incomplete data in H-1B application data, column name renaming and subset selection (Chatterjee 2021). Specific operations can be done 
 by calling Python packages. Looking closely at their data, however, we found that not only is it from a non-official and unverifiable 
 source; their records are also severely truncated, and did not effectively consolidate job titles with negligible spelling variations. 
 Perhaps this truncation and lack of cleansing was out of convenience, but unfortunately this was the case for the majority of studies 
@@ -130,7 +130,7 @@ Dombe et al. use SQLite for its lightweight data storage and access (Dombe 2020)
 
 
 
-Several online databases exist providing similar information. The most accurate and comprehensive websites include H1-B Grader and 
+Several online databases exist providing similar information. The most accurate and comprehensive websites include H-1B Grader and 
 One Point Three Acres, which have aggregated US Department of Labor statistics into textual tables which allow for filtering based 
 on attributes such as country of origin, job title, sponsoring employer, and salary band(1Point3Acres 2022, H1BGrader 2022). These are relatively complete 
 relational database systems with interactive visualizations. The data is also collected directly from the US DOL and up to date. 
@@ -150,12 +150,12 @@ for creating interactive charts.
 The majority of the research to date compares the performance of several machine learning algorithms in predicting application outcomes. 
 Random Forest appears to be the most popular model among other studies (Sundararaman 2017), but other methods have been tested as well. 
 Swain et al. compared the accuracy of random forest, k-means clustering, and logistic regression algorithms for predicting 
-H1-B application acceptance based on roughly 3 million data points from 2011 to 2016 (Swain 2018), and Chatterjee et al. propose an artificial 
+H-1B application acceptance based on roughly 3 million data points from 2011 to 2016 (Swain 2018), and Chatterjee et al. propose an artificial 
 neural network (Chatterjee 2021). They also show a variety of static charts, but the charts only compare across one dimension at a time. The data is 
 also nearly ten years old. While these studies set us in a good direction for doing some basic analysis, we seek to augment them 
 through an interactive visualization allowing the user to view results based on multiple attributes such as salary and location. 
 Thakur et al apply seven classification models - Decision tree, C5.0, Random
-Forest, Naïve Bayes, Neural Network and SVM - to predict the status of each H1-B application (Thakur 2018). 
+Forest, Naïve Bayes, Neural Network and SVM - to predict the status of each H-1B application (Thakur 2018). 
 Interestingly, their C5.0 decision tree model proved the most accurate on the same data set used by Swain et al in their research. 
 Their liberal use of bar charts makes some of their findings hard to follow. Similar results were found by Jethwani et al, who 
 achieved the highest prediction accuracy with a decision tree as opposed to random forest and logistic regression (Jethwani 2019). 
@@ -171,19 +171,19 @@ hierarchical structures according to the order of general objectives, sub object
 standby choice. Then, the problem is reduced to the determination of the relatively important weight of the lowest level, such as 
 schemes and measures for decision-making, relative to the highest level - the overall goal or the arrangement of the relative 
 advantages and disadvantages, so as to judge whether the prediction scheme we provide can meet the needs of users on whether to 
-apply for H1-B visa.
+apply for H-1B visa.
 
 
 \section{Proposed method}
 
 
-In order to show comprehensive aspects of H1-B statistics to potential users, we propose a set of interactive visualizations, 
+In order to show comprehensive aspects of H-1B statistics to potential users, we propose a set of interactive visualizations, 
 employing multiple widely used D3.js charts implemented in Vue and Flask.  The data is publicly available, and all the tools 
 are open source and can be deployed from a consumer-grade computer. As such, this project requires no special funding. 
 
 
 
-We retrieve H1-B application data from years 2017 to 2021 from the US Department of Labor. All records from these five 
+We retrieve H-1B application data from years 2017 to 2021 from the US Department of Labor. All records from these five 
 years in their original XLS format totaled over 1.5Gb. By accessing data directly from its original source, we can 
 guarantee our data will have the highest possible integrity for more accurate evaluation and predictions. 
 There are some inconsistencies in the naming and ordering of columns from year to year, as well as the addition of columns that are not pertinent to 
@@ -207,7 +207,7 @@ As mentioned in Related Work, other implementations exist on the Web. Our implem
 implementations by including several innovations or improvements. Our system provides users with more selections and 
 chart types that are more relevant to the user, such as a US choropleth with state-by-state comparison. 
 We provide more relevant details with the ability to combine search parameters such as state and salary. 
-We also introduce H1-B application outcome prediction through machine learning methods, a feature we have yet to find on 
+We also introduce H-1B application outcome prediction through machine learning methods, a feature we have yet to find on 
 any frequently accessed website. A list of innovations and improvements is listed in Appendix B.  
 
 
@@ -240,7 +240,7 @@ with each member responsible for one component as well as making limited contrib
 The raw data from US Department of Labor, organized by fiscal quarter, 
 included as many as 30 attributes depending on the reporting year, 
 making the data files quite cumbersome to manage. 
-As several of our members are familiar with the H1-B application process, 
+As several of our members are familiar with the H-1B application process, 
 we were able to complete an initial manual feature selection with the assistance 
 of the official US DOL documentation using OpenRefine, 
 removing several attributes clearly irrelevant to our study. 
@@ -357,6 +357,20 @@ were able to handle the processing and querying of these records through Pandas 
 bypassing the need for a database. 
 
 
+\begin{figure}
+  \includegraphics[width=\linewidth]{visa_trend.png}
+  \caption{Total Applications by Year}
+  \label{fig:appsbyyear}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{case_status_rate.png}
+  \caption{Certifications by Year}
+  \label{fig:casestatusrate}
+\end{figure}
+
+
+
 \subsection{Analysis and Discussion}
 
 % Overall applications ranged from XXX in YYYY, to XXX in YYYY, averaging XXX per year. 
@@ -364,13 +378,18 @@ bypassing the need for a database.
 % Incidentally, (ABCDEFG) took place in YYYY, which may provide an explanation for (ASDFASDFASDF).
 
 
-We can see from the US choropleth map that for each of the five years from 2017 to 2021, 
+We can see from the US choropleth map that for each of the five years 
+from 2017 to 2021, 
 applications are mostly 
 concentrated in the top three states of California, 
-New York, and Texas, which incidentally were among the most populous US states during this period. 
-Interestingly, Florida, the third most populous state, is not among the top three states for 
+New York, and Texas, which incidentally were among the most populous 
+US states during this period. 
+Interestingly, Florida, the third most populous state, is not among the 
+top three states for 
 certified applications. 
 
+% The top job each year is Applications Software Developer. The number of applications 
+% for this role grew at a 
 
 We found the most influential attribute by far to be the employer sponsoring 
 the application. This begs the question: What practices are these employers employing 
@@ -389,7 +408,7 @@ the more successful cities do indeed enjoy such hegemony, but our data is inconc
 Indeed, the metropolitan area of the company plays a much more important role than the state alone. 
 
 
-As the initial premise for the H1-B program is to bring in qualified workers in specialty 
+As the initial premise for the H-1B program is to bring in qualified workers in specialty 
 occupations with urgent 
 talent needs, we expected industry and job title to play a more important role than 
 the above two attributes. Their significance 
@@ -425,17 +444,9 @@ The remaining attributes ranged from having a small to negligible effect on the 
 \end{figure}
 
 
+\section{Conclusion} 
 
-
-\begin{figure}
-  \includegraphics[width=\linewidth]{fig2.png}
-  \caption{Line chart}
-  \label{fig:linechart}
-\end{figure}
-
-\section{Conclusion}
-
-Through the research conducted on H1-B visa application process, exploring the tools and technologies 
+Through the research conducted on H-1B visa application process, exploring the tools and technologies 
 to process and extract information from the data, and experimenting with different media to 
 express our findings, we have successfully applied the skills and leveraged the tools touched 
 upon in class to devise a novel solution for a real need among international students. 
@@ -445,20 +456,18 @@ with the geography and industry makeup of the United States.
 
 After discussion among our CSE 6242 peers, we have found several areas that require further 
 improvement before we deploy our application to production. 
-
-Multiple layer filtering of search criteria: Although we successfully visualized the 
+For multiple layer filtering of search criteria, although we successfully visualized the 
 relevant data in an initial static representation, we have yet to implement a workaround 
 in Vue to display the tooltip in our choropleth charts showing top employers 
 and job titles for each state. In a future iteration, showing more granular statistics, 
 such as the top jobs for each employer and the top states for each job, would add to 
 the information value of each bar chart. 
 
-Further cleaning of data: Although over half of our total time spend on this project 
+Although over half of our total time spent on this project 
 was managing data, there remain many inconsistencies among features whose values 
 should have been standardized. For example, dozens of records contain a SOC title 
 that does not match any of the official SOC titles. Rectifying these errors as well 
 as special characteristics of other features will be a key focus in future improvements. 
-
 The readability of aggregated employer statistics can be further improved by further exploring 
 company name changes and parent company information. This would require collecting data from another 
 source to serve as a reference for more advanced data wrangling. 
@@ -470,7 +479,7 @@ position for which the applicant is hired meets the requirements.
 Certified applicants are then entered into a pool of 
 applicants, from which the US Citizenship and Immigration Services randomly 
 selects 65,000 initial applicants to receive 
-the H1-B visa. Unsuccessful applicants holding a Master's degree or higher are 
+the H-1B visa. Unsuccessful applicants holding a Master's degree or higher are 
 then entered into a smaller pool from which 
 20,000 applicants are selected. This step is essentially a lottery, 
 primarily based on factors out of 
@@ -484,26 +493,46 @@ acceptance by providing a second shot at one of the 20,000 slots exclusively
 for postgraduate degree holders. 
 
 
-
 \begin{figure}
-  \includegraphics[width=\linewidth]{fig3.png}
-  \caption{Bar chart}
-  \label{fig:barchart}
+  \includegraphics[width=\linewidth]{feature_imortance.png}
+  \caption{Feature Importance}
+  \label{fig:featureimportance}
 \end{figure}
 
+\begin{figure}
+  \includegraphics[width=\linewidth]{predict.png}
+  \caption{Certification Prediction Interface}
+  \label{fig:predict}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{salary_range.png}
+  \caption{Salary Range}
+  \label{fig:salaryrange}
+\end{figure}
 
 \appendix
 
 \section{Work distribution}
-All team members have contributed similar amount of effort and results to this project.
 
-\begin{itemize}
-	\item Project coordinator: Tianshu
-	\item Data collection, cleansing, standardization, feature selection: Alexander, Tianyu
+Our team contributed a total of 136 hours to this study and its implementation. 
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{fig5_work_distribution.png}
+  \caption{Work Distribution}
+  \label{fig:workdistribution}
+\end{figure}
+
+
+All team members have contributed similar amount of effort and results to this project.
+ 
+\begin{itemize} 
+	\item Project coordinator: Tianshu 
+	\item Data collection, cleaning, wrangling, feature selection: Alexander, Tianyu, Chuanqi 
 	\item ML algorithm design and implementation: Chuanqi 
-	\item UI and visualization design, frontend implementation: Tianshu
-	\item Data manipulation, backend implementation: Tianyu
-	\item Documentation: Alexander, Qinrui, Chuanqi, Tianshu, Tianyu
+	\item UI and visualization design, frontend implementation: Tianshu, Tianyu 
+	\item Data processing, backend implementation: Tianyu, Tianshu
+	\item Documentation: Alexander, Qinrui, Chuanqi, Tianshu, Tianyu 
 	
 \end{itemize}
 
@@ -512,7 +541,7 @@ All team members have contributed similar amount of effort and results to this p
 \begin{itemize}
 	\item More selections and chart types that are more relevant to the user, such as a US choropleth with state-by-state comparison
 	\item Ability to combine search parameters such as state and salary
-	\item Interactive H1-B application outcome prediction through machine learning
+	\item Interactive H-1B application outcome prediction through machine learning
 
 \end{itemize}
 
@@ -561,7 +590,7 @@ Retrieved 1 April 2022.
 \bibitem{}
 Chatterjee, P., Velpuru, M. S., \& Jagadeeswari, T. 
 (2021). 
-Success of H1-B VISA Using ANN. 
+Success of H-1B VISA Using ANN. 
 \textit{In Machine Learning and Information Processing (pp. 491-499).}
  Springer, Singapore.
 
