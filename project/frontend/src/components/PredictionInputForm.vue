@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form :model="form" label-width="120px">
+    <el-form :model="form" ref="form" :rules="rules" label-width="120px">
       <el-form-item label="Company/Employer">
         <el-autocomplete
             v-model="form.employer"
@@ -44,15 +44,14 @@
       <el-form-item label="Expected Wage">
         <el-autocomplete
             v-model="form.wage"
-            :fetch-suggestions="querySearchState"
             clearable
             class="inline-input"
             placeholder="Please Input"
-            @select="handleSelect"
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit(this)">Predict</el-button>
+        <el-button type="primary" @click="onSubmit('form')">Predict</el-button>
+        <el-button @click="resetForm('form')">Reset</el-button>
       </el-form-item>
 
     </el-form>
@@ -96,10 +95,10 @@ export default {
   data() {
     return {
       form: {
-        employer: '',
-        jobTitle: '',
-        city: '',
-        state: '',
+        employer: null,
+        jobTitle: null,
+        city: null,
+        state: null,
         wage: 0,
       },
       employer: '',
@@ -111,21 +110,90 @@ export default {
       jobTitleList: [],
       cityList: [],
       stateList: [],
-      tableData: []
+      tableData: [],
+      rules: {
+        employer: [
+          { required: true, message:'Please input the employer', trigger: 'change'}
+        ],
+        jobTitle: [
+          { required: true, message:'Please input the job title', trigger: 'change'}
+        ],
+        city: [
+          { required: true, message:'Please input the city', trigger: 'change'}
+        ],
+        state: [
+          { required: true, message:'Please input the state', trigger: 'change'}
+        ],
+        wage: [
+          { required: true,type: 'number', message:'Please input the wage', trigger: 'change'}
+        ]
+      }
     }
   },
   methods: {
-    onSubmit: (vue) => {
-      console.log(vue);
-      vue.fetchData({
-        method: "get",
-        url: "/api/predict_case_prob",
-        params: vue.form,
-        success: (data) => {
-          vue.tableData.push({"employer": vue.form.employer,"jobTitle": vue.form.jobTitle,
-            "city": vue.form.city,"state":vue.form.state, "wage": vue.form.wage, "prob":data[0]});
+    onSubmit(formName){
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          let employerList = this.employerList.map(function(e){
+            return e.value;
+          })
+          let cityList = this.cityList.map(function(e){
+            return e.value;
+          });
+          let stateList = this.stateList.map(function(e){
+            return e.value;
+          });
+          let jobTitleList = this.jobTitleList.map(function(e){
+            return e.value;
+          });
+          if(!employerList.includes(this.form.employer)){
+            // console.log("cityList", this.cityList);
+            alert('Invalid employer!'+this.form.employer);
+            return false;
+          }
+          else if(!cityList.includes(this.form.city)){
+            // console.log("cityList", this.cityList);
+            alert('Invalid city!'+this.form.city);
+            return false;
+          }
+          else if(!stateList.includes(this.form.state)){
+            alert('Invalid state!');
+            return false;
+          }
+          else if(!jobTitleList.includes(this.form.jobTitle)){
+            alert('Invalid job title!');
+            return false;
+          }
+          this.fetchData({
+            method: "get",
+            url: "/api/predict_case_prob",
+            params: this.form,
+            success: (data) => {
+              this.tableData.push({
+                "employer": this.form.employer, "jobTitle": this.form.jobTitle,
+                "city": this.form.city, "state": this.form.state, "wage": this.form.wage, "prob": data[0]
+              });
+            }
+          });
+          return true;
+        } else {
+          alert('error submit!!');
+          return false;
         }
       });
+      // console.log(vue);
+      // vue.fetchData({
+      //   method: "get",
+      //   url: "/api/predict_case_prob",
+      //   params: vue.form,
+      //   success: (data) => {
+      //     vue.tableData.push({"employer": vue.form.employer,"jobTitle": vue.form.jobTitle,
+      //       "city": vue.form.city,"state":vue.form.state, "wage": vue.form.wage, "prob":data[0]});
+      //   }
+      // });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     },
     querySearch(queryString, cb) {
       var employerList = this.employerList;
