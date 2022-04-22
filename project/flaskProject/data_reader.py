@@ -1,6 +1,7 @@
 import csv
 import pandas as pd
 import numpy as np
+import re
 
 class H1bDataReader:
 
@@ -146,15 +147,17 @@ class H1bDataReader:
                 soc_list_code.append(row["SOC Code"])
                 soc_list.append((row["SOC Code"], row["SOC Title"]))
 
+
+        self.df["SOC_CODE"].replace("\..*$", "", inplace = True, regex=True)
+        self.df["SOC_CODE"] = self.df["SOC_CODE"].apply(lambda x: x if re.match(r'^[\d]{2}-[\d]{4}$', str(x)) else '')
+
         for soc in soc_list:
             self.soc_name_to_code[soc[1]] = soc[0]
             self.df["SOC_CODE"].replace(soc[0], soc[1], inplace = True)
 
+        self.df["SOC_CODE"] = self.df["SOC_CODE"].apply(lambda x: "" if re.match(r'\d', str(x)) else x)
+
         self.df = self.df.rename(columns = {"SOC_CODE": "SOC_NAME"})
-
-
-
-
 
 
     def employer_preprocess(self):
@@ -181,27 +184,35 @@ class H1bDataReader:
 
 if __name__ == "__main__":
     attr_list = {\
-        "CASE_NUMBER": None,
         "CASE_STATUS": None,
-        "SOC_CODE": None,
-        "FULL_TIME_POSITION": None,
-        "WORKSITE_STATE": None,
         "EMPLOYER_NAME": None,
-        "WAGE_RATE_OF_PAY_FROM": None,
+        "EMPLOYER_BUSINESS_DBA": None,
+        "SOC_NAME": None,
+        "NAICS_CODE": None,
+        "FULL_TIME_POSITION": None,
+        "PW_UNIT_OF_PAY": None,
         "WAGE_UNIT_OF_PAY": "Year",
         "WORKSITE_CITY": None,
+        "WORKSITE_STATE": None,
+        "TOTAL_WORKERS": None,
+        "PREVAILING_WAGE": None,
+        "WAGE_RATE_OF_PAY_FROM": None,
     }
-    df_reader = H1bDataReader("../../data/h1b_data_2019.csv", attr_list = attr_list)
-    df_reader.state_preprocess()
-    df_reader.salary_preprocess()
-    df_reader.casestate_preprocess()
-    df_reader.soc_preprocess()
-    df_reader.employer_preprocess()
-    df_reader.city_preprocess()
+    # for i in range(2017, 2022, 1):
+    #     df_reader = H1bDataReader("../../data/h1b_data_%d.csv"%i, attr_list = attr_list)
+    #     df_reader.state_preprocess()
+    #     df_reader.salary_preprocess()
+    #     df_reader.casestate_preprocess()
+    #     df_reader.soc_preprocess()
+    #     df_reader.employer_preprocess()
+    #     df_reader.city_preprocess()
+
+    #     df_reader.write_to_csv("../../data/h1b_data_%d_new.csv"%i)
+
+    df_reader = H1bDataReader("../../data/h1b_data_2018_new.csv", attr_list = attr_list)
     df_reader.attr_operator("CASE_STATUS")
     df_reader.attr_operator("WORKSITE_STATE")
     df_reader.attr_operator("EMPLOYER_NAME", head = 10)
-    df_reader.attr_operator("SOC_NAME", head = 10)
     df_reader.salary_range(split = 10)
     # Given that salary range from 100000 to 200000, get the the top 10 job titles
     df_reader.attr_operator("SOC_NAME", head = 10, filter_dict = {"WAGE_RATE_OF_PAY_FROM": {"GREATER": 100000, "LESS": 200000}})
@@ -209,7 +220,7 @@ if __name__ == "__main__":
     df_reader.attr_operator("SOC_NAME", oper = "RATIO", head = 10, drop_cases_val = 1000)
     df_reader.attr_operator("WORKSITE_CITY")
 
-    Tooltip
+    # Tooltip
     df_reader.attr_operator("WORKSITE_STATE") # dict["state_name"] state casese
     df_reader.attr_operator("WORKSITE_STATE", oper = "RATIO") # dict["state_name"] certification rate
     df_reader.attr_operator("WORKSITE_STATE", oper = "AVG_SAL") # dict["state_name"] avg salary
