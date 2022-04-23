@@ -36,11 +36,11 @@ attr_list = { \
     "WAGE_UNIT_OF_PAY": "Year",
     "WORKSITE_CITY": None,
 }
-df_reader_2017 = util.H1bDataReader("../../data/h1b_data_2017_new.csv", attr_list=attr_list)
-df_reader_2018 = util.H1bDataReader("../../data/h1b_data_2018_new.csv", attr_list=attr_list)
-df_reader_2019 = util.H1bDataReader("../../data/h1b_data_2019_new.csv", attr_list=attr_list)
-df_reader_2020 = util.H1bDataReader("../../data/h1b_data_2020_new.csv", attr_list=attr_list)
-df_reader_2021 = util.H1bDataReader("../../data/h1b_data_2021_new.csv", attr_list=attr_list)
+df_reader_2017 = util.H1bDataReader("../data/h1b_data_2017_new.csv", attr_list=attr_list)
+df_reader_2018 = util.H1bDataReader("../data/h1b_data_2018_new.csv", attr_list=attr_list)
+df_reader_2019 = util.H1bDataReader("../data/h1b_data_2019_new.csv", attr_list=attr_list)
+df_reader_2020 = util.H1bDataReader("../data/h1b_data_2020_new.csv", attr_list=attr_list)
+df_reader_2021 = util.H1bDataReader("../data/h1b_data_2021_new.csv", attr_list=attr_list)
 # df_reader_2017.state_preprocess()
 # df_reader_2018.state_preprocess()
 # df_reader_2019.state_preprocess()
