@@ -272,7 +272,7 @@ We retained the following attributes for our analysis:
 
   \end{itemize}
 
-A test run with the data using several gradient boosted decision tree learners, 
+A test run with the data using several gradient boosting decision tree learners, 
 mentioned in more detail below, achieved an F1 score of 98\% on both testing 
 and training data; therefore, we retained the exact attributes from our manual selection. 
 
@@ -310,13 +310,17 @@ by these outliers.
 
 
 \subsection{Prediction Algorithm}
-Based on existing literature, various boosted decision tree models have generally proven 
+Based on existing literature, various boosting decision tree models have generally proven 
 the most accurate with historical application data due to the non-linear characteristics of the 
 categorical data. 
-We investigated several open-source gradient boosted frameworks, including XGBoost, 
+
+We investigated several open-source gradient boosting frameworks, including XGBoost, 
 Yandex’s CatBoost, and Microsoft’s LightGBM. We tested all three frameworks on 
 all 5 years of data with a 30\%-70\% training split and 10-fold cross validation. 
-While all provided very high accuracy and an F1 score of 97\%, our choice of LightGBM ran 20\% faster than the others. 
+While all provided very high accuracy and an F1 score of 97\%, 
+our choice of LightGBM running 100 learners with 0.05 learning rate, unrestricted maximum depth, 
+and the default number of leaves of 31, ran 20\% faster than the others. As are fairly satisfied 
+with these results and declined to explore other models for this implementation.
 
 
 \subsection{Visualization and Integration}
@@ -571,7 +575,8 @@ All team members have contributed similar amount of effort and results to this p
 	\item Project coordinator: Tianshu 
 	\item Data collection, cleaning, wrangling, feature selection: Alexander, Tianyu, Chuanqi 
 	\item ML algorithm design and implementation: Chuanqi 
-	\item UI and visualization design, frontend implementation: Tianshu, Tianyu 
+	\item UI and visualization design: Alexander, Qinrui, Chuanqi, Tianshu, Tianyu
+	\item Visualizations, frontend implementation: Tianshu, Tianyu 
 	\item Data processing, backend implementation: Tianyu, Tianshu
 	\item Documentation: Alexander, Qinrui, Chuanqi, Tianshu, Tianyu 
 	
