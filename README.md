@@ -28,15 +28,16 @@ Or `git clone https://github.com/budd713/datadreamteam.git` after we open our pr
 
 ##### Dataset
 
-- The dataset is with the project in PROJECT_ROOT/data.
+<!-- - The dataset is with the project in PROJECT_ROOT/data. -->
 
-- Or the preprocessed datasets can be accessed in cloud storage by the links provided below (there should be 5):
+- The preprocessed datasets can be accessed in cloud storage by the links provided below (there should be 5). Please download them and place them in PROJECT_ROOT/data.:
 
-  https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2017.csv
-  https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2018.csv
-  https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2019.csv
-  https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2020.csv
-  https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2021.csv
+  https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2017_new.csv
+  https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2018_new.csv
+  https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2019_new.csv
+  https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2020_new.csv
+  https://abuddenbaum3.blob.core.windows.net/h1b/h1b_data_2021_new.csv
+
 
 ##### Frontend
 
