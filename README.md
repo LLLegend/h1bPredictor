@@ -41,7 +41,7 @@ Or `git clone https://github.com/budd713/datadreamteam.git` after we open our pr
 
 ##### Frontend
 
- - Be sure to have NodeJs v14.17.3 installed (or npm v6.14.13).
+ - Be sure to have NodeJs v14.17.x installed (or npm v6.14.x).
  - Run `npm install` in the root directory of front-end PROJECT_ROOT/project/frontend.
 
 ##### Backend
@@ -59,19 +59,8 @@ Be sure to have python v3.8.x with flask-restful v0.3.9 and pandas installed.
 
 ## Execution
 
-Run `python app.py` in the root directory of back-end PROJECT_ROOT/flaskProject to launch the back-end service.
+Run `python app.py` in the root directory of back-end PROJECT_ROOT/flaskProject to launch the back-end service and wait for a few minutes (it may depend on your machine) to read and preprocess the data.
 
 Run `npm run serve` in the root directory of front-end PROJECT_ROOT/frontend to launch the frontend project.
 
 Enter `localhost:8080` in your browser to explore and enjoy our project!
-
-
-<!-- ## DEMO VIDEO - [Optional, but recommended] 
-
-Include the URL of a 1-minute *unlisted* YouTube video in this txt file. The video would show how to install and execute your system/tool/approach (e.g, from typing the first command to compile, to system launching, and running some examples).
-
-Feel free to speed up the video if needed (e.g., remove less relevant video
-segments). This video is optional (i.e., submitting a video does not increase scores; not submitting one does not decrease scores). However, we
-recommend teams to try and create such a video, because making the video
-helps teams better think through what they may want to write in the
-README.txt, and generally how they want to "sell" their work. -->
