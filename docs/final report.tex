@@ -251,7 +251,7 @@ We retained the following attributes for our analysis:
   \item \textbf{Case number}: Unique identifier for each application record.
   \item \textbf{Case status}: Result of petition, 
   ie. Certified, Withdrawn, Denied. 
-  \item \textbf{SOC name}: Official occupation title as defined by US Bureau of Labor Statistics, 
+  \item \textbf{SOC code}: Official occupation title as defined by US Bureau of Labor Statistics, 
   ie. Software Developer, Computer Systems Analyst.
   \item \textbf{NAICS code}: Primary industry sector/vertical of employer as defined by 
   the North American Industry Classification System, 
@@ -283,25 +283,36 @@ as well as correct input errors and standardize capitalization of Case Status en
 and standardized Worksite State to display the full name of their respective states.  
 
 
-The alpha iteration of our application revealed several glaring data quality issues that were not addressed in our initial 
-data cleansing. These were mostly input errors, such as incorrect capitalization, 
+The alpha iteration of our application revealed several glaring data quality issues that 
+surprised us as this data comes directly from the US federal government. 
+These were mostly input errors, such as incorrect capitalization, 
 superfluous or missing punctuation and/or whitespace, 
 numbers and special characters in alpha only fields, 
 non-existent state names, state name included with city name, et cetera. 
 This surprised us that data from the US federal government would be so dirty and lack validation. 
 We then had to go back revise our cleansing suite to include more comprehensive operations using the 
 Python library Pandas with regular expressions. 
+Eventually, we dropped the SOC Name field altogether and replaced it with the SOC Code, which we 
+then mapped to the SOC Name set provided by the US Bureau of Labor Statistics. Entries with 
+an SOC Code not matching the official format made up less than 0.01\% of the total entries and thus 
+were eliminated from our consideration. 
 
-
-
-We discovered several outliers with wages that are far beyond the typical range. 
+We also discovered several outliers with wages that are far beyond the typical range. 
 We set an accepted wage ceiling at \$350,000 to mitigate any potential skewing of results 
 by these outliers. 
 
 
+\begin{figure}
+  \includegraphics[width=\linewidth]{predict.png}
+  \caption{Certification Prediction Interface}
+  \label{fig:predict}
+\end{figure}
+
+
 \subsection{Prediction Algorithm}
-Based on existing literature, boosted decision tree has generally proven 
-the most accurate with historical application data due to its non-linearity. 
+Based on existing literature, various boosted decision tree models have generally proven 
+the most accurate with historical application data due to the non-linear characteristics of the 
+categorical data. 
 We investigated several open-source gradient boosted frameworks, including XGBoost, 
 Yandex’s CatBoost, and Microsoft’s LightGBM. We tested all three frameworks on 
 all 5 years of data with a 30\%-70\% training split and 10-fold cross validation. 
@@ -334,6 +345,19 @@ by salary, by increments of \$25,000. The salary value for each sample is the gr
 the US DOL determined prevailing wage and the low end of the salary range offered for that position by 
 its respective employer. 
 
+
+% \begin{figure}
+%   \includegraphics[width=\linewidth]{visa_trend.png}
+%   \caption{Total Applications by Year}
+%   \label{fig:appsbyyear}
+% \end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{case_status_rate.png}
+  \caption{Certifications by Year}
+  \label{fig:casestatusrate}
+\end{figure}
+
 Naturally, the US choropleth map fits best for geographical comparison among states. To incrementally 
 provide more information based on user feedback, we originally intended for each state to display a 
 tooltip upon cursor hover, which includes key details such as the total applications for that year, the top employer, and the top 
@@ -357,50 +381,75 @@ were able to handle the processing and querying of these records through Pandas 
 bypassing the need for a database. 
 
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{visa_trend.png}
-  \caption{Total Applications by Year}
-  \label{fig:appsbyyear}
-\end{figure}
+
 
 \begin{figure}
-  \includegraphics[width=\linewidth]{case_status_rate.png}
-  \caption{Certifications by Year}
-  \label{fig:casestatusrate}
+  \includegraphics[width=\linewidth]{salary_range.png}
+  \caption{Salary Range of Applications}
+  \label{fig:salaryrange}
 \end{figure}
-
 
 
 \subsection{Analysis and Discussion}
 
-% Overall applications ranged from XXX in YYYY, to XXX in YYYY, averaging XXX per year. 
-% We can see a (spike/drop) in YYYY, followed by a (spike/drop) in YYYY. 
-% Incidentally, (ABCDEFG) took place in YYYY, which may provide an explanation for (ASDFASDFASDF).
+% overall applications
+The five-year period from 2017 and 2021 saw 32.52\% increase in overall H-1B applications, 
+at an average of 6.50\% annual growth in applications, 
+from 585,417 in 2017 to 775,555 in 2021. We witnessed a -12.78\% dip in 2020 - perhaps due to the 
+uncertainty brought by COVID-19, including layoffs, hiring freezes, and travel restrictions 
+enacted by several home countries of applicants, but 2021 saw a remarkable 43.70\% recovery in applications. 
 
+The role of \textit{Software Developer, Applications} is by far the most popular job for applications, 
+and continues to grow in popularity, ranging from 20.50\% to 28.90\% of total applications per year. 
+Applications for this role alone grew 108.49\% in this five-year period,
+ from 120,002 applications in 2017 to 250,192 in 2021, 
+or three times faster than the overall number of H-1B applications received for all roles. 
+All of the top five roles for each year are software development or computer systems related. 
+This matches our expectations as the fastest growing companies in the US tend to be technology companies 
+with a focus on software. 
 
-We can see from the US choropleth map that for each of the five years 
-from 2017 to 2021, 
-applications are mostly 
-concentrated in the top three states of California, 
-New York, and Texas, which incidentally were among the most populous 
-US states during this period. 
-Interestingly, Florida, the third most populous state, is not among the 
-top three states for 
-certified applications. 
-
-
-% The majority of the report 
+California, Texas, and New York have the greatest concentration of overall applications 
+for each of the five years observed in this study, which is understandable as 
+these are also among the most populous US states. 
+Interestingly, Florida, the third most populous state since 2018, is not among the 
+top three states for certified applications. However, recent media discourse since 2021 
+places Florida as a top destination for many large corporations seeking to relocate their major 
+talent bases from New York, so we expect Florida to appear within the top five states within 
+the next five years. 
 
 \begin{figure}
-  \includegraphics[width=\linewidth]{salary_range.png}
-  \caption{Salary Range}
-  \label{fig:salaryrange}
+  \includegraphics[width=\linewidth]{employer2017.png}
+  \caption{Top 10 Employers by Applications - 2017}
+  \label{fig:employer2017}
 \end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{employer2021.png}
+  \caption{Top 10 Employers by Applications - 2021}
+  \label{fig:employer2021}
+\end{figure}
+
+
+The top ten employers in number of applications account for roughly 15\% of total applications each year. 
+We see an interesting transition in the makeup of the top ten employers applying for the 
+greatest number of visas during this period:
+In 2017, the majority of these top ten companies are  
+in IT consulting services - 9 in 2017 and 2018 - with their representation shrinking to 
+7 in 2019 and 2020, and finally to 5 in 2021, with the largest US technology firms taking up more positions 
+in the top ten. Although IT consulting services firms are not necessarily reducing annual applications, 
+their growth is outpaced by 
+% This change in the ordering of top employers can be attributed to 
+% the consolidation of multinational IT consulting firms' US businesses, 
+the immensely fast overall growth of US blue-chip technology firms such as Google, Amazon, and Facebook 
+in recent years, leading to a major uptick in the direct hiring and sponsorship of foreign workers 
+as a larger proportion compared to more traditional contracting practices. 
+
 
 % The top job each year is Applications Software Developer. The number of applications 
 % for this role grew at a 
 
-We found the most influential attribute by far to be the employer sponsoring 
+Among the twelve attributes in our classifier model, we found the most influential attribute 
+by far to be the employer sponsoring 
 the application. This begs the question: What practices are these employers employing 
 to hire the workers that most closely match US strategic interests? 
 Is this the result of best-in-class hiring practices, or is it primarily due to 
@@ -437,7 +486,7 @@ The remaining attributes ranged from having a small to negligible effect on the 
     Employer Name & 1513.5\\
     Worksite City & 490.5\\
     NAICS Code & 319.9\\
-    SOC Name & 240.4\\
+    SOC Code & 240.4\\
     Wage Rate of Pay - From & 99.9\\
     Worksite State & 88.2\\
     Employer Business DBA & 82.6\\
@@ -473,9 +522,7 @@ such as the top jobs for each employer and the top states for each job, would ad
 the information value of each bar chart. 
 
 Although over half of our total time spent on this project 
-was managing data, there remain many inconsistencies among features whose values 
-should have been standardized. For example, dozens of records contain a SOC title 
-that does not match any of the official SOC titles. Rectifying these errors as well 
+was cleaning and wrangling data, some inconsistencies remain. Rectifying these errors as well 
 as special characteristics of other features will be a key focus in future improvements. 
 The readability of aggregated employer statistics can be further improved by further exploring 
 company name changes and parent company information. This would require collecting data from another 
@@ -508,13 +555,6 @@ for postgraduate degree holders.
   \label{fig:featureimportance}
 \end{figure}
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{predict.png}
-  \caption{Certification Prediction Interface}
-  \label{fig:predict}
-\end{figure}
-
-
 
 \appendix
 
@@ -522,11 +562,7 @@ for postgraduate degree holders.
 
 Our team contributed a total of 136 hours to this study and its implementation. 
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{fig5_work_distribution.png}
-  \caption{Work Distribution}
-  \label{fig:workdistribution}
-\end{figure}
+
 
 
 All team members have contributed similar amount of effort and results to this project.
@@ -540,7 +576,11 @@ All team members have contributed similar amount of effort and results to this p
 	\item Documentation: Alexander, Qinrui, Chuanqi, Tianshu, Tianyu 
 	
 \end{itemize}
-
+\begin{figure}
+  \includegraphics[width=\linewidth]{fig5_work_distribution.png}
+  \caption{Work Distribution}
+  \label{fig:workdistribution}
+\end{figure}
 
 \section{Innovations}
 \begin{itemize}
