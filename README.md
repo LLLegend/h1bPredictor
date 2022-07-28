@@ -1,5 +1,4 @@
 # H1-B Visa Trends Visualization and Predictor
-## Georgia Tech CSE6242 Sp '22 RSZ
 ## Members
 - Alex
 - Chuanqi
